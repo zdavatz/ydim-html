@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# ydim-htmld -- ydim -- 12.01.2006 -- hwyss@ywesee.com
+
+$: << File.expand_path('../src', File.dirname(__FILE__))
+$: << File.expand_path('..', File.dirname(__FILE__))
+
+require 'drb'
+require 'util/server'
+require 'ydim/server'
+require 'etc/config'
+
+config = YDIM::Html::Util::CONFIG
+
+DRb.start_service(config.proxy_url)
+
+ydim_server = DRb::DRbObject.new(nil, config.server_url)
+
+server = YDIM::Html::Util::Server.new(config, ydim_server)
+
+$0 = "YDIM (Html::Util::Server)"
+
+DRb.start_service(config.html_url, server)
+
+DRb.thread.join
+

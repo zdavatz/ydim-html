@@ -1,0 +1,69 @@
+body, textarea {
+	font-family: Frutiger, Helvetica, Verdana, Arial, sans-serif;
+	color: #306;
+	background-color: #FFC;
+}
+label, th {
+	font-weight: bold;
+	text-align: left;
+}
+label {
+	display: block;
+	min-width: 120px;
+}
+label.error {
+	color: #C00;
+}
+td, th {
+	padding: 4px;
+}
+td.processingerror {
+	color: #C00;
+	font-weight: bold;
+}
+tr.ps_due, div.ps_due {
+	background-color: #FAA;
+}
+tr.ps_paid, div.ps_paid {
+	background-color: #AFA;
+}
+tr.ps_open, div.ps_open {
+	background-color: #FFA;
+}
+a {
+	text-decoration: none;
+	color: #40A;
+}
+div.navigation {
+	display: inline;
+	float: left;
+	padding: 0px 5px;	
+	border-left: thin solid #306;
+}
+div > div.navigation:first-child {
+	border-left: 0px;
+}
+input.text, textarea {
+	background-color: white;
+	width: 250px;
+}
+div.head {
+	border-color: #A00;
+	border-style: solid;
+	border-width: thin 0px 0px thin;
+	background-color: #F88;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 4px 4px 10px 4px;
+}
+div.foot {
+	background-color: #F88;
+	padding: 4px;
+	border-color: #A00;
+	border-style: solid;
+	border-width: 0px thin thin 0px;
+	text-align: right;
+}
+div.list-label {
+	font-weight: bold;
+}
