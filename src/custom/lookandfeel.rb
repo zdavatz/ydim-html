@@ -47,6 +47,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:th_email										=>	'Email',
 			:th_formatted_date					=>	'Datum',
 			:th_name										=>	'Name',
+			:th_next_invoice_date				=>	'Nächste Rechnung',
 			:th_price										=>	'Preis',
 			:th_quantity								=>	'Anzahl',
 			:th_text										=>	'Positionstext',
