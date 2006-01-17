@@ -20,7 +20,7 @@ class Debitor < Global
 	def ajax_debitor
 		keys = [ :address_lines, :contact, :debitor_type, :email,
 			:hosting_invoice_date, :hosting_invoice_interval, :hosting_price,
-			:location, :name ]
+			:location, :name, :salutation, ]
 		update_model(user_input(keys))
 		AjaxDebitor.new(@session, @model)
 	end
@@ -28,7 +28,8 @@ class Debitor < Global
 		super(@model.invoices)
 	end
 	def update
-		mandatory = [ :contact, :debitor_type, :email, :location, :name, ]
+		mandatory = [ :contact, :debitor_type, :email, :location, :name,
+			:salutation, ]
 		defaults = {}
 		case @session.user_input(:debitor_type)
 		when 'dt_hosting'

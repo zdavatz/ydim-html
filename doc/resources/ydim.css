@@ -17,6 +17,10 @@ label.error {
 td, th {
 	padding: 4px;
 }
+th {
+	text-align: left;
+	background-color: #FC6;
+}
 td.processingerror {
 	color: #C00;
 	font-weight: bold;
@@ -65,5 +69,6 @@ div.foot {
 	text-align: right;
 }
 div.list-label {
+	padding: 4px;
 	font-weight: bold;
 }

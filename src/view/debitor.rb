@@ -19,11 +19,12 @@ class DebitorForm < HtmlGrid::Form
 		[0,0]	=> :unique_id,
 		[0,1]	=> :debitor_type,
 		[0,2]	=> :name, 
-		[0,3]	=> :contact, 
-		[0,4]	=> :address_lines,
-		[0,5]	=> :location,
-		[0,6]	=> :email, 
-		[1,7]	=> :submit, 
+		[0,3]	=> :salutation, 
+		[0,4]	=> :contact, 
+		[0,5]	=> :address_lines,
+		[0,6]	=> :location,
+		[0,7]	=> :email, 
+		[1,8]	=> :submit, 
 	}
 	FORM_ID = 'debitor'
 	EVENT = :update
@@ -31,6 +32,7 @@ class DebitorForm < HtmlGrid::Form
 		:hosting_invoice_interval	=>	HtmlGrid::Select,
 		:unique_id								=>	HtmlGrid::Value,
 		:hosting_invoice_date			=>	HtmlGrid::InputDate,
+		:salutation								=>	HtmlGrid::Select,
 	}
 	def debitor_type(model)
 		select = HtmlGrid::Select.new(:debitor_type, model, @session, self)
@@ -44,14 +46,15 @@ class HostingDebitorForm < DebitorForm
 		[0,0]		=>	:unique_id,
 		[0,1]		=>	:debitor_type,
 		[0,2]		=>	:name,	
-		[0,3]		=>	:contact,	
-		[0,4]		=>	:address_lines,
-		[0,5]		=>	:location,
-		[0,6]		=>	:email,	
-		[0,7]		=>	:hosting_price,
-		[0,8]		=>	:hosting_invoice_interval,
-		[0,9]	=>	:hosting_invoice_date,
-		[1,10]	=>	:submit,	
+		[0,3]		=>	:salutation, 
+		[0,4]		=>	:contact,	
+		[0,5]		=>	:address_lines,
+		[0,6]		=>	:location,
+		[0,7]		=>	:email,	
+		[0,8]		=>	:hosting_price,
+		[0,9]		=>	:hosting_invoice_interval,
+		[0,10]	=>	:hosting_invoice_date,
+		[1,11]	=>	:submit,	
 	}
 end
 class DebitorComposite < HtmlGrid::DivComposite
@@ -67,7 +70,9 @@ class DebitorComposite < HtmlGrid::DivComposite
 		Debitor.select_form(model).new(model, @session, self)
 	end
 	def invoices(model)
-		InvoiceList.new(model.invoices, @session, self)
+		unless(model.invoices.empty?)
+			InvoiceList.new(model.invoices, @session, self)
+		end
 	end
 end
 class Debitor < Template

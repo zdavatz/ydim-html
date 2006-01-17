@@ -12,7 +12,8 @@ class InvoiceList < HtmlGrid::List
 		[0,0]	=>	:unique_id,
 		[1,0]	=>	:formatted_date,
 		[2,0]	=>	:debitor_name,
-		[3,0]	=>	:toggle_paid,
+		[3,0]	=>	:toggle_status,
+		[4,0]	=>	:pdf,
 	}
 	CSS_ID = 'invoices'
 	links :invoice, :date, :unique_id
@@ -29,7 +30,12 @@ class InvoiceList < HtmlGrid::List
 		link.value = @lookandfeel.format_date(model.date)
 		link
 	end
-	def toggle_paid(model)
+	def pdf(model)
+		link = HtmlGrid::Link.new(:pdf, model, @session, self)
+		link.href = @lookandfeel._event_url(:pdf, {:unique_id => model.unique_id})
+		link
+	end
+	def toggle_status(model)
 		key = model.payment_received ? :toggle_unpaid : :toggle_paid
 		link = HtmlGrid::Link.new(key, model, @session, self)
 		args = {

@@ -7,6 +7,7 @@ require 'state/debitor'
 require 'state/debitors'
 require 'state/invoice'
 require 'state/invoices'
+require 'state/pdf'
 
 module YDIM
 	module Html
@@ -31,6 +32,11 @@ class Global < SBSM::State
 	def invoice
 		if(id = @session.user_input(:unique_id))
 			Invoice.new(@session, @session.invoice(id.to_i))
+		end
+	end
+	def pdf
+		if(id = @session.user_input(:unique_id))
+			Pdf.new(@session, @session.invoice(id.to_i))
 		end
 	end
 end
