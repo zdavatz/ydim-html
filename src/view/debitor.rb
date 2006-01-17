@@ -28,7 +28,6 @@ class DebitorForm < HtmlGrid::Form
 	FORM_ID = 'debitor'
 	EVENT = :update
 	SYMBOL_MAP = {
-		:address_lines						=>	Textarea,
 		:hosting_invoice_interval	=>	HtmlGrid::Select,
 		:unique_id								=>	HtmlGrid::Value,
 		:hosting_invoice_date			=>	HtmlGrid::InputDate,

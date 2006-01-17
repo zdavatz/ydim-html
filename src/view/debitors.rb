@@ -12,11 +12,17 @@ class DebitorList < HtmlGrid::FormList
 		[0,0]	=>	:unique_id,
 		[1,0]	=>	:name,
 		[2,0]	=>	:email,
-		[3,0]	=>	:debitor_type,
+		[3,0]	=>	:next_invoice_date,
+		[4,0]	=>	:debitor_type,
 	}
 	EVENT = :create_debitor
 	def debitor_type(model)
 		@lookandfeel.lookup(model.debitor_type)
+	end
+	def next_invoice_date(model)
+		if(date = model.next_invoice_date)
+			@lookandfeel.format_date(date)
+		end
 	end
 	links :debitor, :name, :unique_id
 end

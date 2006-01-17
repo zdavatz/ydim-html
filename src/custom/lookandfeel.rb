@@ -9,7 +9,7 @@ module YDIM
 class Lookandfeel < SBSM::Lookandfeel
 	DICTIONARIES = {
 		'de'	=>	{
-			:address_lines							=>	'Adresszeilen',
+			:address_lines							=>	'Adresse',
 			:contact										=>	'Kontaktperson',
 			:copyright									=>	'&copy; ywesee GmbH', 
 			:create_debitor							=>	'Neuer Kunde',
@@ -55,8 +55,8 @@ class Lookandfeel < SBSM::Lookandfeel
 			:th_unique_id								=>	'ID',
 			:th_unit										=>	'Einheit',
 			:time_format								=>	'%d.%m.%Y %H:%M:%S',
-			:toggle_paid								=>	'Bezahlt',
-			:toggle_unpaid							=>	'Nicht bezahlt',
+			:toggle_paid								=>	'offen -> bezahlt',
+			:toggle_unpaid							=>	'bezahlt -> offen',
 			:total_brutto								=>	'Total Brutto',
 			:total_netto								=>	'Total Netto',
 			:unique_id									=>	'ID',

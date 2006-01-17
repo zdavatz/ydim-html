@@ -24,8 +24,8 @@ class Validator < SBSM::Validator
 	BOOLEAN = [:payment_received]
 	ENUMS = {
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharma', 'dt_insurance',
-			'dt_info'],
-		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12' ],
+			'dt_info', ],
+		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
 	}
 	EVENTS = [ :ajax_debitor, :ajax_invoices, :create_debitor, :create_invoice,
 		:debitor, :debitors, :invoice, :invoices, :login, :logout, :sort, :update ]
