@@ -10,21 +10,50 @@ module YDIM
 class InvoiceList < HtmlGrid::List
 	COMPONENTS = {
 		[0,0]	=>	:unique_id,
-		[1,0]	=>	:formatted_date,
-		[2,0]	=>	:total_netto,
-		[3,0]	=>	:toggle_status,
-		[4,0]	=>	:debitor_name,
-		[5,0]	=>	:pdf,
+		[1,0]	=>	:debitor_name,
+		[2,0]	=>	:debitor_email,
+		[3,0]	=>	:formatted_date,
+		[4,0]	=>	:toggle_status,
+		[5,0]	=>	:total_netto,
+		[6,0]	=>	:pdf,
 	}
 	CSS_ID = 'invoices'
 	CSS_MAP = {
-		[2,0]	=>	'right',
+		[5,0]	=>	'right',
 	}
 	links :invoice, :date, :unique_id
-	links :debitor, :name
+	links :debitor, :name, :email
 	def compose_components(model, offset)
 		@grid.set_row_attributes({'class' => model.payment_status}, offset.at(1))
 		super
+	end
+	def compose_footer(offset)
+		label = HtmlGrid::LabelText.new(:total_open_netto, @model, @session, self)
+		lpos = column_position(:debitor_name, offset)
+		@grid.add(label, *lpos)
+		@grid.set_colspan(*lpos.push(2))
+		total = @model.inject(0.0) { |sum, invoice|
+			unless(invoice.payment_received)
+				sum + invoice.total_netto
+			else
+				sum 
+			end
+		}
+		tpos = column_position(:total_netto, offset)
+		@grid.add(total.to_s, *tpos)
+		@grid.add_attribute('class', 'right', *tpos)
+	end
+	def debitor_email(model)
+		email(model.debitor)
+	end
+	def formatted_date(model)
+		link = date(model)
+		link.value = @lookandfeel.format_date(model.date)
+		link
+	end
+	def column_position(key, offset)
+		pos = components.index(key)
+		[pos.at(0) + offset.at(0), pos.at(1) + offset.at(1)]
 	end
 	def debitor_name(model)
 		name(model.debitor)
@@ -33,6 +62,10 @@ class InvoiceList < HtmlGrid::List
 		link = date(model)
 		link.value = @lookandfeel.format_date(model.date)
 		link
+	end
+	def column_position(key, offset)
+		pos = components.index(key)
+		[pos.at(0) + offset.at(0), pos.at(1) + offset.at(1)]
 	end
 	def pdf(model)
 		link = HtmlGrid::Link.new(:pdf, model, @session, self)

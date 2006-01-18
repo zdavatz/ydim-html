@@ -103,12 +103,14 @@ class InvoiceTotalComposite < HtmlGrid::Composite
 end
 class InvoiceInnerComposite < HtmlGrid::Composite
 	include HtmlGrid::ErrorMessage
-	links :debitor, :name
+	links :debitor, :name, :email
 	COMPONENTS = {
-		[0,0]	=>	:unique_id,
-		[0,1]	=>	:description, 
-		[0,2]	=>	:debitor_name,
-		[0,3]	=>	:date,
+		[0,0]		=>	:unique_id,
+		[0,2]		=>	:debitor_name,
+		[1,2,0]	=>	'dash', 
+		[1,2,1]	=>	:debitor_email,
+		[0,1]		=>	:description, 
+		[0,3]		=>	:date,
 	}
 	DEFAULT_CLASS = HtmlGrid::Value
 	LABELS = true
@@ -119,6 +121,9 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 	def init
 		super
 		error_message
+	end
+	def debitor_email(model)
+		email(model.debitor)
 	end
 	def debitor_name(model)
 		link = name(model.debitor)

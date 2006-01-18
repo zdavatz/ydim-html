@@ -28,8 +28,7 @@ class Debitor < Global
 		super(@model.invoices)
 	end
 	def update
-		mandatory = [ :contact, :debitor_type, :email, :location, :name,
-			:salutation, ]
+		mandatory = [ :contact, :debitor_type, :email, :location, :name, ]
 		defaults = {}
 		case @session.user_input(:debitor_type)
 		when 'dt_hosting'
@@ -37,7 +36,7 @@ class Debitor < Global
 										 :hosting_invoice_date)
 			defaults.store(:hosting_invoice_date, Date.today + 1)
 		end
-		keys = mandatory.dup.push(:address_lines)
+		keys = mandatory.dup.push(:address_lines, :salutation)
 		input = defaults.update(user_input(keys, mandatory))
 		unless(error? || @model.unique_id)
 			@model = @session.create_debitor
