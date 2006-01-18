@@ -7,6 +7,7 @@ require 'htmlgrid/errormessage'
 require 'htmlgrid/form'
 require 'htmlgrid/input'
 require 'htmlgrid/inputtext'
+require 'htmlgrid/list'
 require 'htmlgrid/pass'
 
 module HtmlGrid
@@ -39,6 +40,9 @@ module HtmlGrid
 	end
 	class InputText
 		CSS_CLASS = 'text'
+	end
+	class List
+		STRIPED_BG = false
 	end
 	class Pass
 		CSS_CLASS = 'text'

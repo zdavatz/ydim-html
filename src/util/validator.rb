@@ -22,17 +22,19 @@ class Validator < SBSM::Validator
 		end
 	end
 	BOOLEAN = [:payment_received]
+	DATES = [:date]
 	ENUMS = {
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharma', 'dt_insurance',
 			'dt_info', ],
 		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 	}
-	EVENTS = [ :ajax_debitor, :ajax_invoices, :create_debitor, :create_invoice,
-		:debitor, :debitors, :invoice, :invoices, :login, :logout, :pdf, :sort,
-		:update ]
-	STRINGS = [ :name, :contact, :location, :sortvalue ]
-	NUMERIC = [ :unique_id, :hosting_price ]
+	EVENTS = [ :ajax_create_item, :ajax_debitor, :ajax_delete_item, :ajax_item,
+		:ajax_invoices, :create_debitor, :create_invoice, :debitor, :debitors,
+		:invoice, :invoices, :login, :logout, :pdf, :send_invoice, :sort, :update ]
+	STRINGS = [ :name, :contact, :description, :location, :sortvalue, :text,
+		:unit ]
+	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]
 	future_dates :hosting_invoice_date
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)

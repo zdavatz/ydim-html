@@ -7,9 +7,12 @@ label, th {
 	font-weight: bold;
 	text-align: left;
 }
+td.standard-width {
+	width: 120px;
+}
 label {
-	display: block;
 	min-width: 120px;
+	display: block;
 }
 label.error {
 	color: #C00;
@@ -49,7 +52,17 @@ div > div.navigation:first-child {
 }
 input.text, textarea {
 	background-color: white;
+}
+textarea {
 	width: 250px;
+}
+input.small {
+	width: 40px;
+}
+div#confirm {
+	font-weight: bold;
+	font-size: 14px;
+	padding: 8px;
 }
 div.head {
 	border-color: #A00;
@@ -68,7 +81,12 @@ div.foot {
 	border-width: 0px thin thin 0px;
 	text-align: right;
 }
-div.list-label {
+div.padded {
 	padding: 4px;
+}
+td.right {
+	text-align: right;
+}
+td.total {
 	font-weight: bold;
 }

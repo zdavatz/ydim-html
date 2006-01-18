@@ -11,11 +11,15 @@ class InvoiceList < HtmlGrid::List
 	COMPONENTS = {
 		[0,0]	=>	:unique_id,
 		[1,0]	=>	:formatted_date,
-		[2,0]	=>	:debitor_name,
+		[2,0]	=>	:total_netto,
 		[3,0]	=>	:toggle_status,
-		[4,0]	=>	:pdf,
+		[4,0]	=>	:debitor_name,
+		[5,0]	=>	:pdf,
 	}
 	CSS_ID = 'invoices'
+	CSS_MAP = {
+		[2,0]	=>	'right',
+	}
 	links :invoice, :date, :unique_id
 	links :debitor, :name
 	def compose_components(model, offset)

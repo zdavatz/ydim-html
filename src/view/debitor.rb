@@ -5,6 +5,7 @@ require 'view/template'
 require 'view/invoices'
 require 'htmlgrid/inputtext'
 require 'htmlgrid/inputdate'
+require 'htmlgrid/labeltext'
 require 'htmlgrid/select'
 require 'htmlgrid/textarea'
 
@@ -60,16 +61,19 @@ end
 class DebitorComposite < HtmlGrid::DivComposite
 	COMPONENTS = {
 		[0,0]	=>	:form,
-		[0,1]	=>	'invoices',
-		[0,2]	=>	:invoices,
+		[0,1]	=>	:invoices,
+		[0,2]	=>	:invoice_list,
 	}
 	CSS_MAP = {
-		1	=>	'list-label',
+		1	=>	'padded',
+	}
+	SYMBOL_MAP = {
+		:invoices	=>	HtmlGrid::LabelText,
 	}
 	def form(model)
 		Debitor.select_form(model).new(model, @session, self)
 	end
-	def invoices(model)
+	def invoice_list(model)
 		unless(model.invoices.empty?)
 			InvoiceList.new(model.invoices, @session, self)
 		end

@@ -10,6 +10,10 @@ require 'ydim/server'
 require 'etc/config'
 
 config = YDIM::Html::Util::CONFIG
+module YDIM
+	headpath = File.expand_path('../.git/HEAD', File.dirname(__FILE__))
+	YDIM_VERSION = File.read(headpath).strip
+end
 
 DRb.start_service(config.proxy_url)
 
