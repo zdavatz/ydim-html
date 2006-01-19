@@ -21,6 +21,7 @@ class InvoiceList < HtmlGrid::List
 	CSS_MAP = {
 		[5,0]	=>	'right',
 	}
+	SORT_DEFAULT = :due_date
 	links :invoice, :date, :unique_id
 	links :debitor, :name, :email
 	def compose_components(model, offset)
@@ -82,6 +83,15 @@ class InvoiceList < HtmlGrid::List
 		url = @lookandfeel._event_url(:ajax_invoices, args)
 		link.href = "javascript: reload_list('invoices', '#{url}')"
 		link
+	end
+	private
+	def sort_model
+		unless(@session.event == :sort)
+			null_date = Date.new(9999)
+			@model = @model.sort_by { |item| 
+				[item.due_date || null_date, item.date || null_date]
+			}
+		end
 	end
 end
 class Invoices < Template
