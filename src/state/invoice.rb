@@ -96,6 +96,7 @@ class Invoice < Global
 			input.each { |key, val|
 				@model.send("#{key}=", val)
 			}
+			@model.odba_store
 		end
 		self
 	end
