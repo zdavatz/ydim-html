@@ -12,7 +12,7 @@ class AjaxValues < HtmlGrid::Component
 	}
 	def to_html(context)
 		"var ajaxResponse = {\n" << @model.collect { |key, val|
-			"#{key}: '#{val}'"
+			"'#{key}': '#{val}'"
 		}.join(",\n") << "\n};"
 	end
 end
