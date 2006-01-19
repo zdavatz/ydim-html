@@ -145,6 +145,23 @@ class InvoiceComposite < HtmlGrid::DivComposite
 		3	=>	'padded'
 	}
 	EVENT = :update
+	def init
+		if(@model.unique_id.nil?)
+			@components = {
+				[0,0]	=>	InvoiceInnerComposite,
+				[0,1]	=>	:submit,
+			}
+			@css_map = { 1 => 'padded' }
+		elsif(@model.items.empty?)
+			@components = {
+				[0,0]	=>	InvoiceInnerComposite,
+				[0,1]	=>	:items,
+				[0,2]	=>	:submit,
+			}
+			@css_map = { 2 => 'padded' }
+		end
+		super
+	end
 	def hidden_fields(context)
 		super << context.hidden('unique_id', @model.unique_id)
 	end

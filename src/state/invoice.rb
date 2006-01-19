@@ -13,6 +13,21 @@ class AjaxItems < SBSM::State
 	VOLATILE = true
 	VIEW = Html::View::ItemList
 end
+class CreateInvoice < Global
+	VIEW = Html::View::Invoice
+	attr_reader :model
+	def update
+		keys = [:description, :date]
+		input = user_input(keys, keys)
+		unless(error?)
+			@model = @session.create_invoice(@model.debitor.unique_id)
+			input.each { |key, val|
+				@model.send("#{key}=", val)
+			}
+			@model.odba_store
+		end
+	end
+end
 class Invoice < Global
 	VIEW = Html::View::Invoice
 	attr_reader :model
@@ -69,7 +84,7 @@ class Invoice < Global
 			user_input(keys).each { |key, hash|
 				hash.each { |idx, value|
 					(data[idx] ||= {}).store(key, value)
-				}
+				} unless hash.nil?
 			}
 			data.each { |idx, item|
 				@session.update_item(id.to_i, idx.to_i, item)

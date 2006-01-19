@@ -24,8 +24,8 @@ class Validator < SBSM::Validator
 	BOOLEAN = [:payment_received]
 	DATES = [:date]
 	ENUMS = {
-		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharma', 'dt_insurance',
-			'dt_info', ],
+		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
+			'dt_insurance', 'dt_info', ],
 		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 	}
