@@ -47,12 +47,30 @@ module HtmlGrid
 		end
 	end
 	class InputText
-		CSS_CLASS = 'text'
+		CSS_CLASS = 'large'
 	end
 	class List
 		STRIPED_BG = false
+		def List.ajax_inputs(*keys)
+			keys.each { |key|
+				define_method(key) { |model|
+					name = "#{key}[#{model.index}]"
+					input = HtmlGrid::InputText.new(name, model, @session, self)
+					input.value = model.send(key)
+					input.css_id = name
+					args = [
+						:unique_id,	@session.state.model.unique_id,
+						:index,			model.index, 
+						key,				nil,
+					]
+					url = @lookandfeel.event_url(:ajax_item, args)
+					input.set_attribute('onChange', "reload_data('#{url}' + this.value)")
+					input
+				}
+			}
+		end
 	end
 	class Pass
-		CSS_CLASS = 'text'
+		CSS_CLASS = 'large'
 	end
 end

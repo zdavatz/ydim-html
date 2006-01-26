@@ -31,6 +31,7 @@ class DebitorForm < HtmlGrid::Form
 	EVENT = :update
 	SYMBOL_MAP = {
 		:hosting_invoice_interval	=>	HtmlGrid::Select,
+		:hosting_items						=>	HtmlGrid::LabelText,	
 		:unique_id								=>	HtmlGrid::Value,
 		:hosting_invoice_date			=>	HtmlGrid::InputDate,
 		:salutation								=>	HtmlGrid::Select,
@@ -40,6 +41,46 @@ class DebitorForm < HtmlGrid::Form
 		script = "reload_form('#{FORM_ID}', 'ajax_debitor');"
 		select.set_attribute('onChange', script)
 		select
+	end
+	def hidden_fields(context)
+		super << context.hidden('unique_id', @model.unique_id)
+	end
+end
+class HostingItemList < HtmlGrid::List
+	COMPONENTS = {
+		[0,0]	=>	:text,
+		[1,0]	=>	:price,
+		[2,0]	=>	:delete,
+	}
+	CSS_ID = 'hosting-items'
+	CSS_MAP = {
+		[2,0]	=>	'right',
+	}
+	COMPONENT_CSS_MAP = {
+		[1,0]	=>	'small'
+	}
+	DEFAULT_CLASS = HtmlGrid::InputText
+	LOOKANDFEEL_MAP = {
+		:price	=>	:hosting_price,
+		:text		=>	:domain,
+	}
+	ajax_inputs :text, :price
+	def compose_footer(offset)
+		link = HtmlGrid::Button.new(:create_hosting_item, @model, @session, self)
+		args = { :unique_id => @session.state.model.unique_id }
+		url = @lookandfeel.event_url(:ajax_create_item, args)
+		link.set_attribute('onClick', "reload_list('hosting-items', '#{url}');")
+		@grid.add(link, *offset)
+	end
+	def delete(model)
+		link = HtmlGrid::Link.new(:delete, model, @session, self)
+		args = {
+			:unique_id	=>	@session.state.model.unique_id,
+			:index			=>	model.index,
+		}
+		url = @lookandfeel.event_url(:ajax_delete_item, args)
+		link.href = "javascript: reload_list('hosting-items', '#{url}')"
+		link
 	end
 end
 class HostingDebitorForm < DebitorForm
@@ -53,10 +94,19 @@ class HostingDebitorForm < DebitorForm
 		[0,6]		=>	:location,
 		[0,7]		=>	:email,	
 		[0,8]		=>	:hosting_price,
-		[0,9]		=>	:hosting_invoice_interval,
-		[0,10]	=>	:hosting_invoice_date,
-		[1,11]	=>	:submit,	
+		[1,9]		=>	:hosting_item_list,
+		[0,10]	=>	:hosting_invoice_interval,
+		[0,11]	=>	:hosting_invoice_date,
+		[1,12]	=>	:submit,	
 	}
+	CSS_MAP = {
+		[1,9]	=>	'unpadded',
+	}
+	def hosting_item_list(model)
+		if(model.unique_id)
+			HostingItemList.new(model.hosting_items || [], @session, self)
+		end
+	end
 end
 class DebitorComposite < HtmlGrid::DivComposite
 	COMPONENTS = {
