@@ -16,7 +16,7 @@ class DebitorList < HtmlGrid::FormList
 		[4,0]	=>	:debitor_type,
 	}
 	EVENT = :create_debitor
-	SORT_DEFAULT = :name
+	SORT_DEFAULT = Proc.new { |debitor| debitor.name.downcase }
 	def debitor_type(model)
 		@lookandfeel.lookup(model.debitor_type)
 	end
