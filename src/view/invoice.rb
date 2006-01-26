@@ -15,7 +15,7 @@ class SpanValue < HtmlGrid::Value
 		@attributes.store('id', @name)
 	end
 	def to_html(context)
-		context.span(@attributes) { @value.to_s }
+		context.span(@attributes) { escape(@value) }
 	end
 end
 class ItemList < HtmlGrid::List

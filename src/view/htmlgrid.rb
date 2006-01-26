@@ -25,6 +25,14 @@ module HtmlGrid
 				}
 			end
 		end
+		def escape(value)
+			CGI.escape case value
+			when Float
+				sprintf('%1.2f', value)
+			else 
+				value.to_s
+			end
+		end
 	end
 	class Composite 
 		LEGACY_INTERFACE = false

@@ -43,6 +43,7 @@ class Global < SBSM::State
 			 && (debitor = @session.debitor(id.to_i)))
 			invoice = Stub.new
 			invoice.carry(:debitor, debitor)
+			invoice.carry(:date, Date.today)
 			CreateInvoice.new(@session, invoice)
 		end
 	end

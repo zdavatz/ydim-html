@@ -12,17 +12,18 @@ class InvoiceList < HtmlGrid::List
 		[0,0]	=>	:unique_id,
 		[1,0]	=>	:debitor_name,
 		[2,0]	=>	:debitor_email,
-		[3,0]	=>	:formatted_date,
-		[4,0]	=>	:toggle_status,
-		[5,0]	=>	:total_netto,
-		[6,0]	=>	:pdf,
+		[3,0]	=>	:description,
+		[4,0]	=>	:formatted_date,
+		[5,0]	=>	:toggle_status,
+		[6,0]	=>	:total_netto,
+		[7,0]	=>	:pdf,
 	}
 	CSS_ID = 'invoices'
 	CSS_MAP = {
-		[5,0]	=>	'right',
+		[6,0]	=>	'right',
 	}
 	SORT_DEFAULT = :due_date
-	links :invoice, :date, :unique_id
+	links :invoice, :date, :unique_id, :description
 	links :debitor, :name, :email
 	def compose_components(model, offset)
 		@grid.set_row_attributes({'class' => model.payment_status}, offset.at(1))

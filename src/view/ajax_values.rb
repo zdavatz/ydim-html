@@ -2,6 +2,7 @@
 # Html::View::AjaxValues -- ydim -- 18.01.2006 -- hwyss@ywesee.com
 
 require 'htmlgrid/component'
+require 'cgi'
 
 module YDIM
 	module Html
@@ -12,7 +13,7 @@ class AjaxValues < HtmlGrid::Component
 	}
 	def to_html(context)
 		"var ajaxResponse = {\n" << @model.collect { |key, val|
-			"'#{key}': '#{val}'"
+			"'#{escape(key)}': '#{escape(val)}'"
 		}.join(",\n") << "\n};"
 	end
 end

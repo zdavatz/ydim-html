@@ -73,11 +73,13 @@ class DebitorComposite < HtmlGrid::DivComposite
 		:invoices	=>	HtmlGrid::LabelText,
 	}
 	def create_invoice(model)
-		button = HtmlGrid::Button.new(:create_invoice, model, @session, self)
-		args = {:unique_id => model.unique_id}
-		url = @lookandfeel._event_url(:create_invoice, args)
-		button.set_attribute('onClick', "document.location.href='#{url}'")
-		button
+		if(model.unique_id)
+			button = HtmlGrid::Button.new(:create_invoice, model, @session, self)
+			args = {:unique_id => model.unique_id}
+			url = @lookandfeel._event_url(:create_invoice, args)
+			button.set_attribute('onClick', "document.location.href='#{url}'")
+			button
+		end
 	end
 	def form(model)
 		Debitor.select_form(model).new(model, @session, self)
