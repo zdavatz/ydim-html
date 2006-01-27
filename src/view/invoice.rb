@@ -34,7 +34,9 @@ class ItemList < HtmlGrid::List
 		[5,0]	=>	'right',
 	}
 	COMPONENT_CSS_MAP = {
-		[2,0,3]	=>	'small'
+		[2,0]	=>	'small',
+		[3,0]	=>	'medium',
+		[4,0]	=>	'small',
 	}
 	DEFAULT_CLASS = HtmlGrid::InputText
 	SYMBOL_MAP = {

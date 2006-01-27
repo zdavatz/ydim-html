@@ -26,9 +26,16 @@ module HtmlGrid
 			end
 		end
 		def escape(value)
-			CGI.escape case value
+			CGI.escape(format(value))
+		end
+		def format(value)
+			case value
 			when Float
-				sprintf('%1.2f', value)
+				if(value > 1)
+					sprintf('%1.2f', value)
+				else
+					sprintf('%1.3f', value)
+				end
 			else 
 				value.to_s
 			end
@@ -56,7 +63,7 @@ module HtmlGrid
 				define_method(key) { |model|
 					name = "#{key}[#{model.index}]"
 					input = HtmlGrid::InputText.new(name, model, @session, self)
-					input.value = model.send(key)
+					input.value = format(model.send(key))
 					input.css_id = name
 					args = [
 						:unique_id,	@session.state.model.unique_id,

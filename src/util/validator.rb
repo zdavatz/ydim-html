@@ -25,7 +25,7 @@ class Validator < SBSM::Validator
 	DATES = [:date]
 	ENUMS = {
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
-			'dt_insurance', 'dt_info', ],
+			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor' ],
 		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 	}

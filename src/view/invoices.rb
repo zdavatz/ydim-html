@@ -42,7 +42,7 @@ class InvoiceList < HtmlGrid::List
 			end
 		}
 		tpos = column_position(:total_netto, offset)
-		@grid.add(total.to_s, *tpos)
+		@grid.add(escape(total), *tpos)
 		@grid.add_attribute('class', 'right', *tpos)
 	end
 	def debitor_email(model)
@@ -61,9 +61,11 @@ class InvoiceList < HtmlGrid::List
 		name(model.debitor)
 	end
 	def formatted_date(model)
-		link = date(model)
-		link.value = @lookandfeel.format_date(model.date)
-		link
+		if(date = model.date)
+			link = date(model)
+			link.value = @lookandfeel.format_date(date)
+			link
+		end
 	end
 	def column_position(key, offset)
 		pos = components.index(key)
@@ -73,6 +75,9 @@ class InvoiceList < HtmlGrid::List
 		link = HtmlGrid::Link.new(:pdf, model, @session, self)
 		link.href = @lookandfeel._event_url(:pdf, {:unique_id => model.unique_id})
 		link
+	end
+	def quantity(model)
+		escape(model.quantity)
 	end
 	def toggle_status(model)
 		key = model.payment_received ? :toggle_unpaid : :toggle_paid
@@ -84,6 +89,9 @@ class InvoiceList < HtmlGrid::List
 		url = @lookandfeel._event_url(:ajax_invoices, args)
 		link.href = "javascript: reload_list('invoices', '#{url}')"
 		link
+	end
+	def total_netto(model)
+		escape(model.total_netto)
 	end
 	private
 	def sort_model
