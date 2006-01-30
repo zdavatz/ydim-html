@@ -5,6 +5,7 @@ require 'view/template'
 require 'htmlgrid/form'
 require 'htmlgrid/inputdate'
 require 'htmlgrid/errormessage'
+require 'htmlgrid/select'
 
 module YDIM
 	module Html
@@ -80,7 +81,7 @@ class InvoiceTotalComposite < HtmlGrid::Composite
 	CSS_ID = 'total'
 	CSS_MAP = {
 		[1,0,1,2]	=>	'right',
-		[2,0]			=>	'right total',
+		[0,2]			=>	'right total',
 	}
 	DEFAULT_CLASS = SpanValue
 	LABELS = true
@@ -95,12 +96,17 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 		[1,2,1]	=>	:debitor_email,
 		[0,1]		=>	:description, 
 		[0,3]		=>	:date,
+		[0,4]		=>	:currency,
+	}
+	COMPONENT_CSS_MAP = {
+		[0,4]	=>	'small',
 	}
 	DEFAULT_CLASS = HtmlGrid::Value
 	LABELS = true
 	SYMBOL_MAP = {
 		:date					=>	HtmlGrid::InputDate,
 		:description	=>	HtmlGrid::InputText,
+		:currency			=>	HtmlGrid::Select,
 	}
 	def init
 		super

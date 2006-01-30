@@ -10,6 +10,7 @@ class Lookandfeel < SBSM::Lookandfeel
 	DICTIONARIES = {
 		'de'	=>	{
 			:address_lines							=>	'Adresse',
+			:CHF												=>	'CHF',
 			:comma											=>	', ',
 			:confirm_send_invoice0			=>	'Die Rechnung wurde an folgende Email-Adressen verschickt: ',
 			:confirm_send_invoice1			=>	'.',
@@ -19,6 +20,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:create_hosting_item				=>	'Neuer Domain-Pointer',
 			:create_invoice							=>	'Neue Rechnung',
 			:create_item								=>	'Neue Position',
+			:currency										=>	'W&auml;hrung',
 			:dash												=>	'&nbsp;&ndash;&nbsp;',
 			:date												=>	'Rechnungsdatum',
 			:date_format								=>	'%d.%m.%Y',
@@ -41,6 +43,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:e_bygone_date							=>	'Bitte geben Sie ein Datum an, welches in der Zukuft liegt.',
 			:e_missing0									=>	'Bitte geben Sie das Feld "',
 			:e_missing1									=>	'" an.',
+			:EUR												=>	'EUR',
 			:Frau												=>	'Frau',
 			:head												=>	'YDIM',
 			:Herr												=>	'Herr',
