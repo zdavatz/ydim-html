@@ -15,13 +15,13 @@ class InvoiceList < HtmlGrid::List
 		[3,0]	=>	:description,
 		[4,0]	=>	:formatted_date,
 		[5,0]	=>	:toggle_status,
-		[6,0]	=>	:currency,
-		[7,0]	=>	:total_netto,
+		[6,0]	=>	:total_netto,
+		[7,0]	=>	:currency,
 		[8,0]	=>	:pdf,
 	}
 	CSS_ID = 'invoices'
 	CSS_MAP = {
-		[7,0]	=>	'right',
+		[6,0]	=>	'right',
 	}
 	SORT_DEFAULT = :due_date
 	links :invoice, :date, :unique_id, :description
