@@ -64,6 +64,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:pdf												=>	'PDF',
 			:salutation									=>	'Anrede',
 			:send_invoice								=>	'Email Senden',
+			:th_currency								=>	'W&auml;hrung',
 			:th_debitor_email						=>	'Email',
 			:th_debitor_name						=>	'Name',
 			:th_debitor_type						=>	'Kundenart',
