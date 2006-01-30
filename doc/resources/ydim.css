@@ -93,6 +93,6 @@ div.padded {
 td.right {
 	text-align: right;
 }
-td.total {
+span#total_brutto {
 	font-weight: bold;
 }

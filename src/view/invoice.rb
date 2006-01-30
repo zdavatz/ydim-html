@@ -80,8 +80,7 @@ class InvoiceTotalComposite < HtmlGrid::Composite
 	}
 	CSS_ID = 'total'
 	CSS_MAP = {
-		[1,0,1,2]	=>	'right',
-		[0,2]			=>	'right total',
+		[1,0,1,3]	=>	'right',
 	}
 	DEFAULT_CLASS = SpanValue
 	LABELS = true
@@ -91,15 +90,15 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 	links :debitor, :name, :email
 	COMPONENTS = {
 		[0,0]		=>	:unique_id,
-		[0,2]		=>	:debitor_name,
-		[1,2,0]	=>	'dash', 
-		[1,2,1]	=>	:debitor_email,
-		[0,1]		=>	:description, 
+		[0,1]		=>	:debitor_name,
+		[1,1,0]	=>	'dash', 
+		[1,1,1]	=>	:debitor_email,
+		[0,2]		=>	:description, 
 		[0,3]		=>	:date,
 		[0,4]		=>	:currency,
 	}
 	COMPONENT_CSS_MAP = {
-		[0,4]	=>	'small',
+		[0,2]	=>	'extralarge',
 	}
 	DEFAULT_CLASS = HtmlGrid::Value
 	LABELS = true
