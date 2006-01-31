@@ -15,6 +15,9 @@ class Session < SBSM::Session
 	def login
 		@app.login(user_input(:email), user_input(:pass))
 	end
+	def invoices
+		@app.invoice_infos(user_input(:payment_status) || 'ps_open')
+	end
 	def method_missing(meth, *args)
 		@app.send(meth, *args)
 	end

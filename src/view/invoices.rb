@@ -10,41 +10,59 @@ module YDIM
 class InvoiceList < HtmlGrid::List
 	COMPONENTS = {
 		[0,0]	=>	:unique_id,
-		[1,0]	=>	:debitor_name,
-		[2,0]	=>	:debitor_email,
+		[1,0]	=>	:name,
+		[2,0]	=>	:email,
 		[3,0]	=>	:description,
 		[4,0]	=>	:formatted_date,
 		[5,0]	=>	:toggle_status,
 		[6,0]	=>	:total_netto,
-		[7,0]	=>	:currency,
-		[8,0]	=>	:pdf,
+		[7,0]	=>	:total_brutto,
+		[8,0]	=>	:currency,
+		[9,0]	=>	:pdf,
 	}
 	CSS_ID = 'invoices'
 	CSS_MAP = {
-		[6,0]	=>	'right',
+		[6,0,2]	=>	'right',
 	}
-	SORT_DEFAULT = :due_date
+	SORT_DEFAULT = nil
+	class << self
+		def debitor_links(*names)
+			names.each { |name|
+				define_method(name) { |model|
+					link = HtmlGrid::Link.new(name, model, @session, self)
+					link.href = @lookandfeel._event_url(:debitor, 
+																							{:unique_id => model.debitor_id})
+					link.value = model.send("debitor_#{name}")
+					link
+				}
+			}
+		end
+	end
 	links :invoice, :date, :unique_id, :description
-	links :debitor, :name, :email
+	debitor_links :name, :email
+	escaped :total_netto, :total_brutto
 	def compose_components(model, offset)
 		@grid.set_row_attributes({'class' => model.payment_status}, offset.at(1))
 		super
 	end
 	def compose_footer(offset)
-		label = HtmlGrid::LabelText.new(:total_open_netto, @model, @session, self)
-		lpos = column_position(:debitor_name, offset)
+		label = HtmlGrid::LabelText.new(:total, @model, @session, self)
+		lpos = column_position(:name, offset)
 		@grid.add(label, *lpos)
 		@grid.set_colspan(*lpos.push(2))
-		total = @model.inject(0.0) { |sum, invoice|
-			unless(invoice.payment_received)
-				sum + invoice.total_netto
-			else
-				sum 
-			end
+		netto = 0.0
+		brutto = 0.0
+		total = @model.each { |invoice|
+			netto += invoice.total_netto
+			brutto += invoice.total_brutto
 		}
-		tpos = column_position(:total_netto, offset)
-		@grid.add(escape(total), *tpos)
-		@grid.add_attribute('class', 'right', *tpos)
+		total(:total_netto, netto, offset)
+		total(:total_brutto, brutto, offset)
+	end
+	def total(key, total, offset)
+		tpos = column_position(key, offset)
+		@grid.add(format(total), *tpos)
+		@grid.add_attribute('class', 'right total', *tpos)
 	end
 	def debitor_email(model)
 		email(model.debitor)
@@ -57,9 +75,6 @@ class InvoiceList < HtmlGrid::List
 	def column_position(key, offset)
 		pos = components.index(key)
 		[pos.at(0) + offset.at(0), pos.at(1) + offset.at(1)]
-	end
-	def debitor_name(model)
-		name(model.debitor)
 	end
 	def formatted_date(model)
 		if(date = model.date)
@@ -94,18 +109,29 @@ class InvoiceList < HtmlGrid::List
 	def total_netto(model)
 		escape(model.total_netto)
 	end
-	private
-	def sort_model
-		unless(@session.event == :sort)
-			null_date = Date.new(9999)
-			@model = @model.sort_by { |item| 
-				[item.due_date || null_date, item.date || null_date]
+end
+class InvoicesComposite < HtmlGrid::DivComposite
+	def InvoicesComposite.status_links(*names)
+		names.each { |name|
+			define_method(name) { |model|
+				link = HtmlGrid::Link.new(name, model, @session, self)
+				link.href = @lookandfeel._event_url(:invoices, 
+																						{ :payment_status => name })
+				link
 			}
-		end
+		}
 	end
+	status_links :ps_open, :ps_paid, :ps_due
+	COMPONENTS = {
+		[0,0]	=>	:ps_open,
+		[1,0]	=>	:ps_due,
+		[2,0]	=>	:ps_paid,
+		[0,1]	=>	InvoiceList,
+	}
+	CSS_MAP = ['subnavigation']
 end
 class Invoices < Template
-	CONTENT = InvoiceList
+	CONTENT = InvoicesComposite
 end
 		end
 	end

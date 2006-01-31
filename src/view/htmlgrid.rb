@@ -13,6 +13,13 @@ require 'htmlgrid/pass'
 module HtmlGrid
 	class Component
 		class << self
+			def escaped(*names)
+				names.each { |name|
+					define_method(name) { |model| 
+						escape(model.send(name))
+					}
+				}
+			end
 			def links(event, *names)
 				names.each { |name|
 					define_method(name) { |model| 

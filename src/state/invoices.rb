@@ -15,9 +15,11 @@ module AjaxInvoiceMethods
 	def ajax_invoices(model=@model)
 		keys = [:payment_received, :unique_id]
 		input = user_input(keys, keys)
-		if(!error? && (invoice = @session.invoice(input[:unique_id].to_i)))
+		id = input[:unique_id].to_i
+		if(!error? && (invoice = @session.invoice(id)))
 			invoice.payment_received = input[:payment_received]
 			invoice.odba_store
+			model.delete_if { |info| info.unique_id == id }
 		end
 		AjaxInvoices.new(@session, model)
 	end
@@ -26,7 +28,11 @@ class Invoices < Global
 	include AjaxInvoiceMethods
 	VIEW = Html::View::Invoices
 	def init
-		@model = @session.invoices
+		super
+		null_date = Date.new(9999)
+		@model = @session.invoices.sort_by { |item| 
+			[item.due_date || null_date, item.date || null_date]
+		}
 	end
 end
 		end

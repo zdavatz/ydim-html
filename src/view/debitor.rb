@@ -109,15 +109,30 @@ class HostingDebitorForm < DebitorForm
 	end
 end
 class DebitorComposite < HtmlGrid::DivComposite
+	def DebitorComposite.status_links(*names)
+		names.each { |name|
+			define_method(name) { |model|
+				link = HtmlGrid::Link.new(name, model, @session, self)
+				url = @lookandfeel._event_url(:ajax_status, {:payment_status => name })
+				link.href =	"javascript:reload_list('invoices', '#{url}');"
+				link
+			}
+		}
+	end
+	status_links :ps_open, :ps_paid, :ps_due
 	COMPONENTS = {
 		[0,0]	=>	:form,
-		[0,1]	=>	:invoices,
-		[0,2]	=>	:invoice_list,
-		[0,3]	=>	:create_invoice,
+		[0,1]	=>	:ps_open,
+		[1,1]	=>	:ps_due,
+		[2,1]	=>	:ps_paid,
+		[0,2]	=>	:invoices,
+		[0,3]	=>	:invoice_list,
+		[0,4]	=>	:create_invoice,
 	}
 	CSS_MAP = {
-		1	=>	'padded',
-		3	=>	'padded',
+		1	=>	'subnavigation',
+		2	=>	'padded',
+		4	=>	'padded',
 	}
 	SYMBOL_MAP = {
 		:invoices	=>	HtmlGrid::LabelText,
@@ -135,9 +150,7 @@ class DebitorComposite < HtmlGrid::DivComposite
 		Debitor.select_form(model).new(model, @session, self)
 	end
 	def invoice_list(model)
-		unless(model.invoices.empty?)
-			InvoiceList.new(model.invoices, @session, self)
-		end
+		InvoiceList.new(@session.state.invoice_infos, @session, self)
 	end
 end
 class Debitor < Template

@@ -21,8 +21,12 @@ class AjaxDebitor < SBSM::State
 end
 class Debitor < Global
 	include AjaxInvoiceMethods
-	attr_reader :model
+	attr_reader :model, :invoice_infos
 	VIEW = Html::View::Debitor
+	def init
+		super
+		load_invoices
+	end
 	def ajax_create_item
 		if(id = @session.user_input(:unique_id))
 			begin
@@ -50,7 +54,7 @@ class Debitor < Global
 		AjaxHostingItems.new(@session, @model.hosting_items)
 	end
 	def ajax_invoices
-		super(@model.invoices)
+		super(@invoice_infos)
 	end
 	def ajax_item
 		if((id = @session.user_input(:unique_id)) \
@@ -64,6 +68,9 @@ class Debitor < Global
 			end
 		end
 		AjaxValues.new(@session, data)
+	end
+	def ajax_status
+		AjaxInvoices.new(@session, load_invoices)
 	end
 	def update
 		mandatory = [ :contact, :debitor_type, :email, :location, :name, ]
@@ -99,6 +106,10 @@ class Debitor < Global
 		end
 	end
 	private
+	def load_invoices
+		@invoice_infos = @model.invoice_infos(@session.user_input(:payment_status) \
+																				 || 'ps_open')
+	end
 	def update_model(input)
 		input.each { |key, val|
 			@model.send("#{key}=".to_sym, val)

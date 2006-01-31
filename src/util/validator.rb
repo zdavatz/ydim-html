@@ -28,11 +28,13 @@ class Validator < SBSM::Validator
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
 			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor' ],
 		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
+		:payment_status		=>	[ nil, 'ps_open', 'ps_due', 'ps_paid', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 	}
 	EVENTS = [ :ajax_create_item, :ajax_debitor, :ajax_delete_item, :ajax_item,
-		:ajax_invoices, :create_debitor, :create_invoice, :debitor, :debitors,
-		:invoice, :invoices, :login, :logout, :pdf, :send_invoice, :sort, :update ]
+		:ajax_invoices, :ajax_status, :create_debitor, :create_invoice, :debitor,
+		:debitors, :invoice, :invoices, :login, :logout, :pdf, :send_invoice,
+		:sort, :update ]
 	STRINGS = [ :name, :contact, :description, :location, :sortvalue, :text,
 		:unit ]
 	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]

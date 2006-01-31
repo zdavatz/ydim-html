@@ -53,6 +53,20 @@ div.navigation {
 div > div.navigation:first-child {
 	border-left: 0px;
 }
+div.subnavigation {
+	float: right;
+	padding: 4px;
+	background-color: #FFA;
+	border-bottom: thin solid #306;
+	border-right: thin solid #306;
+}
+div.subnavigation a {
+	padding: 0px 4px;
+	border-left: thin solid #306;
+}
+div.subnavigation > a:first-child {
+	border-left: 0px;
+}
 input.extralarge {
 	width: 400px;
 }
