@@ -54,7 +54,7 @@ div > div.navigation:first-child {
 	border-left: 0px;
 }
 div.subnavigation {
-	float: right;
+	text-align: right;
 	padding: 4px;
 	background-color: #FFA;
 	border-bottom: thin solid #306;
