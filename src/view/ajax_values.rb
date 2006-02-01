@@ -12,11 +12,9 @@ class AjaxValues < HtmlGrid::Component
 		'Content-Type'	=>	'text/javascript',
 	}
 	def to_html(context)
-		str = "var ajaxResponse = {\n" << @model.collect { |key, val|
+		"var ajaxResponse = {\n" << @model.collect { |key, val|
 			"'#{escape(key)}': '#{escape(val)}'"
 		}.join(",\n") << "\n};"
-		puts str
-		str
 	end
 end
 		end

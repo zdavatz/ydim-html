@@ -13,6 +13,7 @@ module YDIM
 class Server < SBSM::DRbServer
 	SESSION = Html::Util::Session
 	VALIDATOR = Html::Util::Validator
+	attr_reader :config
 	def initialize(config, server)
 		@config = config
 		@server = server

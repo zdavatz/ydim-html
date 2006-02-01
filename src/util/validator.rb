@@ -32,9 +32,9 @@ class Validator < SBSM::Validator
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 	}
 	EVENTS = [ :ajax_create_item, :ajax_debitor, :ajax_delete_item, :ajax_item,
-		:ajax_invoices, :ajax_status, :create_debitor, :create_invoice, :debitor,
-		:debitors, :invoice, :invoices, :login, :logout, :pdf, :send_invoice,
-		:sort, :update ]
+		:ajax_invoice, :ajax_invoices, :ajax_status, :create_debitor,
+		:create_invoice, :debitor, :debitors, :invoice, :invoices, :login, :logout,
+		:pdf, :send_invoice, :sort, :update ]
 	STRINGS = [ :name, :contact, :description, :location, :sortvalue, :text,
 		:unit ]
 	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]

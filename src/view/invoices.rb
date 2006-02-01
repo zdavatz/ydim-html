@@ -58,6 +58,8 @@ class InvoiceList < HtmlGrid::List
 		}
 		total(:total_netto, netto, offset)
 		total(:total_brutto, brutto, offset)
+		lpos = column_position(:currency, offset)
+		@grid.add(@session.config.currency, *lpos)
 	end
 	def total(key, total, offset)
 		tpos = column_position(key, offset)
@@ -110,8 +112,17 @@ class InvoiceList < HtmlGrid::List
 		escape(model.total_netto)
 	end
 end
-class InvoicesComposite < HtmlGrid::DivComposite
-	def InvoicesComposite.status_links(*names)
+class InvoicesSubnavigation < HtmlGrid::DivComposite
+	def InvoicesSubnavigation.status_links(*names)
+		names.each { |name|
+			define_method(name) { |model|
+				link = HtmlGrid::Link.new(name, model, @session, self)
+				url = @lookandfeel._event_url(:ajax_status, {:payment_status => name })
+				link.href =	"javascript:reload_list('invoices', '#{url}');"
+				link
+			}
+		}
+=begin
 		names.each { |name|
 			define_method(name) { |model|
 				link = HtmlGrid::Link.new(name, model, @session, self)
@@ -120,18 +131,26 @@ class InvoicesComposite < HtmlGrid::DivComposite
 				link
 			}
 		}
+=end
 	end
 	status_links :ps_open, :ps_paid, :ps_due
 	COMPONENTS = {
 		[0,0]	=>	:ps_open,
 		[1,0]	=>	:ps_due,
 		[2,0]	=>	:ps_paid,
-		[0,1]	=>	InvoiceList,
 	}
-	CSS_MAP = ['subnavigation']
+	DIV_ID = 'subnavigation'
+end
+class InvoicesComposite < HtmlGrid::DivComposite
+	COMPONENTS = {
+		[0,0]	=>	InvoiceList,
+	}
 end
 class Invoices < Template
 	CONTENT = InvoicesComposite
+	def subnavigation(model)
+		InvoicesSubnavigation.new(model, @session, self)
+	end
 end
 		end
 	end

@@ -69,9 +69,6 @@ class Debitor < Global
 		end
 		AjaxValues.new(@session, data)
 	end
-	def ajax_status
-		AjaxInvoices.new(@session, load_invoices)
-	end
 	def update
 		mandatory = [ :contact, :debitor_type, :email, :location, :name, ]
 		defaults = {}
@@ -107,8 +104,9 @@ class Debitor < Global
 	end
 	private
 	def load_invoices
-		@invoice_infos = @model.invoice_infos(@session.user_input(:payment_status) \
-																				 || 'ps_open')
+		invoices = @model.invoice_infos(@session.user_input(:payment_status) \
+																		|| 'ps_open')
+		@invoice_infos = sort_invoices(currency_convert(invoices))
 	end
 	def update_model(input)
 		input.each { |key, val|

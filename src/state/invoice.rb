@@ -13,11 +13,15 @@ class AjaxItems < SBSM::State
 	VOLATILE = true
 	VIEW = Html::View::ItemList
 end
+class AjaxInvoice < SBSM::State
+	VOLATILE = true
+	VIEW = Html::View::InvoiceComposite
+end
 class CreateInvoice < Global
 	VIEW = Html::View::Invoice
 	attr_reader :model
 	def update
-		keys = [:description, :date]
+		keys = [:description, :date, :currency]
 		input = user_input(keys, keys)
 		unless(error?)
 			@model = @session.create_invoice(@model.debitor.unique_id)
@@ -68,6 +72,10 @@ class Invoice < Global
 		}
 		AjaxValues.new(@session, data)
 	end
+	def ajax_invoice
+		_do_update
+		AjaxInvoice.new(@session, @model)
+	end
 	def send_invoice
 		if(id = @session.user_input(:unique_id))
 			recipients = @session.send_invoice(id.to_i)
@@ -77,6 +85,10 @@ class Invoice < Global
 		end
 	end
 	def update
+		_do_update
+		self
+	end
+	def _do_update
 		if((id = @session.user_input(:unique_id)) && @model.unique_id == id.to_i)
 			## update items
 			keys = [:text, :quantity, :unit, :price]
@@ -86,19 +98,27 @@ class Invoice < Global
 					(data[idx] ||= {}).store(key, value)
 				} unless hash.nil?
 			}
+			target = origin = nil
+			converter = if((target = @session.user_input(:currency)) \
+				 && (origin = @model.currency) \
+				 && origin != target)
+				@session.currency_converter
+			end
 			data.each { |idx, item|
+				if(converter)
+					item[:price] = converter.convert(item[:price], origin, target)
+				end
 				@session.update_item(id.to_i, idx.to_i, item)
 			}
 
 			## update invoice
-			keys = [:description, :date]
+			keys = [:description, :date, :currency]
 			input = user_input(keys, keys)
 			input.each { |key, val|
 				@model.send("#{key}=", val)
 			}
 			@model.odba_store
 		end
-		self
 	end
 end
 		end

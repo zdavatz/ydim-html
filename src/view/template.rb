@@ -11,6 +11,7 @@ module YDIM
 class Template < HtmlGrid::DivTemplate
 	COMPONENTS = {
 		[0,0]		=>	'head',
+		[1,0]		=>	:subnavigation,
 		[0,1]		=>	:content,
 		[0,2]		=>	:foot,
 		[1,2]		=>  :lgpl_license,
@@ -24,6 +25,9 @@ class Template < HtmlGrid::DivTemplate
 	DIV_CLASS = 'template'
 	FOOT = Navigation
 	LEGACY_INTERFACE = false
+	def content(model)
+		@content ||= super
+	end
 	def cpr_link(model)
 		link = standard_link(:cpr_link, model)
 		link.href = 'http://www.ywesee.com'

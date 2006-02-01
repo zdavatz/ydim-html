@@ -23,16 +23,37 @@ module AjaxInvoiceMethods
 		end
 		AjaxInvoices.new(@session, model)
 	end
+	def ajax_status
+		AjaxInvoices.new(@session, load_invoices)
+	end
+	def currency_convert(invoices)
+		currency = @session.config.currency
+		converter = @session.currency_converter
+		invoices.each { |inv|
+			if(icur = inv.currency)
+				inv.total_netto = converter.convert(inv.total_netto, icur, currency)
+				inv.total_brutto = converter.convert(inv.total_brutto, icur, currency)
+			end
+			inv.currency = currency
+		}
+	end
+	def sort_invoices(invoices)
+		null_date = Date.new(9999)
+		invoices.sort_by { |item| 
+			[item.due_date || null_date, item.date || null_date, item.description.to_s]
+		}.reverse
+	end
 end
 class Invoices < Global
 	include AjaxInvoiceMethods
 	VIEW = Html::View::Invoices
 	def init
 		super
-		null_date = Date.new(9999)
-		@model = @session.invoices.sort_by { |item| 
-			[item.due_date || null_date, item.date || null_date]
-		}
+		load_invoices
+	end
+	private
+	def load_invoices
+		@model = sort_invoices(currency_convert(@session.invoices))
 	end
 end
 		end

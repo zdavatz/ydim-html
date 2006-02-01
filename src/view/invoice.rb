@@ -105,11 +105,17 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 	SYMBOL_MAP = {
 		:date					=>	HtmlGrid::InputDate,
 		:description	=>	HtmlGrid::InputText,
-		:currency			=>	HtmlGrid::Select,
 	}
 	def init
 		super
 		error_message
+	end
+	def currency(model)
+		select = HtmlGrid::Select.new(:currency, model, @session, self)
+		if(model.unique_id)
+			select.set_attribute('onChange', "reload_form('invoice', 'ajax_invoice');")
+		end
+		select
 	end
 	def debitor_email(model)
 		email(model.debitor)
@@ -122,6 +128,7 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 end
 class InvoiceComposite < HtmlGrid::DivComposite
 	include HtmlGrid::FormMethods
+	FORM_ID = 'invoice'
 	COMPONENTS = {
 		[0,0]	=>	InvoiceInnerComposite,
 		[0,1]	=>	:items,

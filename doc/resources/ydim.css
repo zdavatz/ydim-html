@@ -53,18 +53,18 @@ div.navigation {
 div > div.navigation:first-child {
 	border-left: 0px;
 }
-div.subnavigation {
-	text-align: right;
-	padding: 4px;
-	background-color: #FFA;
-	border-bottom: thin solid #306;
-	border-right: thin solid #306;
+div#subnavigation {
+	font-size: smaller;
+	font-weight: normal;
+	float: right;
+	position: relative;
+	bottom: 8px;
 }
-div.subnavigation a {
+div#subnavigation a {
 	padding: 0px 4px;
 	border-left: thin solid #306;
 }
-div.subnavigation > a:first-child {
+div#subnavigation > a:first-child {
 	border-left: 0px;
 }
 input.extralarge {
@@ -89,7 +89,7 @@ div.head {
 	border-style: solid;
 	border-width: thin 0px 0px thin;
 	background-color: #F88;
-	font-size: 16px;
+	font-size: larger;
 	font-weight: bold;
 	padding: 4px 4px 10px 4px;
 }
