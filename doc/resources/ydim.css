@@ -54,7 +54,6 @@ div > div.navigation:first-child {
 	border-left: 0px;
 }
 div#subnavigation {
-	font-size: smaller;
 	font-weight: normal;
 	float: right;
 }
@@ -87,7 +86,6 @@ div.head {
 	border-style: solid;
 	border-width: thin 0px 0px thin;
 	background-color: #F88;
-	font-size: larger;
 	font-weight: bold;
 	padding: 4px;
 }
