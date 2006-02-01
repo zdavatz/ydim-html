@@ -33,8 +33,8 @@ class InvoiceList < HtmlGrid::List
 					link.href = @lookandfeel._event_url(:debitor, 
 																							{:unique_id => model.debitor_id})
 					str = model.send("debitor_#{name}").to_s
-					if(str.length > 40)
-						str = str[0,37] << '...'
+					if(str.length > 30)
+						str = str[0,27] << '...'
 					end
 					link.value = str
 					link
