@@ -57,8 +57,6 @@ div#subnavigation {
 	font-size: smaller;
 	font-weight: normal;
 	float: right;
-	position: relative;
-	bottom: 8px;
 }
 div#subnavigation a {
 	padding: 0px 4px;

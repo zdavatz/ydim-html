@@ -10,8 +10,8 @@ module YDIM
 		module View
 class Template < HtmlGrid::DivTemplate
 	COMPONENTS = {
-		[0,0]		=>	'head',
-		[1,0]		=>	:subnavigation,
+		[0,0]		=>	:subnavigation,
+		[1,0]		=>	'head',
 		[0,1]		=>	:content,
 		[0,2]		=>	:foot,
 		[1,2]		=>  :lgpl_license,
