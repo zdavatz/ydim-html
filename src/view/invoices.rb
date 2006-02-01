@@ -32,7 +32,11 @@ class InvoiceList < HtmlGrid::List
 					link = HtmlGrid::Link.new(name, model, @session, self)
 					link.href = @lookandfeel._event_url(:debitor, 
 																							{:unique_id => model.debitor_id})
-					link.value = model.send("debitor_#{name}")
+					str = model.send("debitor_#{name}").to_s
+					if(str.length > 40)
+						str = str[0,37] << '...'
+					end
+					link.value = str
 					link
 				}
 			}
@@ -65,9 +69,6 @@ class InvoiceList < HtmlGrid::List
 		tpos = column_position(key, offset)
 		@grid.add(format(total), *tpos)
 		@grid.add_attribute('class', 'right total', *tpos)
-	end
-	def debitor_email(model)
-		email(model.debitor)
 	end
 	def formatted_date(model)
 		link = date(model)
