@@ -40,6 +40,7 @@ class ItemList < HtmlGrid::List
 		[4,0]	=>	'small',
 	}
 	DEFAULT_CLASS = HtmlGrid::InputText
+	SORT_DEFAULT = nil
 	SYMBOL_MAP = {
 		:total_netto =>	SpanValue,
 	}

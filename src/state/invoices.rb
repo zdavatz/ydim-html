@@ -39,9 +39,9 @@ module AjaxInvoiceMethods
 	end
 	def sort_invoices(invoices)
 		null_date = Date.new(9999)
-		invoices.sort_by { |item| 
-			[item.due_date || null_date, item.date || null_date, item.description.to_s]
-		}.reverse
+		invoices.sort_by { |inv| 
+			[null_date - (inv.date || null_date), inv.description.to_s]
+		}
 	end
 end
 class Invoices < Global

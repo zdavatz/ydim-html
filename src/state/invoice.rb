@@ -29,6 +29,7 @@ class CreateInvoice < Global
 				@model.send("#{key}=", val)
 			}
 			@model.odba_store
+			Invoice.new(@session, @model)
 		end
 	end
 end

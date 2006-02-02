@@ -57,6 +57,7 @@ class Debitor < Global
 		super(@invoice_infos)
 	end
 	def ajax_item
+		data = {}
 		if((id = @session.user_input(:unique_id)) \
 			&& (idx = @session.user_input(:index)))
 			begin

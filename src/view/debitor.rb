@@ -64,6 +64,7 @@ class HostingItemList < HtmlGrid::List
 		:price	=>	:hosting_price,
 		:text		=>	:domain,
 	}
+	SORT_DEFAULT = nil
 	ajax_inputs :text, :price
 	def compose_footer(offset)
 		link = HtmlGrid::Button.new(:create_hosting_item, @model, @session, self)
