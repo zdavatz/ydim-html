@@ -38,14 +38,13 @@ module HtmlGrid
 		def format(value)
 			case value
 			when Float
-				if(value > 1)
-					sprintf('%1.2f', value)
-				else
-					sprintf('%1.3f', value)
-				end
+				sprintf("%1.#{self.precision}f", value)
 			else 
 				value.to_s
 			end
+		end
+		def precision
+			2
 		end
 	end
 	class Composite 

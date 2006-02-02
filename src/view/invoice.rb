@@ -61,6 +61,9 @@ class ItemList < HtmlGrid::List
 		link.href = "javascript: reload_list('items', '#{url}')"
 		link
 	end
+	def precision
+		@container.model.precision.to_i
+	end
 	def time(model)
 		if(time = model.time)
 			@lookandfeel.format_time(model.time)
