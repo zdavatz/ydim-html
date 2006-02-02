@@ -67,20 +67,30 @@ class InvoiceList < HtmlGrid::List
 		super
 	end
 	def compose_footer(offset)
-		label = HtmlGrid::LabelText.new(:total, @model, @session, self)
-		lpos = column_position(:name, offset)
-		@grid.add(label, *lpos)
-		@grid.set_colspan(*lpos.push(2))
+		garbage = false
 		netto = 0.0
 		brutto = 0.0
 		total = @model.each { |invoice|
+			garbage = true if(invoice.deleted)
 			netto += invoice.total_netto
 			brutto += invoice.total_brutto
 		}
-		total(:total_netto, netto, offset)
-		total(:total_brutto, brutto, offset)
-		lpos = column_position(:currency, offset)
-		@grid.add(@session.config.currency, *lpos)
+		if(garbage)
+			button = HtmlGrid::Button.new(:collect_garbage, @model, @session, self)
+			url = @lookandfeel._event_url(:ajax_collect_garbage)
+			button.set_attribute('onClick', "reload_list('invoices', '#{url}');")
+			@grid.add(button, *offset)
+			@grid.set_colspan(*offset)
+		else
+			label = HtmlGrid::LabelText.new(:total, @model, @session, self)
+			lpos = column_position(:name, offset)
+			@grid.add(label, *lpos)
+			@grid.set_colspan(*lpos.push(2))
+			total(:total_netto, netto, offset)
+			total(:total_brutto, brutto, offset)
+			lpos = column_position(:currency, offset)
+			@grid.add(@session.config.currency, *lpos)
+		end
 	end
 	def total(key, total, offset)
 		tpos = column_position(key, offset)

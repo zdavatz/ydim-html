@@ -11,6 +11,7 @@ class Lookandfeel < SBSM::Lookandfeel
 		'de'	=>	{
 			:address_lines							=>	'Adresse',
 			:CHF												=>	'CHF',
+			:collect_garbage						=>	'Papierkorb Leeren',
 			:comma											=>	', ',
 			:confirm_send_invoice0			=>	'Die Rechnung wurde an folgende Email-Adressen verschickt: ',
 			:confirm_send_invoice1			=>	'.',

@@ -41,7 +41,7 @@ tr.is_open, div.is_open {
 	background-color: #FFA;
 }
 tr.is_trash, div.is_trash {
-	background-color: #999;
+	background-color: #DADADA;
 }
 a {
 	text-decoration: none;

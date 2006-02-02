@@ -53,6 +53,10 @@ class Invoices < Global
 		super
 		load_invoices
 	end
+	def ajax_collect_garbage
+		@session.collect_garbage
+		AjaxInvoices.new(@session, [])
+	end
 	private
 	def load_invoices
 		@model = sort_invoices(currency_convert(@session.invoices))
