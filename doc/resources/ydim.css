@@ -31,14 +31,17 @@ td.processingerror {
 	color: #C00;
 	font-weight: bold;
 }
-tr.ps_due, div.ps_due {
+tr.is_due, div.is_due {
 	background-color: #FAA;
 }
-tr.ps_paid, div.ps_paid {
+tr.is_paid, div.is_paid {
 	background-color: #AFA;
 }
-tr.ps_open, div.ps_open {
+tr.is_open, div.is_open {
 	background-color: #FFA;
+}
+tr.is_trash, div.is_trash {
+	background-color: #999;
 }
 a {
 	text-decoration: none;

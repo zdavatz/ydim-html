@@ -184,7 +184,7 @@ end
 class Invoice < Template
 	CONTENT = InvoiceComposite
 	def init
-		css_map[1] = @model.payment_status
+		css_map[1] = @model.status
 		super
 	end
 end

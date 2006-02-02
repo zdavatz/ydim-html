@@ -21,15 +21,15 @@ class Validator < SBSM::Validator
 			}
 		end
 	end
-	BOOLEAN = [:payment_received]
+	BOOLEAN = [:payment_received, :deleted]
 	DATES = [:date]
 	ENUMS = {
 		:currency					=> [ 'CHF', 'EUR', ],
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
 			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor' ],
 		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
-		:payment_status		=>	[ nil, 'ps_open', 'ps_due', 'ps_paid', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
+		:status						=>	[ nil, 'is_open', 'is_due', 'is_paid', 'is_trash'],
 	}
 	EVENTS = [ :ajax_create_item, :ajax_debitor, :ajax_delete_item, :ajax_item,
 		:ajax_invoice, :ajax_invoices, :ajax_status, :create_debitor,

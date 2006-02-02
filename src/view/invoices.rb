@@ -9,16 +9,17 @@ module YDIM
 		module View
 class InvoiceList < HtmlGrid::List
 	COMPONENTS = {
-		[0,0]	=>	:unique_id,
-		[1,0]	=>	:name,
-		[2,0]	=>	:email,
-		[3,0]	=>	:description,
-		[4,0]	=>	:formatted_date,
-		[5,0]	=>	:toggle_status,
-		[6,0]	=>	:total_netto,
-		[7,0]	=>	:total_brutto,
-		[8,0]	=>	:currency,
-		[9,0]	=>	:pdf,
+		[0,0]		=>	:unique_id,
+		[1,0]		=>	:name,
+		[2,0]		=>	:email,
+		[3,0]		=>	:description,
+		[4,0]		=>	:formatted_date,
+		[5,0]		=>	:toggle_status,
+		[6,0]		=>	:total_netto,
+		[7,0]		=>	:total_brutto,
+		[8,0]		=>	:currency,
+		[9,0]		=>	:pdf,
+		[10,0]	=>	:toggle_deleted,
 	}
 	CSS_ID = 'invoices'
 	CSS_MAP = {
@@ -41,12 +42,28 @@ class InvoiceList < HtmlGrid::List
 				}
 			}
 		end
+		def toggle(name, on, off)
+			define_method("toggle_#{name}") { |model|
+				current = model.send(name)
+				key = current ? off : on
+				link = HtmlGrid::Link.new(key, model, @session, self)
+				args = {
+					:unique_id				=>	model.unique_id,
+					name							=>	!current,
+				}
+				url = @lookandfeel._event_url(:ajax_invoices, args)
+				link.href = "javascript: reload_list('invoices', '#{url}')"
+				link
+			}
+		end
 	end
 	links :invoice, :date, :unique_id, :description
 	debitor_links :name, :email
 	escaped :total_netto, :total_brutto
+	toggle :deleted, :toggle_deleted, :toggle_recovered
+	toggle :status, :toggle_unpaid, :toggle_paid
 	def compose_components(model, offset)
-		@grid.set_row_attributes({'class' => model.payment_status}, offset.at(1))
+		@grid.set_row_attributes({'class' => model.status}, offset.at(1))
 		super
 	end
 	def compose_footer(offset)
@@ -98,17 +115,6 @@ class InvoiceList < HtmlGrid::List
 	def quantity(model)
 		escape(model.quantity)
 	end
-	def toggle_status(model)
-		key = model.payment_received ? :toggle_unpaid : :toggle_paid
-		link = HtmlGrid::Link.new(key, model, @session, self)
-		args = {
-			:unique_id				=>	model.unique_id,
-			:payment_received	=>	!model.payment_received,
-		}
-		url = @lookandfeel._event_url(:ajax_invoices, args)
-		link.href = "javascript: reload_list('invoices', '#{url}')"
-		link
-	end
 	def total_netto(model)
 		escape(model.total_netto)
 	end
@@ -118,27 +124,18 @@ class InvoicesSubnavigation < HtmlGrid::DivComposite
 		names.each { |name|
 			define_method(name) { |model|
 				link = HtmlGrid::Link.new(name, model, @session, self)
-				url = @lookandfeel._event_url(:ajax_status, {:payment_status => name })
+				url = @lookandfeel._event_url(:ajax_status, {:status => name })
 				link.href =	"javascript:reload_list('invoices', '#{url}');"
 				link
 			}
 		}
-=begin
-		names.each { |name|
-			define_method(name) { |model|
-				link = HtmlGrid::Link.new(name, model, @session, self)
-				link.href = @lookandfeel._event_url(:invoices, 
-																						{ :payment_status => name })
-				link
-			}
-		}
-=end
 	end
-	status_links :ps_open, :ps_paid, :ps_due
+	status_links :is_open, :is_paid, :is_due, :is_trash
 	COMPONENTS = {
-		[0,0]	=>	:ps_open,
-		[1,0]	=>	:ps_due,
-		[2,0]	=>	:ps_paid,
+		[0,0]	=>	:is_open,
+		[1,0]	=>	:is_due,
+		[2,0]	=>	:is_paid,
+		[3,0]	=>	:is_trash,
 	}
 	DIV_ID = 'subnavigation'
 end

@@ -13,11 +13,13 @@ class AjaxInvoices < SBSM::State
 end
 module AjaxInvoiceMethods
 	def ajax_invoices(model=@model)
-		keys = [:payment_received, :unique_id]
-		input = user_input(keys, keys)
-		id = input[:unique_id].to_i
-		if(!error? && (invoice = @session.invoice(id)))
-			invoice.payment_received = input[:payment_received]
+		keys = [:payment_received, :unique_id, :deleted]
+		input = user_input(keys, [:unique_id])
+		id = input.delete(:unique_id).to_i
+		if(!error? && !input.empty? && (invoice = @session.invoice(id)))
+			input.each { |key, val|
+				invoice.send("#{key}=", val)
+			}
 			invoice.odba_store
 			model.delete_if { |info| info.unique_id == id }
 		end

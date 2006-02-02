@@ -105,8 +105,7 @@ class Debitor < Global
 	end
 	private
 	def load_invoices
-		invoices = @model.invoice_infos(@session.user_input(:payment_status) \
-																		|| 'ps_open')
+		invoices = @model.invoice_infos(@session.user_input(:status) || 'is_open')
 		@invoice_infos = sort_invoices(currency_convert(invoices))
 	end
 	def update_model(input)

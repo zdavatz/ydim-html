@@ -112,9 +112,10 @@ end
 class DebitorComposite < HtmlGrid::DivComposite
 	COMPONENTS = {
 		[0,0]	=>	:form,
-		[0,1]	=>	:ps_open,
-		[1,1]	=>	:ps_due,
-		[2,1]	=>	:ps_paid,
+		[0,1]	=>	:is_open,
+		[1,1]	=>	:is_due,
+		[2,1]	=>	:is_paid,
+		[3,1]	=>	:is_trash,
 		[0,2]	=>	:invoices,
 		[0,3]	=>	:invoice_list,
 		[0,4]	=>	:create_invoice,
