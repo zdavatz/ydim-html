@@ -14,7 +14,7 @@ class InvoiceList < HtmlGrid::List
 		[2,0]		=>	:email,
 		[3,0]		=>	:description,
 		[4,0]		=>	:formatted_date,
-		[5,0]		=>	:toggle_status,
+		[5,0]		=>	:toggle_payment_received,
 		[6,0]		=>	:total_netto,
 		[7,0]		=>	:total_brutto,
 		[8,0]		=>	:currency,
@@ -61,7 +61,7 @@ class InvoiceList < HtmlGrid::List
 	debitor_links :name, :email
 	escaped :total_netto, :total_brutto
 	toggle :deleted, :toggle_deleted, :toggle_recovered
-	toggle :status, :toggle_unpaid, :toggle_paid
+	toggle :payment_received, :toggle_paid, :toggle_unpaid
 	def compose_components(model, offset)
 		@grid.set_row_attributes({'class' => model.status}, offset.at(1))
 		super

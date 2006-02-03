@@ -84,7 +84,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:th_quantity								=>	'Anzahl',
 			:th_text										=>	'Positionstext',
 			:th_time										=>	'Zeit',
-			:th_toggle_status						=>	'Status',
+			:th_toggle_payment_received	=>	'Status',
 			:th_total_brutto						=>	'Brutto',
 			:th_total_netto							=>	'Netto',
 			:th_unique_id								=>	'ID',
