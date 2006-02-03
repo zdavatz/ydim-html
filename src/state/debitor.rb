@@ -70,6 +70,11 @@ class Debitor < Global
 		end
 		AjaxValues.new(@session, data)
 	end
+	def generate_invoice
+		if(id = @session.user_input(:unique_id))
+			Invoice.new(@session, @session.generate_invoice(id.to_i))
+		end
+	end
 	def update
 		mandatory = [ :contact, :debitor_type, :email, :location, :name, ]
 		defaults = {}

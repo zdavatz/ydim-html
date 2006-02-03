@@ -43,6 +43,13 @@ class DebitorForm < HtmlGrid::Form
 		select.set_attribute('onChange', script)
 		select
 	end
+	def generate_invoice(model)
+		button = HtmlGrid::Button.new(:generate_invoice, model, @session, self)
+		url = @lookandfeel._event_url(:generate_invoice, 
+																	{:unique_id, model.unique_id})
+		button.set_attribute('onClick', "document.location.href='#{url}'")
+		button
+	end
 	def hidden_fields(context)
 		super << context.hidden('unique_id', @model.unique_id)
 	end
@@ -101,6 +108,7 @@ class HostingDebitorForm < DebitorForm
 		[0,11]	=>	:hosting_invoice_interval,
 		[0,12]	=>	:hosting_invoice_date,
 		[1,13]	=>	:submit,	
+		[1,13,0]=>	:generate_invoice,	
 	}
 	CSS_MAP = {
 		[1,10]	=>	'unpadded',

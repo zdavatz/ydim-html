@@ -47,6 +47,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:e_missing1									=>	'" an.',
 			:EUR												=>	'EUR',
 			:Frau												=>	'Frau',
+			:generate_invoice						=>	'Generieren',
 			:head												=>	'YDIM',
 			:Herr												=>	'Herr',
 			:hinv_3											=>	'Vierteljährlich',

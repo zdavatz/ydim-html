@@ -33,8 +33,8 @@ class Validator < SBSM::Validator
 	}
 	EVENTS = [ :ajax_collect_garbage, :ajax_create_item, :ajax_debitor,
 		:ajax_delete_item, :ajax_item, :ajax_invoice, :ajax_invoices, :ajax_status,
-		:create_debitor, :create_invoice, :debitor, :debitors, :invoice, :invoices,
-		:login, :logout, :pdf, :send_invoice, :sort, :update ]
+		:create_debitor, :create_invoice, :debitor, :debitors, :generate_invoice,
+		:invoice, :invoices, :login, :logout, :pdf, :send_invoice, :sort, :update ]
 	STRINGS = [ :name, :contact, :contact_firstname, :description, :location,
 		:sortvalue, :text, :unit ]
 	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]
