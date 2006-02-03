@@ -37,9 +37,9 @@ class Debitor < Global
 		AjaxHostingItems.new(@session, @model.hosting_items)
 	end
 	def ajax_debitor
-		keys = [ :address_lines, :contact, :contact_firstname, :debitor_type,
-			:email, :hosting_invoice_date, :hosting_invoice_interval, :hosting_price,
-			:location, :name, :salutation, ]
+		keys = [ :address_lines, :contact, :contact_firstname, :contact_title,
+			:debitor_type, :email, :hosting_invoice_date, :hosting_invoice_interval,
+			:hosting_price, :location, :name, :salutation, ]
 		update_model(user_input(keys))
 		AjaxDebitor.new(@session, @model)
 	end
@@ -86,7 +86,8 @@ class Debitor < Global
 			defaults.store(:hosting_invoice_date, Date.today + 1)
 			update_hosting_items
 		end
-		keys = mandatory.dup.push(:address_lines, :contact_firstname, :salutation)
+		keys = mandatory.dup.push(:address_lines, :contact_firstname,
+															:contact_title, :salutation)
 		input = defaults.update(user_input(keys, mandatory))
 		unless(error? || @model.unique_id)
 			@model = @session.create_debitor
