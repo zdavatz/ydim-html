@@ -37,8 +37,8 @@ class Debitor < Global
 		AjaxHostingItems.new(@session, @model.hosting_items)
 	end
 	def ajax_debitor
-		keys = [ :address_lines, :contact, :debitor_type, :email,
-			:hosting_invoice_date, :hosting_invoice_interval, :hosting_price,
+		keys = [ :address_lines, :contact, :contact_firstname, :debitor_type,
+			:email, :hosting_invoice_date, :hosting_invoice_interval, :hosting_price,
 			:location, :name, :salutation, ]
 		update_model(user_input(keys))
 		AjaxDebitor.new(@session, @model)

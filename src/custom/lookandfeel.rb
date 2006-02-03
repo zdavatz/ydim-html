@@ -16,6 +16,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:confirm_send_invoice0			=>	'Die Rechnung wurde an folgende Email-Adressen verschickt: ',
 			:confirm_send_invoice1			=>	'.',
 			:contact										=>	'Kontaktperson',
+			:contact_firstname					=>	'Kontakt Vorname',
 			:cpr_link										=>	' ywesee GmbH',
 			:create_debitor							=>	'Neuer Kunde',
 			:create_hosting_item				=>	'Neuer Domain-Pointer',

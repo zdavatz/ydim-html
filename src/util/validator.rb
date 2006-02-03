@@ -35,8 +35,8 @@ class Validator < SBSM::Validator
 		:ajax_delete_item, :ajax_item, :ajax_invoice, :ajax_invoices, :ajax_status,
 		:create_debitor, :create_invoice, :debitor, :debitors, :invoice, :invoices,
 		:login, :logout, :pdf, :send_invoice, :sort, :update ]
-	STRINGS = [ :name, :contact, :description, :location, :sortvalue, :text,
-		:unit ]
+	STRINGS = [ :name, :contact, :contact_firstname, :description, :location,
+		:sortvalue, :text, :unit ]
 	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]
 	future_dates :hosting_invoice_date
 	def address_lines(value)
