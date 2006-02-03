@@ -9,14 +9,15 @@ module YDIM
 class Lookandfeel < SBSM::Lookandfeel
 	DICTIONARIES = {
 		'de'	=>	{
-			:address_lines							=>	'Adresse',
+			:address_lines							=>	'Strasse/Nr.',
 			:CHF												=>	'CHF',
 			:collect_garbage						=>	'Papierkorb Leeren',
 			:comma											=>	', ',
 			:confirm_send_invoice0			=>	'Die Rechnung wurde an folgende Email-Adressen verschickt: ',
 			:confirm_send_invoice1			=>	'.',
-			:contact										=>	'Kontaktperson',
-			:contact_firstname					=>	'Kontakt Vorname',
+			:contact										=>	'Name',
+			:contact_firstname					=>	'Vorname',
+			:contact_title							=>	'Titel',
 			:cpr_link										=>	' ywesee GmbH',
 			:create_debitor							=>	'Neuer Kunde',
 			:create_hosting_item				=>	'Neuer Domain-Pointer',
