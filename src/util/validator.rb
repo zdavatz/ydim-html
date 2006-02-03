@@ -22,7 +22,7 @@ class Validator < SBSM::Validator
 		end
 	end
 	BOOLEAN = [:payment_received, :deleted]
-	DATES = [:date]
+	DATES = [:date, :hosting_invoice_date]
 	ENUMS = {
 		:currency					=> [ 'CHF', 'EUR', ],
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
@@ -38,7 +38,7 @@ class Validator < SBSM::Validator
 	STRINGS = [ :name, :contact, :contact_firstname, :description, :location,
 		:sortvalue, :text, :unit ]
 	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]
-	future_dates :hosting_invoice_date
+	#future_dates :hosting_invoice_date
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)
 	end

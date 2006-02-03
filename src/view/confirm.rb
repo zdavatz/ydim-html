@@ -15,6 +15,12 @@ class ConfirmComponent < HtmlGrid::Div
 end
 class Confirm < Template
 	CONTENT = ConfirmComponent
+	def http_headers
+		headers = super
+		url = @lookandfeel._event_url(:invoices)
+		headers.store('Refresh', "5; URL=#{url}")
+		headers
+	end
 end
 		end
 	end
