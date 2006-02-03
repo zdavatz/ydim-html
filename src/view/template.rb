@@ -2,6 +2,7 @@
 # Html::View::Template -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
 require 'htmlgrid/divtemplate'
+require 'htmlgrid/span'
 require 'view/htmlgrid'
 require 'view/navigation'
 
@@ -11,15 +12,10 @@ module YDIM
 class Template < HtmlGrid::DivTemplate
 	COMPONENTS = {
 		[0,0]		=>	:subnavigation,
-		[1,0]		=>	'head',
+		[1,0]		=>	:foot,
 		[0,1]		=>	:content,
-		[0,2]		=>	:foot,
-		[1,2]		=>  :lgpl_license,
-		[2,2]		=>  'comma',
-		[3,2]		=>  :current_year,
-		[4,2]		=>	:cpr_link,
-		[5,2]		=>  'comma',
-		[6,2]		=>	:ydim_version,
+		[0,2]		=>	:version,
+		[1,2]		=>	'ydim',
 	}
 	CSS_MAP = ['head', 'content', 'foot',]
 	DIV_CLASS = 'template'
@@ -55,6 +51,15 @@ class Template < HtmlGrid::DivTemplate
 	end
 	def standard_link(key, model)
 		HtmlGrid::Link.new(key, model, @session, self)
+	end
+	def version(model)
+		span = HtmlGrid::Span.new(model, @session, self)
+		span.css_id = 'version'
+		span.value = [ 
+			lgpl_license(model), @lookandfeel.lookup('comma'), Time.now.year.to_s,
+			cpr_link(model), @lookandfeel.lookup('comma'), ydim_version(model),
+		]
+		span
 	end
 	def ydim_version(model)
 		link = standard_link(:ydim_version, model)

@@ -47,24 +47,14 @@ a {
 	text-decoration: none;
 	color: #40A;
 }
-div.navigation {
-	display: inline;
-	float: left;
-	padding: 0px 5px;	
-	border-left: thin solid #306;
-}
-div > div.navigation:first-child {
-	border-left: 0px;
-}
 div#subnavigation {
-	font-weight: normal;
 	float: right;
 }
-div#subnavigation a {
+div#subnavigation a, div#navigation a {
 	padding: 0px 4px;
 	border-left: thin solid #306;
 }
-div#subnavigation > a:first-child {
+div#subnavigation > a:first-child, div#navigation > a:first-child {
 	border-left: 0px;
 }
 input.extralarge {
@@ -89,8 +79,8 @@ div.head {
 	border-style: solid;
 	border-width: thin 0px 0px thin;
 	background-color: #F88;
-	font-weight: bold;
-	padding: 4px;
+	padding: 4px 0px;
+	min-height: 15px;
 }
 div.foot {
 	background-color: #F88;
@@ -98,7 +88,6 @@ div.foot {
 	border-color: #A00;
 	border-style: solid;
 	border-width: 0px thin thin 0px;
-	text-align: right;
 }
 div.padded {
 	padding: 4px;
@@ -108,4 +97,8 @@ td.right {
 }
 span#total_brutto {
 	font-weight: bold;
+}
+span#version {
+	display: inline;
+	float: right;
 }

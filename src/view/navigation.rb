@@ -15,11 +15,11 @@ class NavigationLink < HtmlGrid::Link
 	end
 end
 class Navigation < HtmlGrid::DivComposite
-	DIV_CLASS = 'navigation'
+	DIV_ID = 'navigation'
 	COMPONENTS = {
 		[0,0]	=>	:debitors,
-		[0,1]	=>	:invoices,
-		[0,2]	=>	:logout,
+		[1,0]	=>	:invoices,
+		[2,0]	=>	:logout,
 	}	
 	DEFAULT_CLASS = NavigationLink
 end

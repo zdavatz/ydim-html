@@ -48,7 +48,6 @@ class Lookandfeel < SBSM::Lookandfeel
 			:EUR												=>	'EUR',
 			:Frau												=>	'Frau',
 			:generate_invoice						=>	'Generieren',
-			:head												=>	'YDIM',
 			:Herr												=>	'Herr',
 			:hinv_3											=>	'Vierteljährlich',
 			:hinv_6											=>	'Halbjährlich',
@@ -102,6 +101,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:unique_id									=>	'ID',
 			:update											=>	'Speichern',
 			:vat												=>	'MwSt. (7.6%)',
+			:ydim												=>	'YDIM',
 			:ydim_version								=>	'Commit-ID', 
 		},
 	}

@@ -35,9 +35,9 @@ class ItemList < HtmlGrid::List
 		[5,0]	=>	'right',
 	}
 	COMPONENT_CSS_MAP = {
-		[2,0]	=>	'small',
-		[3,0]	=>	'medium',
-		[4,0]	=>	'small',
+		[1,0]		=>	'extralarge',
+		[2,0]		=>	'small',
+		[3,0,2]	=>	'medium',
 	}
 	DEFAULT_CLASS = HtmlGrid::InputText
 	SORT_DEFAULT = nil
