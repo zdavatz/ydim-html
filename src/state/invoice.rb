@@ -116,7 +116,6 @@ class Invoice < Global
 			keys = [:description, :date, :currency, :precision]
 			input = user_input(keys, keys)
 			input[:precision] = input[:precision].to_i
-			puts input.inspect
 			input.each { |key, val|
 				@model.send("#{key}=", val)
 			}

@@ -44,12 +44,9 @@ class Validator < SBSM::Validator
 	end
 	def validate_numeric(key, value)
 		if(match = /\d*(\.\d{1,2})?/.match(value))
-			puts match.to_s
 			if(match[1])
-				puts 'float!'
 				match[0].to_f
 			else
-				puts 'int!'
 				match[0].to_i
 			end
 		else
