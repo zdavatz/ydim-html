@@ -44,7 +44,12 @@ module HtmlGrid
 			end
 		end
 		def precision
-			2
+			mdl = @session.state.model
+			if(mdl.respond_to?(:precision))
+				mdl.precision
+			else
+				2
+			end
 		end
 	end
 	class Composite 

@@ -37,10 +37,24 @@ class Validator < SBSM::Validator
 		:invoice, :invoices, :login, :logout, :pdf, :send_invoice, :sort, :update ]
 	STRINGS = [ :name, :contact, :contact_firstname, :contact_title,
 		:description, :location, :sortvalue, :text, :unit ]
-	NUMERIC = [ :unique_id, :hosting_price, :index, :price, :quantity ]
+	NUMERIC = [ :unique_id, :hosting_price, :index, :precision, :price, :quantity ]
 	#future_dates :hosting_invoice_date
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)
+	end
+	def validate_numeric(key, value)
+		if(match = /\d*(\.\d{1,2})?/.match(value))
+			puts match.to_s
+			if(match[1])
+				puts 'float!'
+				match[0].to_f
+			else
+				puts 'int!'
+				match[0].to_i
+			end
+		else
+			raise InvalidDataError.new(:e_invalid_numeric_format, key, value)
+		end
 	end
 end
 		end

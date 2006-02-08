@@ -69,6 +69,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:name												=>	'Firma',
 			:pass												=>	'Passwort',
 			:pdf												=>	'PDF',
+			:precision									=>	'Kommastellen',
 			:salutation									=>	'Anrede',
 			:send_invoice								=>	'Email Senden',
 			:th_currency								=>	'W&auml;hrung',

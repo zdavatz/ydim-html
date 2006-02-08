@@ -41,9 +41,6 @@ class ItemList < HtmlGrid::List
 	}
 	DEFAULT_CLASS = HtmlGrid::InputText
 	SORT_DEFAULT = nil
-	SYMBOL_MAP = {
-		:total_netto =>	SpanValue,
-	}
 	ajax_inputs :text, :quantity, :unit, :price
 	def compose_footer(offset)
 		link = HtmlGrid::Button.new(:create_item, @model, @session, self)
@@ -61,9 +58,6 @@ class ItemList < HtmlGrid::List
 		url = @lookandfeel.event_url(:ajax_delete_item, args)
 		link.href = "javascript: reload_list('items', '#{url}')"
 		link
-	end
-	def precision
-		@container.model.precision.to_i
 	end
 	def time(model)
 		if(time = model.time)
@@ -100,9 +94,11 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 		[0,2]		=>	:description, 
 		[0,3]		=>	:date,
 		[0,4]		=>	:currency,
+		[0,5]		=>	:precision,
 	}
 	COMPONENT_CSS_MAP = {
 		[0,2]	=>	'extralarge',
+		[0,5]	=>	'small',
 	}
 	DEFAULT_CLASS = HtmlGrid::Value
 	LABELS = true
@@ -128,6 +124,13 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 		link = name(model.debitor)
 		link.label = true
 		link
+	end
+	def precision(model)
+		input = HtmlGrid::InputText.new(:precision, model, @session, self)
+		if(model.unique_id)
+			input.set_attribute('onChange', "reload_form('invoice', 'ajax_invoice');")
+		end
+		input
 	end
 end
 class InvoiceComposite < HtmlGrid::DivComposite
