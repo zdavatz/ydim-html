@@ -77,14 +77,6 @@ class Invoice < Global
 		_do_update
 		AjaxInvoice.new(@session, @model)
 	end
-	def send_invoice
-		if(id = @session.user_input(:unique_id))
-			recipients = @session.send_invoice(id.to_i)
-			message = @session.lookandfeel.lookup(:confirm_send_invoice, 
-																						recipients.join(', '))
-			Html::State::Confirm.new(@session, message)
-		end
-	end
 	def update
 		_do_update
 		self

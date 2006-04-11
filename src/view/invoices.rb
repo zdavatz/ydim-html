@@ -18,8 +18,9 @@ class InvoiceList < HtmlGrid::List
 		[6,0]		=>	:total_netto,
 		[7,0]		=>	:total_brutto,
 		[8,0]		=>	:currency,
-		[9,0]		=>	:pdf,
-		[10,0]	=>	:toggle_deleted,
+		[9,0]		=>	:send_invoice,
+		[10,0]	=>	:pdf,
+		[11,0]	=>	:toggle_deleted,
 	}
 	CSS_ID = 'invoices'
 	CSS_MAP = {
@@ -124,6 +125,14 @@ class InvoiceList < HtmlGrid::List
 	end
 	def quantity(model)
 		escape(model.quantity)
+	end
+	def send_invoice(model)
+		if(model.status == 'is_due')
+			link = HtmlGrid::Link.new(:send_invoice, model, @session, self)
+			link.href = @lookandfeel._event_url(:send_invoice, 
+																					{:unique_id => model.unique_id})
+			link
+		end
 	end
 	def total_netto(model)
 		escape(model.total_netto)

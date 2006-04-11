@@ -66,6 +66,14 @@ class Global < SBSM::State
 			Pdf.new(@session, @session.invoice(id.to_i))
 		end
 	end
+	def send_invoice
+		if(id = @session.user_input(:unique_id))
+			recipients = @session.send_invoice(id.to_i)
+			message = @session.lookandfeel.lookup(:confirm_send_invoice, 
+																						recipients.join(', '))
+			Html::State::Confirm.new(@session, message)
+		end
+	end
 end
 		end
 	end
