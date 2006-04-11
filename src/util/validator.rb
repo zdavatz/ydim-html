@@ -42,6 +42,15 @@ class Validator < SBSM::Validator
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)
 	end
+	def phone(value)
+		str = value.to_s.strip
+		return if(str.empty?)
+		if(/^00[0-9 ]{10,}$/.match(str))
+			str
+		else
+			raise SBSM::InvalidDataError.new(:e_invalid_phone, :phone, str)
+		end
+	end
 	def validate_numeric(key, value)
 		if(match = /\d*(\.\d{1,2})?/.match(value))
 			if(match[1])
@@ -50,7 +59,7 @@ class Validator < SBSM::Validator
 				match[0].to_i
 			end
 		else
-			raise InvalidDataError.new(:e_invalid_numeric_format, key, value)
+			raise SBSM::InvalidDataError.new(:e_invalid_numeric_format, key, value)
 		end
 	end
 end

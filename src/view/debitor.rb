@@ -27,7 +27,8 @@ class DebitorForm < HtmlGrid::Form
 		[0,7]	=> :address_lines,
 		[0,8]	=> :location,
 		[0,9]	=> :email, 
-		[1,10]	=> :submit, 
+		[0,10]	=>	:phone,	
+		[1,11]	=> :submit, 
 	}
 	FORM_ID = 'debitor'
 	EVENT = :update
@@ -105,15 +106,16 @@ class HostingDebitorForm < DebitorForm
 		[0,7]		=>	:address_lines,
 		[0,8]		=>	:location,
 		[0,9]		=>	:email,	
-		[0,10]		=>	:hosting_price,
-		[1,11]	=>	:hosting_item_list,
-		[0,12]	=>	:hosting_invoice_interval,
-		[0,13]	=>	:hosting_invoice_date,
-		[1,14]	=>	:submit,	
-		[1,14,0]=>	:generate_invoice,	
+		[0,10]	=>	:phone,	
+		[0,11]	=>	:hosting_price,
+		[1,12]	=>	:hosting_item_list,
+		[0,13]	=>	:hosting_invoice_interval,
+		[0,14]	=>	:hosting_invoice_date,
+		[1,15]	=>	:submit,	
+		[1,15,0]=>	:generate_invoice,	
 	}
 	CSS_MAP = {
-		[1,11]	=>	'unpadded',
+		[1,12]	=>	'unpadded',
 	}
 	def hosting_item_list(model)
 		if(model.unique_id)
