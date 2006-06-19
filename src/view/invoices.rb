@@ -156,7 +156,7 @@ class InvoicesSubnavigation < HtmlGrid::DivComposite
 		[2,0]	=>	:is_paid,
 		[3,0]	=>	:is_trash,
 	}
-	DIV_ID = 'subnavigation'
+	CSS_ID_MAP = ['subnavigation']
 end
 class InvoicesComposite < HtmlGrid::DivComposite
 	COMPONENTS = {
