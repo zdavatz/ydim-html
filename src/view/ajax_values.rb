@@ -9,7 +9,7 @@ module YDIM
 		module View
 class AjaxValues < HtmlGrid::Component
 	HTTP_HEADERS = {
-		'Content-Type'	=>	'text/javascript',
+		'Content-Type'	=>	'text/javascript; charset=ISO-8859-1',
 	}
 	def to_html(context)
 		"var ajaxResponse = {\n" << @model.collect { |key, val|

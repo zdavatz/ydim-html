@@ -1,3 +1,14 @@
+function sbsm_encode(value)
+{
+  // this function provides an Encoding-Hack: because encodeURIComponent returns 
+  // UTF-8 encoded values and because for some reasone we need to encode twice 
+  // anyway, we first encode in native charset.
+	value = dojo.string.encodeAscii(value);
+  value = value.replace(/\//g, '%2f')
+	value = encodeURIComponent(value);
+	return value;
+}
+
 function reload_form(form_id, server_event)
 {
 	var form;

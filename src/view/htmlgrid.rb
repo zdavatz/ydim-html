@@ -12,6 +12,10 @@ require 'htmlgrid/pass'
 
 module HtmlGrid
 	class Component
+    HTTP_HEADERS = {
+			"Cache-Control"	=>	"no-cache, max-age=3600, must-revalidate",
+      'Content-Type'	=>	'text/html; charset=ISO-8859-1',
+    }
 		class << self
 			def escaped(*names)
 				names.each { |name|
@@ -82,7 +86,7 @@ module HtmlGrid
 						key,				nil,
 					]
 					url = @lookandfeel.event_url(:ajax_item, args)
-					input.set_attribute('onChange', "reload_data('#{url}' + this.value)")
+					input.set_attribute('onChange', "reload_data('#{url}' + sbsm_encode(this.value))")
 					input
 				}
 			}
