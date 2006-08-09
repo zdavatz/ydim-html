@@ -111,8 +111,8 @@ class HostingDebitorForm < DebitorForm
 		[1,12]	=>	:hosting_item_list,
 		[0,13]	=>	:hosting_invoice_interval,
 		[0,14]	=>	:hosting_invoice_date,
-		[1,15]	=>	:submit,	
-		[1,15,0]=>	:generate_invoice,	
+		[1,15,0]=>	:submit,	
+		[1,15,1]=>	:generate_invoice,	
 	}
 	CSS_MAP = {
 		[1,12]	=>	'unpadded',
