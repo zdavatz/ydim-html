@@ -7,11 +7,14 @@ module YDIM
 	module Html
 		module View
 class Pdf < HtmlGrid::Component
-	HTTP_HEADERS = {
-		'Content-Type'	=>	'application/pdf',
-	}
 	def to_html(context)
 		@model.to_pdf
+	end
+	def http_headers(*args)
+		super.update(
+			'Content-Type'				=>	'application/pdf',
+			'Content-Disposition' =>  "attachment; filename=#{@model.unique_id}.pdf"
+		)
 	end
 end
 		end
