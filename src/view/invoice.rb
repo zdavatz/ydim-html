@@ -35,9 +35,10 @@ class ItemList < HtmlGrid::List
 		[5,0]	=>	'right',
 	}
 	COMPONENT_CSS_MAP = {
-		[1,0]		=>	'extralarge',
-		[2,0]		=>	'small',
-		[3,0,2]	=>	'medium',
+		[1,0]	=>	'extralarge',
+		[2,0]	=>	'small',
+		[3,0]	=>	'medium',
+		[4,0]	=>	'medium',
 	}
 	DEFAULT_CLASS = HtmlGrid::InputText
 	SORT_DEFAULT = nil
@@ -88,9 +89,9 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 	links :debitor, :name, :email
 	COMPONENTS = {
 		[0,0]		=>	:unique_id,
-		[0,1]		=>	:debitor_name,
-		[1,1,0]	=>	'dash', 
-		[1,1,1]	=>	:debitor_email,
+		[0,1,0]	=>	:debitor_name,
+		[1,1,1]	=>	'dash', 
+		[1,1,2]	=>	:debitor_email,
 		[0,2]		=>	:description, 
 		[0,3]		=>	:date,
 		[0,4]		=>	:currency,

@@ -11,9 +11,10 @@ function sbsm_encode(value)
 
 function reload_form(form_id, server_event)
 {
+  document.body.style.cursor = 'wait';
 	var form;
 	var evt_field;
-	if((form = document.getElementById(form_id)) && (evt_field = document.getElementById("event")))
+	if((form = dojo.byId(form_id)) && (evt_field = dojo.byId("event")))
 	{
 		evt_field.value = server_event;
 		dojo.io.bind({
@@ -21,6 +22,7 @@ function reload_form(form_id, server_event)
 			formNode: form,
 			load: function(type, data, event) { 
 				form.parentNode.innerHTML = data;
+        document.body.style.cursor = 'auto';
 			},
 			mimetype: "text/html"
 		});
@@ -29,7 +31,7 @@ function reload_form(form_id, server_event)
 function reload_list(list_id, url)
 {
 	var list;
-	if(list = document.getElementById(list_id))
+	if(list = dojo.byId(list_id))
 	{
 		dojo.io.bind({
 			url: url,
@@ -47,7 +49,7 @@ function reload_data(url)
 		load: function(type, data, event) {
 			var key, val, item;
 			for(key in ajaxResponse) { 
-				if(item = document.getElementById(key))
+				if(item = dojo.byId(key))
 				{
 					if(item.value)
 					{
