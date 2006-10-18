@@ -32,6 +32,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:debitor_type								=>	'Kundenart',
 			:delete											=>	'Löschen',
 			:description								=>	'Beschreibung',
+			:dt_consulting	    				=>	'Beratung',
 			:dt_doctor									=>	'Arzt',
 			:dt_health									=>	'Gesundheitsdienstleister',
 			:dt_hospital								=>	'Spital',

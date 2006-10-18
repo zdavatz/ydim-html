@@ -26,7 +26,8 @@ class Validator < SBSM::Validator
 	ENUMS = {
 		:currency					=> [ 'CHF', 'EUR', ],
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
-			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor' ],
+			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor',
+      'dt_consulting' ],
 		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 		:status						=>	[ nil, 'is_open', 'is_due', 'is_paid', 'is_trash'],
