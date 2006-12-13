@@ -22,6 +22,9 @@ module InvoiceKeys
     :invoice
   end
   def invoice_keys
+    invoice_mandatory + [:precision]
+  end
+  def invoice_mandatory
     [:description, :date, :currency]
   end
 end
@@ -33,9 +36,7 @@ class CreateInvoice < Global
     _update(Invoice)
   end
 	def _update(nextclass)
-		mandatory = invoice_keys
-		keys = mandatory + [:precision]
-		input = user_input(keys, mandatory)
+		input = user_input(invoice_keys, invoice_mandatory)
 		input[:precision] = (input[:precision] || 2).to_i
 		unless(error?)
 			@model = @session.send("create_#{invoice_key}",
@@ -127,9 +128,7 @@ class Invoice < Global
 			}
 
 			## update invoice
-      mandatory = invoice_keys
-      keys = mandatory + [:precision]
-			input = user_input(keys, mandatory)
+			input = user_input(invoice_keys, invoice_mandatory)
 			input[:precision] = (input[:precision] || 2).to_i
 			input.each { |key, val|
 				@model.send("#{key}=", val)

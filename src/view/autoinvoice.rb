@@ -19,6 +19,7 @@ class AutoInvoiceInnerComposite < InvoiceInnerComposite
 		[0,6]		=>	:invoice_interval,
     [0,7]   =>  :reminder_subject,
     [0,8]   =>  :reminder_body,
+    [1,9]   =>  :reminder_date,
 	}
 	COMPONENT_CSS_MAP = {
 		[0,2]	=>	'extralarge',
@@ -30,8 +31,17 @@ class AutoInvoiceInnerComposite < InvoiceInnerComposite
 	}
   def reminder_body(model)
     input = HtmlGrid::Textarea.new(:reminder_body, model, @session, self)
+    input.set_attribute('wrap', 'hard')
+    input.set_attribute('cols', '72')
     input.label = true
     input
+  end
+  def reminder_date(model)
+    if(model.reminder_body && model.reminder_subject)
+      (model.date << 1).strftime(@lookandfeel.lookup(:reminder_date))
+    else
+      @lookandfeel.lookup(:reminder_none)
+    end
   end
 end
 class AutoInvoiceComposite < InvoiceComposite
