@@ -1,5 +1,7 @@
 body, textarea {
 	font-family: Frutiger, Helvetica, Verdana, Arial, sans-serif;
+}
+body {
 	color: #306;
 	background-color: #FFC;
 }
@@ -23,13 +25,20 @@ td, th {
 td.unpadded {
 	padding: 0px;
 }
-th {
-	text-align: left;
-	background-color: #FC6;
-}
 td.processingerror {
 	color: #C00;
 	font-weight: bold;
+}
+td.top {
+  vertical-align: top;
+}
+textarea {
+  width: 400px;
+  height: 200px;
+}
+th {
+	text-align: left;
+	background-color: #FC6;
 }
 tr.is_due, div.is_due {
 	background-color: #FAA;

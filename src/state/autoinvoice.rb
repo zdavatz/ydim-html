@@ -16,7 +16,8 @@ module AutoInvoiceKeys
     :autoinvoice
   end
   def invoice_keys
-    [:description, :date, :currency, :invoice_interval]
+    [ :description, :date, :currency, :invoice_interval,
+      :reminder_body, :reminder_subject ]
   end
 end
 class CreateAutoInvoice < CreateInvoice

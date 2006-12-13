@@ -6,6 +6,7 @@ require 'htmlgrid/form'
 require 'htmlgrid/inputdate'
 require 'htmlgrid/errormessage'
 require 'htmlgrid/select'
+require 'htmlgrid/textarea'
 
 module YDIM
 	module Html
@@ -107,6 +108,7 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 		:date					      =>	HtmlGrid::InputDate,
 		:description	      =>	HtmlGrid::InputText,
     :invoice_interval   =>  HtmlGrid::Select,
+    :reminder_subject   =>  HtmlGrid::InputText,
 	}
 	def init
 		super

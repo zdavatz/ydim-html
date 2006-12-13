@@ -39,7 +39,8 @@ class Validator < SBSM::Validator
     :debitors, :generate_invoice, :invoice, :invoices, :login, :logout,
     :pdf, :send_invoice, :sort, :update ]
 	STRINGS = [ :name, :contact, :contact_firstname, :contact_title,
-		:description, :location, :sortvalue, :text, :unit ]
+    :description, :location, :reminder_body, :reminder_subject,
+    :sortvalue, :text, :unit ]
   NUMERIC = [ :unique_id, :hosting_price, :index, :precision, :price,
     :quantity ]
 	#future_dates :hosting_invoice_date

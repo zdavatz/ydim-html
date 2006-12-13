@@ -73,6 +73,8 @@ class Lookandfeel < SBSM::Lookandfeel
 			:pdf												=>	'PDF',
 			:phone											=>	'Telefon',
 			:precision									=>	'Kommastellen',
+			:reminder_body							=>	'Erinnerungsmail Text',	
+			:reminder_subject  					=>	'Erinnerungsmail Betreff',	
 			:salutation									=>	'Anrede',
 			:send_invoice								=>	'Email Senden',
 			:th_currency								=>	'W&auml;hrung',
