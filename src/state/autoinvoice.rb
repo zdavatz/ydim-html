@@ -21,6 +21,7 @@ module AutoInvoiceKeys
 end
 class CreateAutoInvoice < CreateInvoice
   include AutoInvoiceKeys
+  VIEW = Html::View::AutoInvoice
   def update
     _update(AutoInvoice)
   end
