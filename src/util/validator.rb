@@ -28,17 +28,20 @@ class Validator < SBSM::Validator
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
 			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor',
       'dt_consulting' ],
-		:hosting_invoice_interval => [ 'hinv_3', 'hinv_6', 'hinv_12', ],
+		:invoice_interval => [ 'inv_12', 'inv_6', 'inv_3', 'inv_m', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 		:status						=>	[ nil, 'is_open', 'is_due', 'is_paid', 'is_trash'],
 	}
 	EVENTS = [ :ajax_collect_garbage, :ajax_create_item, :ajax_debitor,
-		:ajax_delete_item, :ajax_item, :ajax_invoice, :ajax_invoices, :ajax_status,
-		:create_debitor, :create_invoice, :debitor, :debitors, :generate_invoice,
-		:invoice, :invoices, :login, :logout, :pdf, :send_invoice, :sort, :update ]
+    :ajax_delete_autoinvoice, :ajax_delete_item, :ajax_item,
+    :ajax_invoice, :ajax_invoices, :ajax_status, :autoinvoice,
+    :create_autoinvoice, :create_debitor, :create_invoice, :debitor,
+    :debitors, :generate_invoice, :invoice, :invoices, :login, :logout,
+    :pdf, :send_invoice, :sort, :update ]
 	STRINGS = [ :name, :contact, :contact_firstname, :contact_title,
 		:description, :location, :sortvalue, :text, :unit ]
-	NUMERIC = [ :unique_id, :hosting_price, :index, :precision, :price, :quantity ]
+  NUMERIC = [ :unique_id, :hosting_price, :index, :precision, :price,
+    :quantity ]
 	#future_dates :hosting_invoice_date
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)

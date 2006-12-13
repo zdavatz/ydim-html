@@ -17,29 +17,45 @@ class AjaxInvoice < SBSM::State
 	VOLATILE = true
 	VIEW = Html::View::InvoiceComposite
 end
+module InvoiceKeys
+  def invoice_key
+    :invoice
+  end
+  def invoice_keys
+    [:description, :date, :currency]
+  end
+end
 class CreateInvoice < Global
+  include InvoiceKeys
 	VIEW = Html::View::Invoice
 	attr_reader :model
-	def update
-		keys = [:description, :date, :currency]
-		input = user_input(keys, keys)
+  def update
+    _update(Invoice)
+  end
+	def _update(nextclass)
+		mandatory = invoice_keys
+		keys = mandatory + [:precision]
+		input = user_input(keys, mandatory)
+		input[:precision] = (input[:precision] || 2).to_i
 		unless(error?)
-			@model = @session.create_invoice(@model.debitor.unique_id)
+			@model = @session.send("create_#{invoice_key}",
+                             @model.debitor.unique_id)
 			input.each { |key, val|
 				@model.send("#{key}=", val)
 			}
 			@model.odba_store
-			Invoice.new(@session, @model)
+			nextclass.new(@session, @model)
 		end
 	end
 end
 class Invoice < Global
+  include InvoiceKeys
 	VIEW = Html::View::Invoice
 	attr_reader :model
 	def ajax_create_item
 		if(id = @session.user_input(:unique_id))
 			begin
-				@session.add_items(id.to_i, [{:time => Time.now}])
+				@session.add_items(id.to_i, [{:time => Time.now}], invoice_key)
 			rescue IndexError
 			end
 		end
@@ -49,7 +65,7 @@ class Invoice < Global
 		if((id = @session.user_input(:unique_id)) \
 			&& (idx = @session.user_input(:index)))
 			begin
-				@session.delete_item(id.to_i, idx.to_i)
+				@session.delete_item(id.to_i, idx.to_i, invoice_key)
 			rescue IndexError
 			end
 		end
@@ -62,7 +78,8 @@ class Invoice < Global
 			begin
 				keys = [:text, :quantity, :unit, :price]
 				input = user_input(keys).delete_if { |key, val| val.nil?  }
-				item = @session.update_item(id.to_i, idx.to_i, input)
+				item = @session.update_item(id.to_i, idx.to_i, input, 
+                                    invoice_key)
 				input.each { |key, val| data.store("#{key}[#{item.index}]", val) }
 				data.store("total_netto#{item.index}", item.total_netto)
 			rescue IndexError
@@ -77,12 +94,17 @@ class Invoice < Global
 		_do_update
 		AjaxInvoice.new(@session, @model)
 	end
+  def send_invoice
+    _do_update
+    super
+  end
 	def update
 		_do_update
 		self
 	end
 	def _do_update
-		if((id = @session.user_input(:unique_id)) && @model.unique_id == id.to_i)
+		if((id = @session.user_input(:unique_id)) \
+       && @model.unique_id == id.to_i)
 			## update items
 			keys = [:text, :quantity, :unit, :price]
 			data = {}
@@ -101,13 +123,14 @@ class Invoice < Global
 				if(converter)
 					item[:price] = converter.convert(item[:price], origin, target)
 				end
-				@session.update_item(id.to_i, idx.to_i, item)
+				@session.update_item(id.to_i, idx.to_i, item, invoice_key)
 			}
 
 			## update invoice
-			keys = [:description, :date, :currency, :precision]
-			input = user_input(keys, keys)
-			input[:precision] = input[:precision].to_i
+      mandatory = invoice_keys
+      keys = mandatory + [:precision]
+			input = user_input(keys, mandatory)
+			input[:precision] = (input[:precision] || 2).to_i
 			input.each { |key, val|
 				@model.send("#{key}=", val)
 			}

@@ -3,6 +3,7 @@
 
 require 'sbsm/state'
 require 'state/init'
+require 'state/autoinvoice'
 require 'state/debitor'
 require 'state/debitors'
 require 'state/invoice'
@@ -35,18 +36,29 @@ class Global < SBSM::State
 		:debitors	=>	Debitors,
 		:invoices	=>	Invoices,
 	}
+  def autoinvoice
+    if(id = @session.user_input(:unique_id))
+      AutoInvoice.new(@session, @session.autoinvoice(id))
+    end
+  end
+  def create_autoinvoice
+    _create_invoice(CreateAutoInvoice, Date.today.next)
+  end
 	def create_debitor
 		Debitor.new(@session, YDIM::Debitor.new(nil))
 	end
 	def create_invoice
+    _create_invoice(CreateInvoice)
+	end
+  def _create_invoice(nextclass, date=Date.today)
 		if((id = @session.user_input(:unique_id)) \
 			 && (debitor = @session.debitor(id.to_i)))
 			invoice = Stub.new
 			invoice.carry(:debitor, debitor)
-			invoice.carry(:date, Date.today)
-			CreateInvoice.new(@session, invoice)
+			invoice.carry(:date, date)
+			nextclass.new(@session, invoice)
 		end
-	end
+  end
 	def debitor
 		if(id = @session.user_input(:unique_id))
 			Debitor.new(@session, @session.debitor(id.to_i))

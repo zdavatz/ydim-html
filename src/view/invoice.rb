@@ -104,8 +104,9 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 	DEFAULT_CLASS = HtmlGrid::Value
 	LABELS = true
 	SYMBOL_MAP = {
-		:date					=>	HtmlGrid::InputDate,
-		:description	=>	HtmlGrid::InputText,
+		:date					      =>	HtmlGrid::InputDate,
+		:description	      =>	HtmlGrid::InputText,
+    :invoice_interval   =>  HtmlGrid::Select,
 	}
 	def init
 		super
@@ -152,13 +153,13 @@ class InvoiceComposite < HtmlGrid::DivComposite
 	def init
 		if(@model.unique_id.nil?)
 			@components = {
-				[0,0]	=>	InvoiceInnerComposite,
+				[0,0]	=>	components[[0,0]],
 				[0,1]	=>	:submit,
 			}
 			@css_map = { 1 => 'padded' }
 		elsif(@model.items.empty?)
 			@components = {
-				[0,0]	=>	InvoiceInnerComposite,
+				[0,0]	=>	components[[0,0]],
 				[0,1]	=>	:items,
 				[0,2]	=>	:submit,
 			}
@@ -179,9 +180,13 @@ class InvoiceComposite < HtmlGrid::DivComposite
 		button
 	end
 	def send_invoice(model)
-		button = HtmlGrid::Button.new(:send_invoice, model, @session, self)
-		url = @lookandfeel._event_url(:send_invoice, {:unique_id => model.unique_id})
-		button.set_attribute('onClick', "document.location.href='#{url}'")
+    button(:send_invoice, model)
+  end
+  def button(key, model)
+		button = HtmlGrid::Button.new(key, model, @session, self)
+		url = @lookandfeel._event_url(key, {:unique_id => model.unique_id})
+		button.set_attribute('onClick', 
+      "this.form.event.value='#{key}'; this.form.submit()")
 		button
 	end
 end

@@ -2,6 +2,7 @@
 # Html::View::Debitor -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
 require 'view/template'
+require 'view/autoinvoices'
 require 'view/invoices'
 require 'htmlgrid/inputtext'
 require 'htmlgrid/inputdate'
@@ -33,10 +34,7 @@ class DebitorForm < HtmlGrid::Form
 	FORM_ID = 'debitor'
 	EVENT = :update
 	SYMBOL_MAP = {
-		:hosting_invoice_interval	=>	HtmlGrid::Select,
-		:hosting_items						=>	HtmlGrid::LabelText,	
 		:unique_id								=>	HtmlGrid::Value,
-		:hosting_invoice_date			=>	HtmlGrid::InputDate,
 		:salutation								=>	HtmlGrid::Select,
 	}
 	def debitor_type(model)
@@ -56,73 +54,6 @@ class DebitorForm < HtmlGrid::Form
 		super << context.hidden('unique_id', @model.unique_id)
 	end
 end
-class HostingItemList < HtmlGrid::List
-	COMPONENTS = {
-		[0,0]	=>	:text,
-		[1,0]	=>	:price,
-		[2,0]	=>	:delete,
-	}
-	CSS_ID = 'hosting-items'
-	CSS_MAP = {
-		[2,0]	=>	'right',
-	}
-	COMPONENT_CSS_MAP = {
-		[1,0]	=>	'small'
-	}
-	DEFAULT_CLASS = HtmlGrid::InputText
-	LOOKANDFEEL_MAP = {
-		:price	=>	:hosting_price,
-		:text		=>	:domain,
-	}
-	SORT_DEFAULT = nil
-	ajax_inputs :text, :price
-	def compose_footer(offset)
-		link = HtmlGrid::Button.new(:create_hosting_item, @model, @session, self)
-		args = { :unique_id => @session.state.model.unique_id }
-		url = @lookandfeel.event_url(:ajax_create_item, args)
-		link.set_attribute('onClick', "reload_list('hosting-items', '#{url}');")
-		@grid.add(link, *offset)
-	end
-	def delete(model)
-		link = HtmlGrid::Link.new(:delete, model, @session, self)
-		args = {
-			:unique_id	=>	@session.state.model.unique_id,
-			:index			=>	model.index,
-		}
-		url = @lookandfeel.event_url(:ajax_delete_item, args)
-		link.href = "javascript: reload_list('hosting-items', '#{url}')"
-		link
-	end
-end
-class HostingDebitorForm < DebitorForm
-	COMPONENTS = {
-		[0,0]		=>	:unique_id,
-		[0,1]		=>	:debitor_type,
-		[0,2]		=>	:name,	
-		[0,3]		=>	:salutation, 
-		[0,4]		=>	:contact,	
-		[0,5]		=>	:contact_firstname,	
-		[0,6]		=>	:contact_title,	
-		[0,7]		=>	:address_lines,
-		[0,8]		=>	:location,
-		[0,9]		=>	:email,	
-		[0,10]	=>	:phone,	
-		[0,11]	=>	:hosting_price,
-		[1,12]	=>	:hosting_item_list,
-		[0,13]	=>	:hosting_invoice_interval,
-		[0,14]	=>	:hosting_invoice_date,
-		[1,15,0]=>	:submit,	
-		[1,15,1]=>	:generate_invoice,	
-	}
-	CSS_MAP = {
-		[1,12]	=>	'unpadded',
-	}
-	def hosting_item_list(model)
-		if(model.unique_id)
-			HostingItemList.new(model.hosting_items || [], @session, self)
-		end
-	end
-end
 class DebitorComposite < HtmlGrid::DivComposite
 	COMPONENTS = {
 		[0,0]	=>	:form,
@@ -133,24 +64,39 @@ class DebitorComposite < HtmlGrid::DivComposite
 		[0,2]	=>	:invoices,
 		[0,3]	=>	:invoice_list,
 		[0,4]	=>	:create_invoice,
+		[0,5]	=>	:autoinvoices,
+		[0,6]	=>	:autoinvoice_list,
+		[0,7]	=>	:create_autoinvoice,
 	}
 	CSS_MAP = {
 		1	=>	'subnavigation',
 		2	=>	'padded',
 		4	=>	'padded',
+		5	=>	'padded',
+		7	=>	'padded',
 	}
 	SYMBOL_MAP = {
-		:invoices	=>	HtmlGrid::LabelText,
+		:invoices	    =>	HtmlGrid::LabelText,
+		:autoinvoices	=>	HtmlGrid::LabelText,
 	}
-	def create_invoice(model)
-		if(model.unique_id)
-			button = HtmlGrid::Button.new(:create_invoice, model, @session, self)
-			args = {:unique_id => model.unique_id}
-			url = @lookandfeel._event_url(:create_invoice, args)
-			button.set_attribute('onClick', "document.location.href='#{url}'")
-			button
-		end
-	end
+  def autoinvoice_list(model)
+    AutoInvoiceList.new(@session.state.autoinvoice_infos, @session, self)
+  end
+  def button(key, model)
+  	if(model.unique_id)
+  		button = HtmlGrid::Button.new(key, model, @session, self)
+  		args = {:unique_id => model.unique_id}
+  		url = @lookandfeel._event_url(key, args)
+  		button.set_attribute('onClick', "document.location.href='#{url}'")
+  		button
+  	end
+  end
+  def create_autoinvoice(model)
+    button(:create_autoinvoice, model)
+  end
+  def create_invoice(model)
+    button(:create_invoice, model)
+  end
 	def form(model)
 		Debitor.select_form(model).new(model, @session, self)
 	end
@@ -161,12 +107,7 @@ end
 class Debitor < Template
 	CONTENT = DebitorComposite
 	def Debitor.select_form(model)
-		case model.debitor_type
-		when 'dt_hosting'
-			HostingDebitorForm
-		else
-			DebitorForm
-		end
+		DebitorForm
 	end
 	def subnavigation(model)
 		InvoicesSubnavigation.new(model, @session, self)

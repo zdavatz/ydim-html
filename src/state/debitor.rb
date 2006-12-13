@@ -9,9 +9,9 @@ require 'view/debitor'
 module YDIM
 	module Html
 		module State
-class AjaxHostingItems < SBSM::State
+class AjaxAutoInvoices < SBSM::State
 	VOLATILE = true
-	VIEW = Html::View::HostingItemList
+	VIEW = Html::View::AutoInvoiceList
 end
 class AjaxDebitor < SBSM::State
 	VOLATILE = true
@@ -21,54 +21,28 @@ class AjaxDebitor < SBSM::State
 end
 class Debitor < Global
 	include AjaxInvoiceMethods
-	attr_reader :model, :invoice_infos
+	attr_reader :model, :autoinvoice_infos, :invoice_infos
 	VIEW = Html::View::Debitor
 	def init
 		super
+		load_autoinvoices
 		load_invoices
 	end
-	def ajax_create_item
-		if(id = @session.user_input(:unique_id))
-			begin
-				@session.create_hosting_item(id.to_i)
-			rescue IndexError
-			end
-		end
-		AjaxHostingItems.new(@session, @model.hosting_items)
-	end
 	def ajax_debitor
-		keys = [ :address_lines, :contact, :contact_firstname, :contact_title,
-			:debitor_type, :email, :hosting_invoice_date, :hosting_invoice_interval,
-			:hosting_price, :location, :name, :salutation, :phone ]
+    keys = [ :address_lines, :contact, :contact_firstname,
+      :contact_title, :debitor_type, :email, :location, :name,
+      :salutation, :phone ]
 		update_model(user_input(keys))
 		AjaxDebitor.new(@session, @model)
 	end
-	def ajax_delete_item
-		if((id = @session.user_input(:unique_id)) \
-			&& (idx = @session.user_input(:index)))
-			begin
-				@session.delete_hosting_item(id.to_i, idx.to_i)
-			rescue IndexError
-			end
-		end
-		AjaxHostingItems.new(@session, @model.hosting_items)
-	end
+  def ajax_delete_autoinvoice
+    if(id = @session.user_input(:unique_id))
+      @session.delete_autoinvoice(id)
+    end
+		AjaxAutoInvoices.new(@session, load_autoinvoices)
+  end
 	def ajax_invoices
 		super(@invoice_infos)
-	end
-	def ajax_item
-		data = {}
-		if((id = @session.user_input(:unique_id)) \
-			&& (idx = @session.user_input(:index)))
-			begin
-				keys = [:text, :price]
-				input = user_input(keys).delete_if { |key, val| val.nil?  }
-				item = @session.update_hosting_item(id.to_i, idx.to_i, input)
-				input.each { |key, val| data.store("#{key}[#{item.index}]", val) }
-			rescue IndexError
-			end
-		end
-		AjaxValues.new(@session, data)
 	end
 	def generate_invoice
 		if(id = @session.user_input(:unique_id))
@@ -79,13 +53,6 @@ class Debitor < Global
 		mandatory = [ :contact, :debitor_type, :email,
 			:location, :name, ]
 		defaults = {}
-		case @session.user_input(:debitor_type)
-		when 'dt_hosting'
-			mandatory.push(:hosting_price, :hosting_invoice_interval,
-										 :hosting_invoice_date)
-			defaults.store(:hosting_invoice_date, Date.today + 1)
-			update_hosting_items
-		end
 		keys = mandatory.dup.push(:address_lines, :contact_firstname,
 															:contact_title, :salutation, :phone)
 		input = defaults.update(user_input(keys, mandatory))
@@ -95,24 +62,14 @@ class Debitor < Global
 		update_model(input)
 		self
 	end
-	def update_hosting_items
-		if((id = @session.user_input(:unique_id)) && @model.unique_id == id.to_i)
-			## update items
-			keys = [:text, :price]
-			data = {}
-			user_input(keys).each { |key, hash|
-				hash.each { |idx, value|
-					(data[idx] ||= {}).store(key, value)
-				} unless hash.nil?
-			}
-			data.each { |idx, item|
-				@session.update_hosting_item(id.to_i, idx.to_i, item)
-			}
-		end
-	end
 	private
+  def load_autoinvoices
+    invoices = @model.autoinvoice_infos
+    @autoinvoice_infos = sort_invoices(currency_convert(invoices))
+  end
 	def load_invoices
-		invoices = @model.invoice_infos(@session.user_input(:status) || 'is_open')
+		invoices = @model.invoice_infos(@session.user_input(:status) \
+                                    || 'is_open')
 		@invoice_infos = sort_invoices(currency_convert(invoices))
 	end
 	def update_model(input)

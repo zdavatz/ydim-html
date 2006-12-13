@@ -52,8 +52,8 @@ class InvoiceList < HtmlGrid::List
 					:unique_id				=>	model.unique_id,
 					name							=>	!current,
 				}
-				url = @lookandfeel._event_url(:ajax_invoices, args)
-				link.href = "javascript: reload_list('invoices', '#{url}')"
+				url = @lookandfeel._event_url("ajax_#{css_id}", args)
+				link.href = "javascript: reload_list('#{css_id}', '#{url}')"
 				link
 			}
 		end
