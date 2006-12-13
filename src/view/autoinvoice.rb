@@ -17,18 +17,21 @@ class AutoInvoiceInnerComposite < InvoiceInnerComposite
 		[0,4]		=>	:currency,
 		[0,5]		=>	:precision,
 		[0,6]		=>	:invoice_interval,
-    [0,7]   =>  :reminder_subject,
-    [0,8]   =>  :reminder_body,
-    [1,9]   =>  :reminder_date,
 	}
-	COMPONENT_CSS_MAP = {
-		[0,2]	=>	'extralarge',
-		[0,5]	=>	'small',
-		[0,7]	=>	'extralarge',
-	}
-	CSS_MAP = {
-		[0,8]	=>	'top',
-	}
+end
+class AutoInvoiceReminderComposite < HtmlGrid::Composite
+  COMPONENTS = {
+    [0,0]   =>  :reminder_subject,
+    [0,1]   =>  :reminder_body,
+    [1,2]   =>  :reminder_date,
+  }
+  CSS_MAP = {
+    [0,1]  =>  'top',
+  }
+  COMPONENT_CSS_MAP = {
+    [0,0]  =>  'extralarge',
+  }
+  LABELS = true
   def reminder_body(model)
     input = HtmlGrid::Textarea.new(:reminder_body, model, @session, self)
     input.set_attribute('wrap', 'hard')
@@ -37,10 +40,12 @@ class AutoInvoiceInnerComposite < InvoiceInnerComposite
     input
   end
   def reminder_date(model)
-    if(model.reminder_body && model.reminder_subject)
-      (model.date << 1).strftime(@lookandfeel.lookup(:reminder_date))
-    else
+    body = model.reminder_body.to_s.strip
+    subject = model.reminder_subject.to_s.strip
+    if(body.empty? || subject.empty?)
       @lookandfeel.lookup(:reminder_none)
+    else
+      (model.date << 1).strftime(@lookandfeel.lookup(:reminder_date))
     end
   end
 end
@@ -49,8 +54,12 @@ class AutoInvoiceComposite < InvoiceComposite
 		[0,0]	=>	AutoInvoiceInnerComposite,
 		[0,1]	=>	:items,
 		[0,2]	=>	InvoiceTotalComposite,
-		[0,3]	=>	:submit,
-		[1,3]	=>	:generate_invoice,
+		[0,3]	=>	AutoInvoiceReminderComposite,
+		[0,4]	=>	:submit,
+		[1,4]	=>	:generate_invoice,
+	}
+	CSS_MAP = {
+		4	=>	'padded'
 	}
   def generate_invoice(model)
     button(:generate_invoice, model)
