@@ -42,7 +42,7 @@ class Global < SBSM::State
     end
   end
   def create_autoinvoice
-    _create_invoice(CreateAutoInvoice, Date.today.next)
+    _create_invoice(CreateAutoInvoice, nil)
   end
 	def create_debitor
 		Debitor.new(@session, YDIM::Debitor.new(nil))
@@ -56,6 +56,7 @@ class Global < SBSM::State
 			invoice = Stub.new
 			invoice.carry(:debitor, debitor)
 			invoice.carry(:date, date)
+      invoice.carry(:precision, 2)
 			nextclass.new(@session, invoice)
 		end
   end
