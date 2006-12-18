@@ -1,4 +1,4 @@
-body, textarea {
+body {
 	font-family: Frutiger, Helvetica, Verdana, Arial, sans-serif;
 }
 body {
@@ -35,6 +35,7 @@ td.top {
 textarea {
   width: auto;
   height: 400px;
+  font-family: fixed;
 }
 th {
 	text-align: left;

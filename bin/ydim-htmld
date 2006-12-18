@@ -1,29 +1,38 @@
 #!/usr/bin/env ruby
 # ydim-htmld -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
-$: << File.expand_path('../src', File.dirname(__FILE__))
+$: << File.expand_path('../lib', File.dirname(__FILE__))
 $: << File.expand_path('..', File.dirname(__FILE__))
 
+require 'fastthread'
 require 'drb'
-require 'util/server'
+require 'logger'
 require 'ydim/server'
-require 'etc/config'
+require 'ydim/html/util/server'
+require 'ydim/html/config'
 
-config = YDIM::Html::Util::CONFIG
 module YDIM
-	headpath = File.expand_path('../.git/HEAD', File.dirname(__FILE__))
-	YDIM_VERSION = File.read(headpath).strip
+  module Html
+    headpath = File.expand_path('../.git/HEAD', File.dirname(__FILE__))
+    YDIM_VERSION = File.read(headpath).strip
+
+    DRb.start_service(@config.proxy_url)
+
+    log_file = @config.log_file
+    if(log_file.is_a?(String))
+      FileUtils.mkdir_p(File.dirname(log_file))
+      log_file = File.open(log_file, 'a')
+      at_exit { log_file.close }
+    end
+    logger = Logger.new(log_file)
+    logger.level = Logger.const_get(@config.log_level)
+    @logger = logger
+
+    ydim_server = DRb::DRbObject.new(nil, @config.server_url)
+    server = YDIM::Html::Util::Server.new(ydim_server)
+    $0 = "YDIM (Html::Util::Server)"
+
+    DRb.start_service(@config.html_url, server)
+    DRb.thread.join
+  end
 end
-
-DRb.start_service(config.proxy_url)
-
-ydim_server = DRb::DRbObject.new(nil, config.server_url)
-
-server = YDIM::Html::Util::Server.new(config, ydim_server)
-
-$0 = "YDIM (Html::Util::Server)"
-
-DRb.start_service(config.html_url, server)
-
-DRb.thread.join
-
