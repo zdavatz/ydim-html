@@ -42,7 +42,7 @@ class Validator < SBSM::Validator
 		end
 	end
   def validate_numeric(key, value)
-    match = /\d*(\.\d{1,2})?/.match(value)
+    match = /-?\d*(\.\d{1,2})?/.match(value)
     if(match[1])
       match[0].to_f
     else
