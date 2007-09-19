@@ -298,6 +298,43 @@ class TestDebitor < Test::Unit::TestCase
     wait_for_condition "selenium.isTextPresent('Invoice')", "10000"
     assert is_text_present("Invoice")
   end
+  def test_invoices__collect_garbage
+    debitor = YDIM::Debitor.new(1)
+    debitor.name = 'Foo'
+    debitor.email = 'debitor@ywesee.com'
+    debitor.phone = '0041435400549'
+    debitor.debitor_type = 'dt_pharmacy'
+    invoice = YDIM::Invoice.new(10001)
+    invoice.debitor = debitor
+    invoice.description = 'Invoice'
+    flexstub(invoice).should_receive(:odba_store)
+    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+                          :quantity => 5)
+    invoice.add_item(item)
+
+    session = login([debitor])
+    assert_equal "YDIM", get_title
+    session.should_receive(:debitor).and_return(debitor)
+    session.should_receive(:invoice).and_return(invoice)
+    click "link=Foo"
+    wait_for_page_to_load "30000"
+    assert_equal "YDIM", get_title
+    assert is_text_present("Invoice")
+
+    click "link=löschen"
+    wait_for_condition "!selenium.isTextPresent('Invoice')", "10000"
+    assert_equal "YDIM", get_title
+    assert !is_text_present("Invoice")
+
+    click "link=Papierkorb"
+    wait_for_condition "selenium.isTextPresent('Invoice')", "10000"
+    assert is_text_present("Invoice")
+
+    session.should_receive(:collect_garbage)
+    click "collect_garbage"
+    wait_for_condition "!selenium.isTextPresent('Invoice')", "10000"
+    assert !is_text_present("Invoice")
+  end
 end
     end
   end

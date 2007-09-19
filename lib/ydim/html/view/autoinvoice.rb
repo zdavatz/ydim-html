@@ -37,6 +37,7 @@ class AutoInvoiceReminderComposite < HtmlGrid::Composite
     input.set_attribute('wrap', 'hard')
     input.set_attribute('cols', '72')
     input.label = true
+    input.unescaped = true
     value = model.reminder_body
     if(value.nil? || value.empty?)
       input.value = @session.state.format_invoice

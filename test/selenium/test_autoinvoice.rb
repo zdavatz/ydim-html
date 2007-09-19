@@ -195,7 +195,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     assert is_element_present("reminder_subject")
     assert is_element_present("reminder_body")
 
-    assert_equal "<invoice>\n2.00 * Item 1: 6.50 exkl. MwSt.\n</invoice>", 
+    assert_equal "<invoice> 2.00 * Item 1: 6.50 exkl. MwSt. </invoice>", 
       get_text("reminder_body")
 
     click "link=debitor@ywesee.com"

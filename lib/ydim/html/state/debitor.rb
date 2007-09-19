@@ -22,6 +22,10 @@ class Debitor < Global
 		load_autoinvoices
 		load_invoices
 	end
+  def ajax_collect_garbage
+    @session.collect_garbage(@model.unique_id)
+    AjaxInvoices.new(@session, [])
+  end
   def ajax_delete_autoinvoice
     if(id = @session.user_input(:unique_id))
       @session.delete_autoinvoice(id)
