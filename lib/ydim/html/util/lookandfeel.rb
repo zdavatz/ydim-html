@@ -71,6 +71,8 @@ class Lookandfeel < SBSM::Lookandfeel
 			:logout											=>	'Logout',
 			:name												=>	'Firma',
 			:pass												=>	'Passwort',
+      :payment_period0            =>  ' Zahlbar in ',
+      :payment_period1            =>  ' Tagen',
 			:pdf												=>	'PDF',
 			:phone											=>	'Telefon',
 			:precision									=>	'Kommastellen',

@@ -88,16 +88,17 @@ end
 class InvoiceInnerComposite < HtmlGrid::Composite
 	include HtmlGrid::ErrorMessage
 	links :debitor, :name, :email
-	COMPONENTS = {
-		[0,0]		=>	:unique_id,
-		[0,1,0]	=>	:debitor_name,
-		[1,1,1]	=>	'dash', 
-		[1,1,2]	=>	:debitor_email,
-		[0,2]		=>	:description, 
-		[0,3]		=>	:date,
-		[0,4]		=>	:currency,
-		[0,5]		=>	:precision,
-	}
+  COMPONENTS = {
+    [0,0]		=>	:unique_id,
+    [0,1,0]	=>	:debitor_name,
+    [1,1,1]	=>	'dash',
+    [1,1,2]	=>	:debitor_email,
+    [0,2]		=>	:description,
+    [0,3]		=>	:date,
+    [1,3]		=>	:payment_period,
+    [0,4]		=>	:currency,
+    [0,5]		=>	:precision,
+  }
 	COMPONENT_CSS_MAP = {
 		[0,2]	=>	'extralarge',
 		[0,5]	=>	'small',
@@ -129,6 +130,9 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 		link.label = true
 		link
 	end
+  def payment_period(model)
+    @lookandfeel.lookup(:payment_period, model.payment_period.to_i)
+  end
 	def precision(model)
 		input = HtmlGrid::InputText.new(:precision, model, @session, self)
 		if(model.unique_id)
