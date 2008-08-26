@@ -41,6 +41,7 @@ class CreateInvoice < Global
 		unless(error?)
 			@model = @session.send("create_#{invoice_key}",
                              @model.debitor.unique_id)
+      @model.payment_period = 30
 			input.each { |key, val|
 				@model.send("#{key}=", val)
 			}
