@@ -51,7 +51,9 @@ class Invoices < Global
 	VIEW = Html::View::Invoices
 	def init
 		super
-		load_invoices
+    invs = @session.invoice_infos('is_open')
+    invs.concat @session.invoice_infos('is_due')
+    @model = sort_invoices(currency_convert(invs))
 	end
 	def ajax_collect_garbage
 		@session.collect_garbage
