@@ -20,7 +20,7 @@ module HtmlGrid
 			def escaped(*names)
 				names.each { |name|
 					define_method(name) { |model| 
-						escape(model.send(name))
+						number_format escape(model.send(name))
 					}
 				}
 			end
@@ -47,6 +47,11 @@ module HtmlGrid
 				value.to_s
 			end
 		end
+    def number_format(string)
+      string.reverse.gsub(/\d{3}(?=\d)(?!\d*\.)/) do |match|
+        match << "'"
+      end.reverse
+    end
 		def precision
 			mdl = @session.state.model
 			if(mdl.respond_to?(:precision))

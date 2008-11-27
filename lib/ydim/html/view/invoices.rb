@@ -94,7 +94,7 @@ class InvoiceList < HtmlGrid::List
 	end
 	def total(key, total, offset)
 		tpos = column_position(key, offset)
-		@grid.add(format(total), *tpos)
+		@grid.add(number_format(format(total)), *tpos)
 		@grid.add_attribute('class', 'right total', *tpos)
 	end
 	def column_position(key, offset)
@@ -120,9 +120,6 @@ class InvoiceList < HtmlGrid::List
 																					{:unique_id => model.unique_id})
 			link
 		end
-	end
-	def total_netto(model)
-		escape(model.total_netto)
 	end
 end
 class InvoicesSubnavigation < HtmlGrid::DivComposite
