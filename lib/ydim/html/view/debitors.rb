@@ -16,6 +16,7 @@ class DebitorList < HtmlGrid::FormList
 		[4,0]	=>	:next_invoice_date,
 		[5,0]	=>	:debitor_type,
 	}
+  CSS_ID = 'debitors'
 	EVENT = :create_debitor
 	SORT_DEFAULT = Proc.new { |debitor| debitor.name.to_s.downcase }
 	def debitor_type(model)
@@ -36,8 +37,31 @@ class DebitorList < HtmlGrid::FormList
 	end
 	links :debitor, :name, :unique_id
 end
+class DebitorsSubnavigation < HtmlGrid::DivComposite
+  COMPONENTS = {
+    [0,0]	=>	'debitor_type',
+    [1,0] =>  '&nbsp;',
+    [2,0]	=>	:debitor_type,
+  }
+  CSS_ID_MAP = ['subnavigation']
+  SYMBOL_MAP = {
+    :debitor_type => HtmlGrid::Select,
+  }
+  def debitor_type model
+    select = HtmlGrid::Select.new :debitor_type, nil, @session, self
+    select.selected = @session.user_input :debitor_type
+    select.css_id = 'debitor_type'
+    url = @lookandfeel._event_url(:ajax_debitors, { :debitor_type => nil })
+    select.set_attribute 'onchange',
+                         "javascript:reload_list('debitors', '#{url}' + this.value);"
+    select
+  end
+end
 class Debitors < Template
 	CONTENT = DebitorList
+  def subnavigation(model)
+    DebitorsSubnavigation.new(model, @session, self)
+  end
 end
 		end
 	end

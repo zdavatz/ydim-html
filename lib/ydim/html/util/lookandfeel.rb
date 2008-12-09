@@ -38,7 +38,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:dt_health									=>	'Gesundheitsdienstleister',
 			:dt_hospital								=>	'Spital',
 			:dt_hosting									=>	'Hosting-Kunde',
-			:dt_info										=>	'Medi-Information',
+			:dt_info										=>	'ODDB.org-User',
 			:dt_insurance								=>	'Krankenkasse',
 			:dt_pharma									=>	'Pharma-Firma',
 			:dt_pharmacy								=>	'Apotheke',
