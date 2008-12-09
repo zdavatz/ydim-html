@@ -15,7 +15,7 @@ class Validator < SBSM::Validator
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
 			'dt_insurance', 'dt_info', 'dt_hospital', 'dt_health', 'dt_doctor',
       'dt_consulting' ],
-		:invoice_interval => [ 'inv_12', 'inv_6', 'inv_3', 'inv_m', ],
+		:invoice_interval => [ 'inv_12', 'inv_6', 'inv_3', 'inv_24', 'inv_m', ],
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 		:status						=>	[ nil, 'is_open', 'is_due', 'is_paid', 'is_trash'],
 	}

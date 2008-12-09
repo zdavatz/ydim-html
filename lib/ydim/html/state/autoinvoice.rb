@@ -44,12 +44,14 @@ class AutoInvoice < Invoice
     widths = @model.items.collect do |item| item.text.length end
     widths.push total.length
     width = widths.max
+    currency = @model.currency
     @model.items.each { |item|
       text = "%-#{width}s" % item.text
-      invoice << sprintf(fmt, item.quantity.to_f, text, item.total_netto)
+      invoice << sprintf(fmt, item.quantity.to_f, text,
+                         currency, item.total_netto)
     }
     text = "%-#{width}s" % total
-    invoice << sprintf(lnf.lookup(:reminder_format_total), text,
+    invoice << sprintf(lnf.lookup(:reminder_format_total), text, currency,
                        @model.total_netto)
     invoice << "</invoice>"
   end
