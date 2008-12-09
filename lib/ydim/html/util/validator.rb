@@ -20,8 +20,8 @@ class Validator < SBSM::Validator
 		:salutation				=>	[ nil, 'Frau', 'Herr', ],
 		:status						=>	[ nil, 'is_open', 'is_due', 'is_paid', 'is_trash'],
 	}
-  EVENTS = [ :ajax_collect_garbage, :ajax_create_item, :ajax_debitor,
-    :ajax_debitors, :ajax_delete_autoinvoice, :ajax_delete_item, :ajax_item,
+	EVENTS = [ :ajax_collect_garbage, :ajax_create_item, :ajax_debitor,
+    :ajax_delete_autoinvoice, :ajax_delete_item, :ajax_item,
     :ajax_invoice, :ajax_invoices, :ajax_status, :autoinvoice,
     :create_autoinvoice, :create_debitor, :create_invoice, :debitor,
     :debitors, :generate_invoice, :invoice, :invoices, :login, :logout,
