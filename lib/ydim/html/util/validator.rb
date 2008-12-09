@@ -9,7 +9,8 @@ module YDIM
 class Validator < SBSM::Validator
 	BOOLEAN = [:payment_received, :deleted, :suppress_vat]
 	DATES = [:date, :hosting_invoice_date]
-  ALLOWED_TAGS = %{a b br div font h1 h2 h3 i img invoice li ol p pre span strong u ul}
+  ALLOWED_TAGS = %{a b br div font h1 h2 h3 i img invoice li ol p pre span
+                   strong u ul year}
 	ENUMS = {
 		:currency					=> [ 'CHF', 'EUR', ],
 		:debitor_type			=> [ nil, 'dt_hosting', 'dt_pharmacy', 'dt_pharma',
@@ -26,10 +27,10 @@ class Validator < SBSM::Validator
     :debitors, :generate_invoice, :invoice, :invoices, :login, :logout,
     :pdf, :send_invoice, :sort, :update ]
   STRINGS = [ :name, :contact, :contact_firstname, :contact_title,
-    :description, :location, :reminder_subject, :sortvalue, :text, :unit ]
+    :description, :location, :sortvalue, :text, :unit ]
   NUMERIC = [ :unique_id, :hosting_price, :index, :precision, :price,
     :quantity ]
-  HTML = [ :reminder_body ]
+  HTML = [ :reminder_body, :reminder_subject ]
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)
 	end

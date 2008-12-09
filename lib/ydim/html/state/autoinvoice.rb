@@ -38,21 +38,34 @@ class AutoInvoice < Invoice
   end
   def format_invoice
     lnf = @session.lookandfeel
-    fmt = lnf.lookup(:reminder_format)
-    invoice = "<invoice>\n"
     total = lnf.lookup(:total_netto)
-    widths = @model.items.collect do |item| item.text.length end
-    widths.push total.length
-    width = widths.max
+    item_widths = [total.length]
+    qty_widths = []
+    float = false
+    @model.items.each do |item|
+      item_widths.push item.text.length
+      qty = item.quantity
+      qty_widths.push qty.to_i.to_s.length
+      float ||= (qty.to_i != qty.to_f)
+    end
+    item_width = item_widths.max.to_i.next
+    qty_width = qty_widths.max.to_i
+    total_width = ("%3.2f" % @model.total_netto).length
+    fmt = if float
+            qty_width += 3
+            "%#{qty_width}.2f x %-#{item_width}s %s %#{total_width}.2f\n"
+          else
+            "%#{qty_width}i x %-#{item_width}s %s %#{total_width}.2f\n"
+          end
+    invoice = "<invoice>\n"
     currency = @model.currency
     @model.items.each { |item|
-      text = "%-#{width}s" % item.text
-      invoice << sprintf(fmt, item.quantity.to_f, text,
+      invoice << sprintf(fmt, item.quantity.to_f, item.text,
                          currency, item.total_netto)
     }
-    text = "%-#{width}s" % total
-    invoice << sprintf(lnf.lookup(:reminder_format_total), text, currency,
-                       @model.total_netto)
+    fmt = "%#{qty_width + 2}s %-#{item_width}s %s %#{total_width}.2f\n"
+    invoice << sprintf(fmt, '', total,
+                       currency, @model.total_netto)
     invoice << "</invoice>"
   end
   def generate_invoice

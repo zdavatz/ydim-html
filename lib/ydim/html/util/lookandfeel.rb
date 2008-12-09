@@ -79,8 +79,6 @@ class Lookandfeel < SBSM::Lookandfeel
 			:precision									=>	'Kommastellen',
 			:reminder_body							=>	'Erinnerungsmail Text',	
 			:reminder_date							=>	'Wird am %d.%m.%Y versendet',	
-			:reminder_format  					=>	"%05.2f * %s %s %8.2f\n",
-			:reminder_format_total      =>	"        %s %s %8.2f exkl. MwSt.\n",
 			:reminder_none							=>	'Es wird kein Erinnerungsmail versendet',	
 			:reminder_subject  					=>	'Erinnerungsmail Betreff',	
 			:salutation									=>	'Anrede',
