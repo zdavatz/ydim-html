@@ -36,6 +36,7 @@ class AutoInvoiceReminderComposite < HtmlGrid::Composite
     input = HtmlGrid::Textarea.new(:reminder_body, model, @session, self)
     input.set_attribute('wrap', 'hard')
     input.set_attribute('cols', '72')
+    input.set_attribute('style', 'font-family: fixed;')
     input.label = true
     input.unescaped = true
     value = model.reminder_body

@@ -37,10 +37,21 @@ class AutoInvoice < Invoice
     AjaxAutoInvoice.new(@session, @model)
   end
   def format_invoice
-    @model.items.collect { |item|
-      sprintf(@session.lookandfeel.lookup(:reminder_format), 
-             item.quantity.to_f, item.text, item.total_netto)
-    }.join("\n")
+    lnf = @session.lookandfeel
+    fmt = lnf.lookup(:reminder_format)
+    invoice = "<invoice>\n"
+    total = lnf.lookup(:total_netto)
+    widths = @model.items.collect do |item| item.text.length end
+    widths.push total.length
+    width = widths.max
+    @model.items.each { |item|
+      text = "%-#{width}s" % item.text
+      invoice << sprintf(fmt, item.quantity.to_f, text, item.total_netto)
+    }
+    text = "%-#{width}s" % total
+    invoice << sprintf(lnf.lookup(:reminder_format_total), text,
+                       @model.total_netto)
+    invoice << "</invoice>"
   end
   def generate_invoice
     _do_update
