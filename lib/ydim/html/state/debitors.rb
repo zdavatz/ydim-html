@@ -12,7 +12,10 @@ module YDIM
 class Debitors < Global
 	VIEW = Html::View::Debitors
 	def init
-		@model = @session.debitors
+    lnf = @session.lookandfeel
+		@model = @session.debitors.sort_by do |deb|
+      [ lnf.lookup(deb.debitor_type) || '', deb.name.to_s.downcase ]
+    end
 	end
 end
 		end
