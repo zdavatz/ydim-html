@@ -83,6 +83,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:reminder_subject  					=>	'Erinnerungsmail Betreff',	
 			:salutation									=>	'Anrede',
 			:send_invoice								=>	'Email Senden',
+      :suppress_vat               =>  'OHNE MwSt.',
 			:th_currency								=>	'W&auml;hrung',
 			:th_debitor_email						=>	'Email',
 			:th_debitor_name						=>	'Name',

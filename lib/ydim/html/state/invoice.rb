@@ -22,7 +22,7 @@ module InvoiceKeys
     :invoice
   end
   def invoice_keys
-    invoice_mandatory + [:precision]
+    invoice_mandatory + [:precision, :suppress_vat]
   end
   def invoice_mandatory
     [:description, :date, :currency]

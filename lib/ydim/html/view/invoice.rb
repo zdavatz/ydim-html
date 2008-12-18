@@ -3,6 +3,7 @@
 
 require 'ydim/html/view/template'
 require 'htmlgrid/form'
+require 'htmlgrid/inputcheckbox'
 require 'htmlgrid/inputdate'
 require 'htmlgrid/errormessage'
 require 'htmlgrid/select'
@@ -98,6 +99,7 @@ class InvoiceInnerComposite < HtmlGrid::Composite
     [1,3]		=>	:payment_period,
     [0,4]		=>	:currency,
     [0,5]		=>	:precision,
+    [0,6]   =>  :suppress_vat,
   }
 	COMPONENT_CSS_MAP = {
 		[0,2]	=>	'extralarge',
@@ -140,6 +142,13 @@ class InvoiceInnerComposite < HtmlGrid::Composite
 		end
 		input
 	end
+  def suppress_vat(model)
+    input = HtmlGrid::InputCheckbox.new(:suppress_vat, model, @session, self)
+		if(model.unique_id)
+			input.set_attribute('onClick', "reload_form('invoice', 'ajax_invoice');")
+		end
+    input
+  end
 end
 class InvoiceComposite < HtmlGrid::DivComposite
 	include HtmlGrid::FormMethods
