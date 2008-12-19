@@ -57,6 +57,9 @@ class Global < SBSM::State
 			invoice.carry(:debitor, debitor)
 			invoice.carry(:date, date)
       invoice.carry(:precision, 2)
+      if debitor.foreign?
+        invoice.carry(:suppress_vat, true)
+      end
 			nextclass.new(@session, invoice)
 		end
   end

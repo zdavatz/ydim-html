@@ -19,6 +19,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:contact										=>	'Name',
 			:contact_firstname					=>	'Vorname',
 			:contact_title							=>	'Titel',
+      :country                    =>  'Land',
 			:cpr_link										=>	' ywesee GmbH',
 			:create_debitor							=>	'Neuer Kunde',
       :create_autoinvoice         =>  'Neue Vorlage',

@@ -20,16 +20,17 @@ class DebitorForm < HtmlGrid::Form
 	COMPONENTS = {
 		[0,0]	=> :unique_id,
 		[0,1]	=> :debitor_type,
-		[0,2]	=> :name, 
-		[0,3]	=> :salutation, 
-		[0,4]	=> :contact, 
-		[0,5]	=> :contact_firstname, 
-		[0,6]	=> :contact_title, 
+		[0,2]	=> :name,
+		[0,3]	=> :salutation,
+		[0,4]	=> :contact,
+		[0,5]	=> :contact_firstname,
+		[0,6]	=> :contact_title,
 		[0,7]	=> :address_lines,
 		[0,8]	=> :location,
-		[0,9]	=> :email, 
-		[0,10]	=>	:phone,	
-		[1,11]	=> :submit, 
+		[0,9]	=> :country,
+		[0,10]	=> :email,
+		[0,11]	=>	:phone,
+		[1,12]	=> :submit,
 	}
 	FORM_ID = 'debitor'
 	EVENT = :update

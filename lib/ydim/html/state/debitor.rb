@@ -45,7 +45,7 @@ class Debitor < Global
 			:location, :name, ]
 		defaults = {}
 		keys = mandatory.dup.push(:address_lines, :contact_firstname,
-															:contact_title, :salutation, :phone)
+                              :contact_title, :country, :salutation, :phone)
 		input = defaults.update(user_input(keys, mandatory))
 		unless(error? || @model.unique_id)
 			@model = @session.create_debitor

@@ -27,7 +27,7 @@ class Validator < SBSM::Validator
     :debitors, :generate_invoice, :invoice, :invoices, :login, :logout,
     :pdf, :send_invoice, :sort, :update ]
   STRINGS = [ :name, :contact, :contact_firstname, :contact_title,
-    :description, :location, :sortvalue, :text, :unit ]
+    :country, :description, :location, :sortvalue, :text, :unit ]
   NUMERIC = [ :unique_id, :hosting_price, :index, :precision, :price,
     :quantity ]
   HTML = [ :reminder_body, :reminder_subject ]
