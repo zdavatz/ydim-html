@@ -44,7 +44,7 @@ class TestInvoices < Test::Unit::TestCase
     assert_equal "is_open", get_attribute("//tr[2]@class")
     assert is_text_present("Invoice 1, is_open")
     assert is_text_present('Customer, longer than 30 Ch...')
-    assert !is_text_present("Invoice 2, is_due")
+    assert is_text_present("Invoice 2, is_due")
     assert !is_text_present("Invoice 3, is_paid")
     assert !is_text_present("Invoice 4, is_trash")
 
@@ -155,7 +155,7 @@ class TestInvoices < Test::Unit::TestCase
     click "link=Rechnungen"
     wait_for_page_to_load "30000"
     assert_equal "YDIM", get_title
-    assert !is_text_present("Invoice 1, is_due")
+    assert is_text_present("Invoice 1, is_due")
 
     click "link=Fällige Rechnungen"
     wait_for_condition "selenium.isTextPresent('Invoice 1')", "10000"

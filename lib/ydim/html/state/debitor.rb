@@ -41,12 +41,18 @@ class Debitor < Global
 		end
 	end
 	def update
-		mandatory = [ :contact, :debitor_type, :email,
+		mandatory = [ :contact, :debitor_type, :emails,
 			:location, :name, ]
 		defaults = {}
 		keys = mandatory.dup.push(:address_lines, :contact_firstname,
                               :contact_title, :country, :salutation, :phone)
 		input = defaults.update(user_input(keys, mandatory))
+    mails = input[:emails]
+    if mails && mails.size > 3
+      @errors.store :emails, create_error('e_too_many_emails',
+                                          :emails, mails.join(', '))
+      input[:emails] = mails[0,3]
+    end
 		unless(error? || @model.unique_id)
 			@model = @session.create_debitor
 		end

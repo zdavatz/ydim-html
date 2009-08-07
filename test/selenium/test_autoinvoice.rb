@@ -36,12 +36,12 @@ class TestAutoInvoice < Test::Unit::TestCase
     assert_equal url, get_attribute("//a[@name='email']@href")
     assert_equal "Foo", get_text("//a[@name='name']")
     assert_equal "debitor@ywesee.com", get_text("//a[@name='email']")
-    
+
     assert is_element_present("//input[@name='description']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='description']@type")
     assert_equal "Beschreibung", get_text("//label[@for='description']")
-    
+
     assert is_element_present("//input[@name='date']")
     assert_equal "text", get_attribute("//input[@name='date']@type")
     assert_equal "Rechnungsdatum", get_text("//label[@for='date']")
@@ -56,9 +56,9 @@ class TestAutoInvoice < Test::Unit::TestCase
     assert_equal "2", get_value("//input[@name='precision']")
 
     assert is_element_present("//select[@name='invoice_interval']")
-    assert_equal "inv_12", 
+    assert_equal "inv_12",
       get_value("//select[@name='invoice_interval']")
-    assert_equal "Rechnungs-Intervall", 
+    assert_equal "Rechnungs-Intervall",
       get_text("//label[@for='invoice_interval']")
 
     assert is_element_present("update")
@@ -114,7 +114,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     type "description", "Newly created AutoInvoice"
 
     invoice = nil
-    session.should_receive(:create_autoinvoice).and_return { 
+    session.should_receive(:create_autoinvoice).and_return {
       invoice = AutoInvoice.new(10001)
       invoice.debitor = debitor
       flexstub(invoice).should_receive(:odba_store)
@@ -139,7 +139,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     assert !is_element_present("reminder_subject")
     assert !is_element_present("reminder_body")
 
-    assert_equal "Newly created AutoInvoice", 
+    assert_equal "Newly created AutoInvoice",
       get_value("//input[@name='description']")
 
     item = nil
@@ -195,7 +195,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     assert is_element_present("reminder_subject")
     assert is_element_present("reminder_body")
 
-    assert_equal "<invoice> 2.00 * Item 1: 6.50 exkl. MwSt. </invoice>", 
+    assert_equal "<invoice> 2 x Item 1 CHF 6.50 Total Netto CHF 6.50 </invoice>",
       get_text("reminder_body")
 
     click "link=debitor@ywesee.com"
@@ -212,7 +212,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'AutoInvoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
                           :quantity => 5)
     invoice.add_item(item)
 
@@ -229,7 +229,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     click "link=AutoInvoice"
     wait_for_page_to_load "30000"
     assert_equal "YDIM", get_title
-    
+
     click "generate_invoice"
     wait_for_page_to_load "30000"
     assert is_element_present("update")
@@ -248,7 +248,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'AutoInvoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '3.25', 
+    item = YDIM::Item.new(:text => 'Item', :price => '3.25',
                           :quantity => 2)
     invoice.add_item(item)
 
@@ -265,7 +265,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     click "link=AutoInvoice"
     wait_for_page_to_load "30000"
     assert_equal "YDIM", get_title
-    
+
     type "precision", "3"
     wait_for_condition "selenium.isTextPresent('6.500')", "10000"
     assert_equal "6.500", get_text("total_netto0")
@@ -280,7 +280,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'AutoInvoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
                           :quantity => 5)
     invoice.add_item(item)
 
@@ -298,7 +298,7 @@ class TestAutoInvoice < Test::Unit::TestCase
     wait_for_page_to_load "30000"
     assert_equal "YDIM", get_title
     assert is_text_present("Es wird kein Erinnerungsmail versendet")
-    
+
     type "reminder_subject", "Reminder for Invoice"
     type "reminder_body", "Reminder-Text \n<invoice></invoice>\nThanks."
     click "update"

@@ -28,7 +28,7 @@ class DebitorForm < HtmlGrid::Form
 		[0,7]	=> :address_lines,
 		[0,8]	=> :location,
 		[0,9]	=> :country,
-		[0,10]	=> :email,
+		[0,10]	=> :emails,
 		[0,11]	=>	:phone,
 		[1,12]	=> :submit,
 	}
@@ -39,6 +39,16 @@ class DebitorForm < HtmlGrid::Form
 		:unique_id		=>	HtmlGrid::Value,
 		:salutation		=>	HtmlGrid::Select,
 	}
+  def emails(model, session=@session)
+    input = HtmlGrid::InputText.new(:emails, model, @session, self)
+    if error = @session.error(:emails)
+      input.value = error.value
+    else
+      input.value = model.emails.join(', ')
+    end
+    input.css_class = 'extralarge'
+    input
+  end
 	def hidden_fields(context)
 		super << context.hidden('unique_id', @model.unique_id)
 	end

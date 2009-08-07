@@ -34,6 +34,11 @@ class Validator < SBSM::Validator
 	def address_lines(value)
 		validate_string(value).split(/\r|\n|\r\n/)
 	end
+  def emails(value)
+    value.to_s.split(/\s*,\s*/).collect do |val| email(val) end
+  rescue SBSM::InvalidDataError => err
+    raise SBSM::InvalidDataError.new(err.message, :emails, value)
+  end
 	def phone(value)
 		str = value.to_s.strip
 		return if(str.empty?)

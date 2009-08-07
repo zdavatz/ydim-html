@@ -91,7 +91,7 @@ module TestCase
         Html.config.http_server + ":10080", 10000)
       @selenium.start
     end
-    @selenium.set_context("TestOddb", "info")
+    @selenium.set_context("TestOddb")
   end
   def teardown
     @selenium.stop unless $selenium

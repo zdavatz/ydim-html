@@ -19,64 +19,64 @@ class TestDebitor < Test::Unit::TestCase
     wait_for_page_to_load "30000"
     assert_equal "YDIM", get_title
     assert_equal "ID", get_text("//label[@for='unique_id']")
-    
+
     assert is_element_present("//select[@name='debitor_type']")
     assert_raises(SeleniumCommandError) {
       get_attribute("//select[@name='debitor_type']@onchange")
     }
-    assert_equal "Kundenart", 
+    assert_equal "Kundenart",
       get_text("//label[@for='debitor_type']")
-    
+
     assert is_element_present("//input[@name='name']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='name']@type")
-    assert_equal "Firma", 
+    assert_equal "Firma",
       get_text("//label[@for='name']")
-    
+
     assert is_element_present("//select[@name='salutation']")
-    assert_equal "Anrede", 
+    assert_equal "Anrede",
       get_text("//label[@for='salutation']")
-    
+
     assert is_element_present("//input[@name='contact']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='contact']@type")
-    assert_equal "Name", 
+    assert_equal "Name",
       get_text("//label[@for='contact']")
-    
+
     assert is_element_present("//input[@name='contact_firstname']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='contact_firstname']@type")
-    assert_equal "Vorname", 
+    assert_equal "Vorname",
       get_text("//label[@for='contact_firstname']")
-    
+
     assert is_element_present("//input[@name='contact_title']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='contact_title']@type")
-    assert_equal "Titel", 
+    assert_equal "Titel",
       get_text("//label[@for='contact_title']")
-    
+
     assert is_element_present("//input[@name='address_lines']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='address_lines']@type")
-    assert_equal "Strasse/Nr.", 
+    assert_equal "Strasse/Nr.",
       get_text("//label[@for='address_lines']")
-    
+
     assert is_element_present("//input[@name='location']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='location']@type")
-    assert_equal "PLZ/Ort", 
+    assert_equal "PLZ/Ort",
       get_text("//label[@for='location']")
 
-    assert is_element_present("//input[@name='email']")
-    assert_equal "text", 
-      get_attribute("//input[@name='email']@type")
-    assert_equal "Email", 
-      get_text("//label[@for='email']")
-    
+    assert is_element_present("//input[@name='emails']")
+    assert_equal "text",
+      get_attribute("//input[@name='emails']@type")
+    assert_equal "Email (max. 3)",
+      get_text("//label[@for='emails']")
+
     assert is_element_present("//input[@name='phone']")
-    assert_equal "text", 
+    assert_equal "text",
       get_attribute("//input[@name='phone']@type")
-    assert_equal "Telefon", 
+    assert_equal "Telefon",
       get_text("//label[@for='phone']")
 
     assert is_element_present("update")
@@ -98,7 +98,7 @@ class TestDebitor < Test::Unit::TestCase
     assert is_text_present('Bitte geben Sie das Feld "Firma" an.')
     assert is_text_present('Bitte geben Sie das Feld "Name" an.')
     assert is_text_present('Bitte geben Sie das Feld "PLZ/Ort" an.')
-    assert is_text_present('Bitte geben Sie das Feld "Email" an.')
+    assert is_text_present('Bitte geben Sie das Feld "Email (max. 3)" an.')
     assert !is_element_present("create_invoice")
     assert !is_element_present("create_autoinvoice")
   end
@@ -117,7 +117,7 @@ class TestDebitor < Test::Unit::TestCase
     type "contact_title", "Dr."
     type "address_lines", "Street 45"
     type "location", "8006 Zuerich"
-    type "email", "testywesee.com"
+    type "emails", "testywesee.com"
     type "phone", "043 540 0549"
 
     click "update"
@@ -130,7 +130,7 @@ class TestDebitor < Test::Unit::TestCase
     assert !is_text_present('Bitte geben Sie das Feld "Firma" an.')
     assert !is_text_present('Bitte geben Sie das Feld "Name" an.')
     assert !is_text_present('Bitte geben Sie das Feld "PLZ/Ort" an.')
-    assert !is_text_present('Bitte geben Sie das Feld "Email" an.')
+    assert !is_text_present('Bitte geben Sie das Feld "Email (max. 3)" an.')
     assert !is_element_present("create_invoice")
     assert !is_element_present("create_autoinvoice")
 
@@ -142,7 +142,7 @@ class TestDebitor < Test::Unit::TestCase
     assert_equal "Dr.", get_value("contact_title")
     assert_equal "Street 45", get_value("address_lines")
     assert_equal "8006 Zuerich", get_value("location")
-    assert_equal "testywesee.com", get_value("email")
+    assert_equal "testywesee.com", get_value("emails")
     assert_equal "043 540 0549", get_value("phone")
   end
   def test_create_debitor__succeed
@@ -160,7 +160,7 @@ class TestDebitor < Test::Unit::TestCase
     type "contact_title", "Dr."
     type "address_lines", "Street 45"
     type "location", "8006 Zuerich"
-    type "email", "test@ywesee.com"
+    type "emails", "test@ywesee.com, test2@ywesee.com"
     type "phone", "0041 43 540 0549"
 
     debitor = OpenStruct.new
@@ -177,7 +177,9 @@ class TestDebitor < Test::Unit::TestCase
     assert_equal('Dr.', debitor.contact_title)
     assert_equal(['Street 45'], debitor.address_lines)
     assert_equal('8006 Zuerich', debitor.location)
-    assert_equal('test@ywesee.com', debitor.email)
+    ## test-class is an OpenStruct, which is why these values are
+    #  not separated into @email and @emails_cc
+    assert_equal(['test@ywesee.com', 'test2@ywesee.com'], debitor.emails)
     assert_equal('0041 43 540 0549', debitor.phone)
 
     assert_equal "YDIM", get_title
@@ -185,7 +187,7 @@ class TestDebitor < Test::Unit::TestCase
     assert !is_text_present('Bitte geben Sie das Feld "Firma" an.')
     assert !is_text_present('Bitte geben Sie das Feld "Name" an.')
     assert !is_text_present('Bitte geben Sie das Feld "PLZ/Ort" an.')
-    assert !is_text_present('Bitte geben Sie das Feld "Email" an.')
+    assert !is_text_present('Bitte geben Sie das Feld "Email (max. 3)" an.')
     assert is_element_present("create_invoice")
     assert is_element_present("create_autoinvoice")
 
@@ -197,7 +199,7 @@ class TestDebitor < Test::Unit::TestCase
     assert_equal "Dr.", get_value("contact_title")
     assert_equal "Street 45", get_value("address_lines")
     assert_equal "8006 Zuerich", get_value("location")
-    assert_equal "test@ywesee.com", get_value("email")
+    assert_equal "test@ywesee.com, test2@ywesee.com", get_value("emails")
     assert_equal "0041 43 540 0549", get_value("phone")
   end
   def test_generate
@@ -210,7 +212,7 @@ class TestDebitor < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'AutoInvoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
                           :quantity => 5)
     invoice.add_item(item)
 
@@ -243,7 +245,7 @@ class TestDebitor < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'AutoInvoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
                           :quantity => 5)
     invoice.add_item(item)
 
@@ -258,7 +260,7 @@ class TestDebitor < Test::Unit::TestCase
     assert_equal "YDIM", get_title
     assert is_text_present("AutoInvoice")
 
-    session.should_receive(:delete_autoinvoice).with(10001).and_return { 
+    session.should_receive(:delete_autoinvoice).with(10001).and_return {
       debitor.delete_autoinvoice(invoice)
     }
     click "link=Löschen"
@@ -276,7 +278,7 @@ class TestDebitor < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'Invoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
                           :quantity => 5)
     invoice.add_item(item)
 
@@ -308,7 +310,7 @@ class TestDebitor < Test::Unit::TestCase
     invoice.debitor = debitor
     invoice.description = 'Invoice'
     flexstub(invoice).should_receive(:odba_store)
-    item = YDIM::Item.new(:text => 'Item', :price => '100', 
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
                           :quantity => 5)
     invoice.add_item(item)
 
