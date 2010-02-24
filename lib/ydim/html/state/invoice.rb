@@ -62,6 +62,9 @@ class Invoice < Global
     def reverse!
       items.reverse!
     end
+    def respond_to? *args
+      @invoice.respond_to?(*args) || super
+    end
     def sort! &block
       items.sort! &block
     end
