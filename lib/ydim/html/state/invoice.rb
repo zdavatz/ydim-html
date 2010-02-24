@@ -52,8 +52,29 @@ class CreateInvoice < Global
 end
 class Invoice < Global
   include InvoiceKeys
+  class SortableInvoice
+    def initialize invoice
+      @invoice = invoice
+    end
+    def items
+      @items ||= @invoice.items
+    end
+    def reverse!
+      items.reverse!
+    end
+    def sort! &block
+      items.sort! &block
+    end
+    def method_missing name, *args, &block
+      @invoice.send name, *args, &block
+    end
+  end
 	VIEW = Html::View::Invoice
 	attr_reader :model
+  def init
+    @model = SortableInvoice.new @model
+    super
+  end
 	def ajax_create_item
 		if(id = @session.user_input(:unique_id))
 			begin
