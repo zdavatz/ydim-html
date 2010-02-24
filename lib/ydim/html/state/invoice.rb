@@ -120,6 +120,11 @@ class Invoice < Global
 		_do_update
 		AjaxInvoice.new(@session, @model)
 	end
+  def pdf
+    newstate = super
+    newstate.sortby, newstate.sort_reverse = @sortby, @sort_reverse
+    newstate
+  end
   def send_invoice
     _do_update
     super

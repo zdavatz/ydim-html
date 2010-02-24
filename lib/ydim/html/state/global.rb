@@ -14,6 +14,7 @@ module YDIM
 	module Html
 		module State
 class Global < SBSM::State
+  attr_accessor :sortby, :sort_reverse
 	class Stub
 		def initialize
 			@carry = {}
@@ -84,7 +85,9 @@ class Global < SBSM::State
 	end
 	def send_invoice
 		if(id = @session.user_input(:unique_id))
-			recipients = @session.send_invoice(id.to_i)
+      sort_args = { :sortby => (@sortby || []).first,
+                    :sort_reverse => @sort_reverse }
+			recipients = @session.send_invoice(id.to_i, sort_args)
 			message = @session.lookandfeel.lookup(:confirm_send_invoice, 
 																						recipients.join(', '))
 			Html::State::Confirm.new(@session, message)

@@ -43,7 +43,7 @@ class ItemList < HtmlGrid::List
 		[4,0]	=>	'medium',
 	}
 	DEFAULT_CLASS = HtmlGrid::InputText
-	SORT_DEFAULT = :text
+	SORT_DEFAULT = nil
 	ajax_inputs :text, :quantity, :unit, :price
 	def compose_footer(offset)
 		link = HtmlGrid::Button.new(:create_item, @model, @session, self)

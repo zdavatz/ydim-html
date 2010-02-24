@@ -9,6 +9,7 @@ module YDIM
 class Pdf < SBSM::State
 	VOLATILE = true
 	VIEW = Html::View::Pdf
+  attr_accessor :sortby, :sort_reverse
 end
 		end
 	end
