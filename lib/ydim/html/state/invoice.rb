@@ -68,6 +68,9 @@ class Invoice < Global
     def sort! &block
       items.sort! &block
     end
+    def update!
+      @items = nil
+    end
     def method_missing name, *args, &block
       @invoice.send name, *args, &block
     end
@@ -84,6 +87,7 @@ class Invoice < Global
 				@session.add_items(id.to_i, [{:time => Time.now}], invoice_key)
 			rescue IndexError
 			end
+      @model.update! ## @model is a SortableInvoice
 		end
 		AjaxItems.new(@session, @model.items)
 	end
@@ -94,6 +98,7 @@ class Invoice < Global
 				@session.delete_item(id.to_i, idx.to_i, invoice_key)
 			rescue IndexError
 			end
+      @model.update! ## @model is a SortableInvoice
 		end
 		AjaxItems.new(@session, @model.items)
 	end
@@ -158,6 +163,7 @@ class Invoice < Global
 			}
 
 			_do_update_invoice(user_input(invoice_keys, invoice_mandatory))
+      @model.update! ## @model is a SortableInvoice
 			@model.odba_store
 		end
 	end
