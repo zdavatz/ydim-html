@@ -15,7 +15,7 @@ require 'hoe'
 # Hoe.plugin :rubyforge
 # Hoe.plugin :website
 
-Hoe.spec 'ydim_html' do
+Hoe.spec 'ydim-html' do
   # HEY! If you fill these out in ~/.hoe_template/Rakefile.erb then
   # you'll never have to touch them again!
   # (delete this comment too, of course)
