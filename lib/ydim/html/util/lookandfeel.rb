@@ -117,7 +117,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:total_netto								=>	'Total Netto',
 			:unique_id									=>	'ID',
 			:update											=>	'Speichern',
-			:vat												=>	'MwSt. (7.6%)',
+			:vat												=>	'MwSt. (8.0%)',
 			:ydim												=>	'YDIM',
 			:ydim_version								=>	'Commit-ID', 
 		},
