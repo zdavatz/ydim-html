@@ -2,7 +2,7 @@
 # index.rbx -- ydim-html -- hwyss@ywesee.com
 
 require 'sbsm/request'
-load 'etc/config.rb'
+load File.expand_path('../../etc/config.rb', __FILE__)
 
 DRb.start_service('druby://localhost:0')
 

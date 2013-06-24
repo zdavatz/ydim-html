@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# Html.config -- ydim -- 24.06.2013 -- yasaka@ywesee.com
 # Html.config -- ydim -- 14.12.2006 -- hwyss@ywesee.com
 
 require 'rclconf'
@@ -14,6 +15,7 @@ default_config_files = [
  'etc/ydim-htmld.yml',
   File.join(ydim_default_dir, 'ydim-htmld.yml'),
   '/etc/ydim/ydim-htmld.yml',
+  File.expand_path('../../../../etc/ydim-htmld.yml', __FILE__),
 ]
 defaults = {
   'client_url'			=> 'druby://localhost:0', 
