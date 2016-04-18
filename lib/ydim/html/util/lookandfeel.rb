@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::Custom::Lookandfeel -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
 require 'sbsm/lookandfeel'
@@ -32,7 +33,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:debitors										=>	'Kunden',
 			:debitor_name								=>	'Kunde',
 			:debitor_type								=>	'Kundenart',
-			:delete											=>	'Löschen',
+			:delete											=>	'LÃ¶schen',
 			:description								=>	'Beschreibung',
 			:dt_consulting	    				=>	'Beratung',
 			:dt_doctor									=>	'Arzt',
@@ -44,9 +45,9 @@ class Lookandfeel < SBSM::Lookandfeel
 			:dt_pharma									=>	'Pharma-Firma',
 			:dt_pharmacy								=>	'Apotheke',
 			:e_domainless_email_address	=>	'Wir akzeptieren keine lokalen Email-Adressen.',
-			:e_invalid_email_address		=>	'Die angegebene Email-Adresse ist ungültig.',
-			:e_invalid_numeric_format		=>	'Ungültiges Zahlenformat',
-			:e_invalid_phone						=>	'Die angegebene Telefonnummer ist ungültig.',
+			:e_invalid_email_address		=>	'Die angegebene Email-Adresse ist ungÃ¼ltig.',
+			:e_invalid_numeric_format		=>	'UngÃ¼ltiges Zahlenformat',
+			:e_invalid_phone						=>	'Die angegebene Telefonnummer ist ungÃ¼ltig.',
       :e_too_many_emails          =>  'Es sind maximal 3 Email-Adressen erlaubt.',
 			:email											=>	'Email',	
       :emails                     =>  'Email (max. 3)',
@@ -60,9 +61,9 @@ class Lookandfeel < SBSM::Lookandfeel
       :html_title                 =>  'YDIM',
 			:invoice_interval		        =>	'Rechnungs-Intervall',
 			:inv_m											=>	'Nur Manuell',
-			:inv_3											=>	'Vierteljährlich',
-			:inv_6											=>	'Halbjährlich',
-			:inv_12		  								=>	'Jährlich',
+			:inv_3											=>	'VierteljÃ¤hrlich',
+			:inv_6											=>	'HalbjÃ¤hrlich',
+			:inv_12		  								=>	'JÃ¤hrlich',
 			:inv_24		  								=>	'Alle zwei Jahre',
 			:invoices										=>	'Rechnungen',
 			:is_due											=>	'F&auml;llige Rechnungen',
@@ -96,7 +97,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:th_email										=>	'Email',
 			:th_formatted_date					=>	'Datum',
 			:th_name										=>	'Name',
-			:th_next_invoice_date				=>	'Nächste Rechnung',
+			:th_next_invoice_date				=>	'NÃ¤chste Rechnung',
 			:th_phone										=>	'Telefon',
 			:th_price										=>	'Preis',
 			:th_quantity								=>	'Anzahl',
@@ -108,7 +109,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:th_unique_id								=>	'ID',
 			:th_unit										=>	'Einheit',
 			:time_format								=>	'%d.%m.%Y %H:%M',
-			:toggle_deleted							=>	'löschen',
+			:toggle_deleted							=>	'lÃ¶schen',
 			:toggle_paid								=>	'offen',
 			:toggle_recovered						=>	'wiederherstellen',
 			:toggle_unpaid							=>	'bezahlt',

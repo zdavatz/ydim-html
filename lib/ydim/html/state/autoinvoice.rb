@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::State::AutoInvoice -- ydim -- 13.12.2006 -- hwyss@ywesee.com
 
 require 'ydim/html/state/invoice'

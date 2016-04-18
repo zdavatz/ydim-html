@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::Util::Session -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
 require 'sbsm/session'

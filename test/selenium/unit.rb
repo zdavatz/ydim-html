@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Selenium::TestCase -- ydim -- 14.12.2006 -- hwyss@ywesee.com
 
 $: << File.expand_path('../../lib', File.dirname(__FILE__))

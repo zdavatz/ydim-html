@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::State::Invoices -- ydim -- 13.01.2006 -- hwyss@ywesee.com
 
 require 'ydim/html/state/global_predefine'

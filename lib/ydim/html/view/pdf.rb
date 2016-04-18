@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::View::Pdf -- ydim -- 17.01.2006 -- hwyss@ywesee.com
 
 require 'htmlgrid/component'

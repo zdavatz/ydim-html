@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::View::Navigation -- ydim -- 13.01.2006 -- hwyss@ywesee.com
 
 require 'htmlgrid/divcomposite'

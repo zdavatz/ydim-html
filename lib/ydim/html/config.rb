@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html.config -- ydim -- 24.06.2013 -- yasaka@ywesee.com
 # Html.config -- ydim -- 14.12.2006 -- hwyss@ywesee.com
 
