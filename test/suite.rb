@@ -4,7 +4,7 @@
 
 require 'find'
 
-here = File.dirname(__FILE__)
+here = File.dirname(File.dirname(__FILE__))
 
 $: << here
 

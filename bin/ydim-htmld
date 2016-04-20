@@ -5,7 +5,6 @@
 $: << File.expand_path('../lib', File.dirname(__FILE__))
 $: << File.expand_path('..', File.dirname(__FILE__))
 
-require 'fastthread'
 require 'drb'
 require 'logger'
 require 'ydim/server'
