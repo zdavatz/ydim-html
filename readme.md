@@ -12,6 +12,10 @@ This is an application. Therefore it is no longer distributed as a gem
 
 * bundle install
 
+## TEST:
+
+* bundle install && bundle exec rspec
+
 ## DEVELOPERS:
 
 * Masaomi Hatakeyama
