@@ -14,7 +14,7 @@ module HtmlGrid
 	class Component
     HTTP_HEADERS = {
 			"Cache-Control"	=>	"no-cache, max-age=3600, must-revalidate",
-      'Content-Type'	=>	'text/html; charset=ISO-8859-1',
+      'Content-Type'	=>	'text/html; charset=UTF-8',
     }
 		class << self
 			def escaped(*names)
