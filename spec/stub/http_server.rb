@@ -36,8 +36,12 @@ module YDIM
         doc = File.expand_path('../../doc', File.dirname(__FILE__))
         logger = WEBrick::Log.new
         logger.level = log_level
-        config = { :Host => 'localhost', :Port => 10080, 
-          :DocumentRoot => doc, :Logger => logger }
+        config = {
+          :Host => 'localhost',
+          :Port => 10080,
+          :DocumentRoot => doc,
+          :Logger => logger
+        }
         if(log_level == 0)
           config.store(:AccessLog, [])
         end

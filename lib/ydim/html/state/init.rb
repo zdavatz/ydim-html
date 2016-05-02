@@ -12,7 +12,11 @@ class Init < SBSM::State
 	VIEW = Html::View::Init
 	def login
 		if(res = @session.login)
+      $stderr.puts "login res is #{@res.inspect}"
 			Debitors.new(@session, nil)
+    else
+      $stderr.puts "Unable to login res is #{@res.inspect}"
+      Debitors.new(@session, nil)
 		end
 	end
 end

@@ -5,11 +5,12 @@
 require 'find'
 
 here = File.dirname(File.dirname(__FILE__))
-
+puts File.expand_path(here)
 $: << here
-
-Find.find(here) { |file|
-	if /test_.*\.rb$/o.match(file)
+require_relative 'selenium'
+Find.find(here) do |file|
+  if /test_.*\.rb$/o.match(file)
+    next if /spec/.match(File.basename(file))
     require file
-	end
-}
+  end
+end

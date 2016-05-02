@@ -35,6 +35,10 @@ defaults = {
   'ydim_dir'				=> ydim_default_dir,
 }
 @config = RCLConf::RCLConf.new(ARGV, defaults)
+$stderr.puts @config.inspect
+require 'pp'
+puts "Config ist"
+pp @config.load(@config.config).inspect
 @config.load(@config.config)
 	end
 end

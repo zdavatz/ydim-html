@@ -14,13 +14,10 @@ gem "needle"
 gem "rake"
 gem "rclconf"
 gem 'deprecated', '= 2.0.1'
-gem "sbsm",
-    :branch => 'master',
-    :git => 'https://github.com/ngiger/sbsm'
-
-gem "htmlgrid",
-    :branch => 'ruby2x',
-    :git => 'https://github.com/ngiger/htmlgrid'
+#gem "sbsm",    :git => 'https://github.com/ngiger/sbsm'
+#gem "htmlgrid", :git => 'https://github.com/ngiger/htmlgrid'
+gem "sbsm",    :path => '/opt/src/sbsm'
+gem "htmlgrid", :path => '/opt/src/htmlgrid'
 
 group :test do
   gem "minitest"

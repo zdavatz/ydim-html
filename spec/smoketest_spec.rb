@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 require 'spec_helper'
+require 'ydim/invoice'
 
 describe "ydim-html" do
   include FlexMock::TestCase
@@ -28,9 +29,18 @@ describe "ydim-html" do
     $browser.close if $browser
   end
 
-  if false
-
     # next test work, if only one test is invoked, else we get nil error
+  it "should be possible to use login from spec_helper" do
+    @session = login
+    debitor = OpenStruct.new
+    debitor.unique_id = 1
+    binding.pry
+    @session.should_ignore_missing
+    @session.should_receive(:create_debitor).and_return(debitor)
+    @browser.button(:name => 'create_debitor').click
+
+    binding.pry
+  end
   it "should allow to log in" do
     @browser.goto "#{YDIM::Html.config.http_server}:10080/de/"
     windowSize = @browser.windows.size
@@ -48,27 +58,73 @@ describe "ydim-html" do
     @browser.forms.first.submit
     # @browser.button(:name => 'login').click
     text = @browser.text.clone
+    expect(text).to match /Nächste Rechnung/ # UTF-8 Problem
     expect(text).to match /Rechnungen/
+  end if false
+
+  it "should succedd creating an invoice" do
+    @session = login()
+    expect(@browser.title).to eql 'YDIM'
+    @debitor_values = {
+      "contact" => "Contact",
+      "contact_firstname" => "Firstname",
+      "contact_title" => "Dr.",
+      "address_lines" => "Street 45",
+      "location" => "8006 Zuerich",
+      "emails" => "testywesee.com",
+      "phone" => "043 540 0549",
+    }
+    create_debitor(@debitor_values)
+    check_debitor(@debitor_values)
+  end if false
+
+  def create_debitor(values= Hash.new)
+    @session = login()
+    # click "update"
+
+    expect(@browser.title).to eql 'YDIM'
+    @invoice = YDIM::AutoInvoice.new(10001)
+    @invoice.debitor = setup_debitor
+    @invoice.description = 'AutoInvoice'
+    flexstub(@invoice).should_receive(:odba_store)
+    item = YDIM::Item.new(:text => 'Item', :price => '100',
+                          :quantity => 5)
+    @invoice.add_item(item)
+    expect(@browser.title).to eql 'YDIM'
+    @session.should_receive(:debitor).and_return(@debitor)
+    @session.should_receive(:autoinvoice).and_return(@invoice)
+    @session.should_receive(:generate_invoice).and_return(@invoice)
+    @session.should_ignore_missing
+    binding.pry
+    values.each do |key, value|
+      @browser.text_field(:name => 'key').set value
+    end
+  end if false
+  def check_debitor(values = Hash.new)
+#        click "update"
+
+    binding.pry
+    expect(@browser.title).to eql 'YDIM'
+    values.each do |key, value|
+      expect(@browser.text_field(:name => 'key').value).to eq value
+    end
   end
 
+  def setup_debitor
+    @debitor = YDIM::Debitor.new(1)
+    @debitor.name = 'Foo'
+    @debitor.email = 'debitor@ywesee.com'
+    @debitor.phone = '0041435400549'
+    @debitor.debitor_type = 'dt_pharmacy'
+    @debitor
+  end
+
+  if false
     # next test work, if only one test is invoked, else we get nil error
-  it "should use login 1" do
+  it "should be possible to use login from spec_helper" do
     login
   end
-  end
-  def setup_debitor
-    debitor = YDIM::Debitor.new(1)
-    debitor.name = 'Foo'
-    debitor.email = 'debitor@ywesee.com'
-    debitor.phone = '0041435400549'
-    debitor.debitor_type = 'dt_pharmacy'
-    debitor
-  end
   it "should succedd creating an invoice" do
-    debitor = setup_debitor
-    session = login([debitor])
-    session.should_receive(:debitor).and_return(debitor)
-    expect(@browser.title).to eql 'YDIM'
     # binding.pry
     TODO = %(
     click "link=Foo"
@@ -81,12 +137,12 @@ describe "ydim-html" do
 
     type "description", "Newly created Invoice"
 
-    invoice = nil
-    session.should_receive(:create_invoice).and_return {
-      invoice = Invoice.new(10001)
-      invoice.debitor = debitor
+    @invoice = nil
+    @session.should_receive(:create_invoice).and_return {
+      @invoice = Invoice.new(10001)
+      @invoice.debitor = debitor
       flexstub(invoice).should_receive(:odba_store)
-      invoice
+      @invoice
     }
 
     click "update"
@@ -107,7 +163,7 @@ describe "ydim-html" do
       get_value("//input[@name='description']")
 
     item = nil
-    session.should_receive(:add_items).and_return { |invoice_id, items, invoice_key|
+    @session.should_receive(:add_items).and_return { |invoice_id, items, invoice_key|
       assert_equal(10001, invoice_id)
       assert_equal(:invoice, invoice_key)
       assert_equal(1, items.size)
@@ -117,7 +173,7 @@ describe "ydim-html" do
       assert_instance_of(Time, hash[:time])
       item = YDIM::Item.new(hash)
       item.index = 0
-      invoice.items.push(item)
+      @invoice.items.push(item)
       item
     }
     click "create_item"
@@ -136,7 +192,7 @@ describe "ydim-html" do
     assert !is_element_present("pdf")
     assert !is_element_present("send_invoice")
 
-    session.should_receive(:update_item).and_return { |invoice_id, item_index, data, invoice_key|
+    @session.should_receive(:update_item).and_return { |invoice_id, item_index, data, invoice_key|
       assert_equal(10001, invoice_id)
       assert_equal(0, item_index)
       assert_equal(:invoice, invoice_key)
@@ -174,6 +230,7 @@ describe "ydim-html" do
     wait_for_page_to_load "30000"
     assert is_text_present("Newly created Invoice")
 )
+  end if false
   end
 end
 
