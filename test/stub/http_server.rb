@@ -27,6 +27,7 @@ module YDIM
         attr_accessor :document_root
         def method_missing(method, *args, &block)
           @logger.warn "ignoring method: #{method}"
+          nil
         end
       end
       def Stub.http_server(drburi, log_level=0)

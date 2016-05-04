@@ -5,7 +5,6 @@
 require 'find'
 
 here = File.dirname(File.dirname(__FILE__))
-puts File.expand_path(here)
 $: << here
 require_relative 'selenium'
 Find.find(here) do |file|

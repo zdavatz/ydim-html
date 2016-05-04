@@ -6,7 +6,7 @@
 
 ywesee Distributed Invoice Manager HTML Interface, Ruby
 
-This is an application. Therefore it is no longer distributed as a gem
+This is an application. Therefore it is not distributed as a gem, instead it has  Gemfile which specifies all dependencies.
 
 ## INSTALL:
 
@@ -14,7 +14,7 @@ This is an application. Therefore it is no longer distributed as a gem
 
 ## TEST:
 
-* bundle install && bundle exec rspec
+Currently we have neither working unit tnor spec tests.
 
 ## DEVELOPERS:
 

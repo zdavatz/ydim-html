@@ -40,6 +40,7 @@ class DebitorForm < HtmlGrid::Form
 		:unique_id		=>	HtmlGrid::Value,
 		:salutation		=>	HtmlGrid::Select,
 	}
+
   def emails(model, session=@session)
     input = HtmlGrid::InputText.new(:emails, model, @session, self)
     if error = @session.error(:emails)

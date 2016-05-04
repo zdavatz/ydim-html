@@ -29,7 +29,7 @@ class Lookandfeel < SBSM::Lookandfeel
 			:currency										=>	'W&auml;hrung',
 			:dash												=>	'&nbsp;&ndash;&nbsp;',
 			:date												=>	'Rechnungsdatum',
-			:date_format								=>	'%d.%m.%Y',
+      :date_format                =>  '%d.%m.%Y',
 			:debitors										=>	'Kunden',
 			:debitor_name								=>	'Kunde',
 			:debitor_type								=>	'Kundenart',

@@ -25,7 +25,7 @@ describe "ydim-html" do
 #    createScreenshot(@browser, '_'+@idx.to_s)
   end
   after :all do
-    puts "after :all @browser #{@browser.class}"
+    puts "after :all @browser #{@browser.class}  $browser #{$browser.class}"
     $browser.close if $browser
   end
 
@@ -34,12 +34,12 @@ describe "ydim-html" do
     @session = login
     debitor = OpenStruct.new
     debitor.unique_id = 1
-    binding.pry
+    # binding.pry
     @session.should_ignore_missing
     @session.should_receive(:create_debitor).and_return(debitor)
-    @browser.button(:name => 'create_debitor').click
-
     binding.pry
+    @browser.button(:name => 'create_debitor').click
+    expect(@browser.url).to match /debitor/
   end
   it "should allow to log in" do
     @browser.goto "#{YDIM::Html.config.http_server}:10080/de/"

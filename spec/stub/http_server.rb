@@ -48,13 +48,13 @@ module YDIM
         server = HTTPServer.new(config)
         server.document_root = doc
         application = Proc.new { |req, resp| 
-#          require 'pry'; binding.pry
           if(req.uri == '/favicon.ico')
             resp.body = File.open(File.join(doc, req.uri))
           else
             ARGV.push('')
             req.server = server
             # ignore selenium/dojo-added GET-Parameters
+            $stderr.puts "drburi is #{drburi} req.uri #{req.uri}"
             req.uri = CGI.unescape(req.uri[/^[^?]*/])
             SBSM::TransHandler.instance.translate_uri(req)
             ## not Threadsafe!
@@ -91,12 +91,12 @@ module WEBrick
     attr_accessor :server, :uri, :notes
     alias :__old_initialize__ :initialize
     def initialize(*args)
-#      trace("#{__FILE__}:#{__LINE__} #{args}")
+      trace("#{__FILE__}:#{__LINE__} #{args}")
       __old_initialize__(*args)
       @notes = YDIM::Html::Stub::Notes.new
     end
     def headers_in
-#      trace("#{__FILE__}:#{__LINE__}")
+      trace("#{__FILE__}:#{__LINE__}")
       headers = {}
       if(@header)
         @header.each { |key, vals| headers.store(key, vals.join(';')) }
@@ -104,7 +104,7 @@ module WEBrick
       headers
     end
     def uri
-#      trace("#{__FILE__}:#{__LINE__} #{unparsed_uri}")
+      trace("#{__FILE__}:#{__LINE__} #{unparsed_uri}")
       @uri || unparsed_uri
     end
   end
@@ -132,15 +132,14 @@ end
 module SBSM
   class Request
     def handle_exception(e)
-#      trace("#{__FILE__}:#{__LINE__}")
-      binding.pry
+      trace("#{__FILE__}:#{__LINE__}")
       raise e
     end
   end
   module Apache
     DECLINED = nil
     def Apache.request=(request)
-#      trace("#{__FILE__}:#{__LINE__}")
+      trace("#{__FILE__}:#{__LINE__} #{request}")
       @request = request
     end
     def Apache.request
