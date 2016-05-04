@@ -41,6 +41,11 @@ class DebitorForm < HtmlGrid::Form
 		:salutation		=>	HtmlGrid::Select,
 	}
 
+  def address_lines(model, session=@session)
+    input = HtmlGrid::InputText.new(:address_lines, model, @session, self)
+    input.value = model.address_lines.join(", ").force_encoding('utf-8') if model.address_lines
+    input
+  end
   def emails(model, session=@session)
     input = HtmlGrid::InputText.new(:emails, model, @session, self)
     if error = @session.error(:emails)
