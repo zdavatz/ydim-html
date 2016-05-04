@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::Selenium::TestInvoice -- ydim -- 15.12.2006 -- hwyss@ywesee.com
 
 $: << File.expand_path('..', File.dirname(__FILE__))

@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # ydim-htmld -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
 $: << File.expand_path('../lib', File.dirname(__FILE__))
 $: << File.expand_path('..', File.dirname(__FILE__))
 
-require 'fastthread'
 require 'drb'
 require 'logger'
 require 'ydim/server'

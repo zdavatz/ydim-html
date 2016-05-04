@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Selenium::TestCase -- ydim -- 14.12.2006 -- hwyss@ywesee.com
 
 $: << File.expand_path('../../lib', File.dirname(__FILE__))
@@ -87,7 +88,7 @@ module TestCase
     if $selenium
       @selenium = $selenium
     else
-      @selenium = SeleniumWrapper.new("localhost", 4444, "*chrome",
+      @selenium = SeleniumWrapper.new("localhost", 4444, "f",
         Html.config.http_server + ":10080", 10000)
       @selenium.start
     end

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Html.config -- ydim -- 14.12.2006 -- hwyss@ywesee.com
+# encoding: utf-8
 
 require 'rclconf'
 require 'ydim/html'

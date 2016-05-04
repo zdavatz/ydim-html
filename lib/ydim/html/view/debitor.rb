@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::View::Debitor -- ydim -- 12.01.2006 -- hwyss@ywesee.com
 
 require 'ydim/html/view/template'
@@ -39,6 +40,7 @@ class DebitorForm < HtmlGrid::Form
 		:unique_id		=>	HtmlGrid::Value,
 		:salutation		=>	HtmlGrid::Select,
 	}
+
   def emails(model, session=@session)
     input = HtmlGrid::InputText.new(:emails, model, @session, self)
     if error = @session.error(:emails)

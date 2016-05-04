@@ -11,6 +11,9 @@ class Object
   def meta_eval &blk; meta_class.instance_eval &blk; end
 end
 
+def trace(msg)
+  $stderr.puts msg
+end
 ## compatibility-brainfuck for integrating Apache-SBSM-Requests with WEBrick
 module YDIM
   module Html
@@ -27,15 +30,18 @@ module YDIM
         attr_accessor :document_root
         def method_missing(method, *args, &block)
           @logger.warn "ignoring method: #{method}"
-          nil
         end
       end
       def Stub.http_server(drburi, log_level=0)
         doc = File.expand_path('../../doc', File.dirname(__FILE__))
         logger = WEBrick::Log.new
         logger.level = log_level
-        config = { :Host => 'localhost', :Port => 10080, 
-          :DocumentRoot => doc, :Logger => logger }
+        config = {
+          :Host => 'localhost',
+          :Port => 10080,
+          :DocumentRoot => doc,
+          :Logger => logger
+        }
         if(log_level == 0)
           config.store(:AccessLog, [])
         end
@@ -48,6 +54,7 @@ module YDIM
             ARGV.push('')
             req.server = server
             # ignore selenium/dojo-added GET-Parameters
+            $stderr.puts "drburi is #{drburi} req.uri #{req.uri}"
             req.uri = CGI.unescape(req.uri[/^[^?]*/])
             SBSM::TransHandler.instance.translate_uri(req)
             ## not Threadsafe!
@@ -84,10 +91,12 @@ module WEBrick
     attr_accessor :server, :uri, :notes
     alias :__old_initialize__ :initialize
     def initialize(*args)
+      trace("#{__FILE__}:#{__LINE__} #{args}")
       __old_initialize__(*args)
       @notes = YDIM::Html::Stub::Notes.new
     end
     def headers_in
+      trace("#{__FILE__}:#{__LINE__}")
       headers = {}
       if(@header)
         @header.each { |key, vals| headers.store(key, vals.join(';')) }
@@ -95,6 +104,7 @@ module WEBrick
       headers
     end
     def uri
+      trace("#{__FILE__}:#{__LINE__} #{unparsed_uri}")
       @uri || unparsed_uri
     end
   end
@@ -102,6 +112,8 @@ module WEBrick
     attr_accessor :rawdata
     alias :__old_send_header__ :send_header
     def send_header(socket)
+#      trace("#{__FILE__}:#{__LINE__}")
+      reason_phrase = 'OK'
       if(@rawdata)
         _write_data(socket, status_line)
       else
@@ -110,6 +122,7 @@ module WEBrick
     end
     alias :__old_setup_header__ :setup_header
     def setup_header()
+#      trace("#{__FILE__}:#{__LINE__}")
       unless(@rawdata)
         __old_setup_header__
       end
@@ -119,15 +132,18 @@ end
 module SBSM
   class Request
     def handle_exception(e)
+      trace("#{__FILE__}:#{__LINE__}")
       raise e
     end
   end
   module Apache
     DECLINED = nil
     def Apache.request=(request)
+      trace("#{__FILE__}:#{__LINE__} #{request}")
       @request = request
     end
     def Apache.request
+      trace("#{__FILE__}:#{__LINE__}")
       @request
     end
   end

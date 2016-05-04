@@ -1,3 +1,5 @@
+#!/bin/env ruby
+# encoding: utf-8
 
 # Copyright 2006 ThoughtWorks, Inc
 #
@@ -155,7 +157,7 @@ module Selenium
         end
 
         def do_command(verb, args)
-            timeout(@timeout) do
+            Timeout.timeout(@timeout) do
                 http = Net::HTTP.new(@server_host, @server_port)
                 command_string = '/selenium-server/driver/?cmd=' + CGI::escape(verb)
                 args.length.times do |i|
@@ -169,6 +171,7 @@ module Selenium
                 response = http.get(command_string)
                 #print "RESULT: " + response.body + "\n\n"
                 if (response.body[0..1] != "OK")
+                  require 'pry'; binding.pry
                     raise SeleniumCommandError, response.body
                 end
                 return response.body

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Html::View::Invoices -- ydim -- 13.01.2006 -- hwyss@ywesee.com
 
 require 'htmlgrid/list'
@@ -98,7 +99,7 @@ class InvoiceList < HtmlGrid::List
 		@grid.add_attribute('class', 'right total', *tpos)
 	end
 	def column_position(key, offset)
-		pos = components.index(key)
+		pos = components.key(key)
 		[pos.at(0) + offset.at(0), pos.at(1) + offset.at(1)]
 	end
 	def formatted_date(model)
