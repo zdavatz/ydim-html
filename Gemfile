@@ -21,11 +21,11 @@ group :test do
   gem "watir"
   gem 'watir-webdriver'
   gem 'page-object'
-end
-group :debugger do
+  gem "rspec"
   gem "flexmock"
   gem "test-unit"
-  gem "rspec"
+end
+group :debugger do
 	if RUBY_VERSION.match(/^1/)
 		gem 'pry-debugger'
 	else

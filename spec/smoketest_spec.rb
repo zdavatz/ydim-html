@@ -34,19 +34,17 @@ describe "ydim-html" do
     @session = login
     debitor = OpenStruct.new
     debitor.unique_id = 1
-    # binding.pry
     @session.should_ignore_missing
     @session.should_receive(:create_debitor).and_return(debitor)
-    binding.pry
     @browser.button(:name => 'create_debitor').click
     expect(@browser.url).to match /debitor/
-  end
+  end if false
   it "should allow to log in" do
     @browser.goto "#{YDIM::Html.config.http_server}:10080/de/"
     windowSize = @browser.windows.size
     expect(@browser.url).to match YDIM::Html.config.http_server
     text = @browser.text.clone
-    binding.pry unless /Email/.match text
+    # binding.pry unless /Email/.match text
     expect(text).to match /Email\nPasswort\n/
     expect(@browser.title).to eql 'YDIM'
     @browser.element(:name => 'email').wait_until_present
@@ -60,7 +58,7 @@ describe "ydim-html" do
     text = @browser.text.clone
     expect(text).to match /Nächste Rechnung/ # UTF-8 Problem
     expect(text).to match /Rechnungen/
-  end if false
+  end
 
   it "should succedd creating an invoice" do
     @session = login()
