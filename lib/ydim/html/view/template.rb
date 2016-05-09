@@ -61,7 +61,7 @@ class Template < HtmlGrid::DivTemplate
 	end
 	def ydim_version(model)
 		link = standard_link(:ydim_version, model)
-		link.href = 'http://scm.ywesee.com/?p=ydim-html;a=summary'
+		link.href = 'https://github.com/zdavatz/ydim-html'
 		link.set_attribute('title', YDIM_VERSION)
 		link
 	end
