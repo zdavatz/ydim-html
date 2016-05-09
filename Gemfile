@@ -17,9 +17,7 @@ gem 'deprecated', '= 2.0.1'
 
 group :test do
   gem "minitest"
-  gem "selenium"
   gem "watir"
-  gem 'watir-webdriver'
   gem 'page-object'
   gem "rspec"
   gem "flexmock"

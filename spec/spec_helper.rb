@@ -34,7 +34,7 @@ end
 YdimUrl = @homeUrl
 ImageDest = File.join(Dir.pwd, 'images')
 FileUtils.makedirs(ImageDest, :verbose => true) unless File.exists?(ImageDest)
-$browser ||= Watir::Browser.new :chrome
+$browser ||= Watir::Browser.new :firefox
 WEBrick::BasicLog.new(nil, WEBrick::BasicLog::DEBUG)
 
 def setup_ydim_test
