@@ -2,7 +2,10 @@ language: ruby
 
 bundler_args: --without debugger
 
-cache: bundler
+cache:
+- bundler
+- apt
+
 sudo: false
 
 before_install:
