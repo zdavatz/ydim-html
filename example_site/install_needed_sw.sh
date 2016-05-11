@@ -5,11 +5,6 @@ export RUBY_19_VERSION=1.9.3-p547
 export SUFFIX_19=`echo ${RUBY_19_VERSION} | awk '{gsub(/\./,"")}; 1'`
 export RUBY_2_VERSION=2.3.1
 export RUBY_2_SUFFIX=`echo ${RUBY_2_VERSION} | awk '{gsub(/\./,"")}; 1'`
-export MOD_RUBY_VERSION=1.3.0
-export PATH=/usr/local/bin:/usr/bin:/bin:/opt/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.6.4
-#export RUBY=/usr/local/bin/ruby
-#export RUBY=/usr/local/bin/ruby193
-#export RUBY=/usr/local/bin/ruby193--enable-shared
 export PATH=/usr/local/bin:/usr/bin:/bin:/opt/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.6.4
 export RUBY=/usr/local/bin/ruby${SUFFIX_19}
 
@@ -17,7 +12,7 @@ export RUBY=/usr/local/bin/ruby${SUFFIX_19}
 function show_vars {
   ls -l $RUBY
   $RUBY --version
-  for item in RUBY SRC_ROOT RUBY_19_VERSION SUFFIX_19 MOD_RUBY_VERSION PATH RUBY_2_VERSION RUBY_2_SUFFIX
+  for item in RUBY SRC_ROOT RUBY_19_VERSION SUFFIX_19 PATH RUBY_2_VERSION RUBY_2_SUFFIX
   do
     echo "${item}=${!item}"
   done
@@ -43,7 +38,7 @@ function install_ruby_19 {
   # apache2: Syntax error on line 155 of /etc/apache2/httpd.conf: Syntax error on line 3 of  \
   # /etc/apache2/modules.d/21_mod_ruby.conf: Cannot load /usr/lib64/apache2/modules/mod_ruby193-p547.so into server:
   # /usr/lib64/apache2/modules/mod_ruby193-p547.so: undefined symbol: ruby_dln_librefs
-  ./configure --prefix=/usr/local --program-suffix=${SUFFIX_19} --libdir=/usr/local/lib 2>&1 | tee configure.log
+  ./configure --prefix=/usr/local --enable-share --program-suffix=${SUFFIX_19} --libdir=/usr/local/lib 2>&1 | tee configure.log
   make -j9 2>&1 | tee make.log
   sudo make install 2>&1 | tee install.log
 }
@@ -65,7 +60,7 @@ function install_ruby_2 {
   if [ -f Makefile ]; then
     make  distclean
   fi
-  ./configure --prefix=/usr/local --program-suffix=${RUBY_2_SUFFIX} --libdir=/usr/local/lib 2>&1 | tee configure.log
+  ./configure --prefix=/usr/local -disable-install-doc --program-suffix=${RUBY_2_SUFFIX} --libdir=/usr/local/lib 2>&1 | tee configure.log
   make -j9 2>&1 | tee make.log
   sudo make install 2>&1 | tee install.log
 }
@@ -73,25 +68,19 @@ function install_ruby_2 {
 function install_mod_ruby {
   # from http://dev.ywesee.com/Niklaus/20160413-ydim-html
   #  /usr/bin/ruby ./configure.rb --with-apr-includes=/usr/include/apr-1 --with-apxs=/usr/sbin/apxs I
-  if [ ! -d ${SRC_ROOT}/mod_ruby-${MOD_RUBY_VERSION} ]
+  if [ ! -d ${SRC_ROOT}/mod_ruby ]
   then
     cd ${SRC_ROOT}
-    pwd
-    if [ ! -f ruby-${MOD_RUBY_VERSION}.tar.gz ]
-    then
-      wget https://github.com/shugo/mod_ruby/archive/${MOD_RUBY_VERSION}.zip
-    fi
-    unzip -q ${MOD_RUBY_VERSION}.zip
+    git clone https://github.com/shugo/mod_ruby
   fi
-  cd $SRC_ROOT/mod_ruby-${MOD_RUBY_VERSION}
-  pwd
+  cd $SRC_ROOT/mod_ruby
+  git pull
   if [ -f Makefile ]; then
     make  distclean
   fi
   # --with-apxs=/usr/sbin/apxs Build shared Apache module.
   # --with-apache Build static Apache module
   #
-  export PREFIX=/usr/local
   $RUBY ./configure.rb \
     --with-apxs=/usr/sbin/apxs \
     --with-apr-includes=/usr/include/apr-1 \
@@ -104,9 +93,9 @@ function install_mod_ruby {
 function install_ydim_html_gems {
   sudo /usr/local/bin/gem${RUBY_2_SUFFIX} install ydim ydim-html
 }
-# show_vars
-install_ruby_2
+show_vars
 install_ruby_19
 install_mod_ruby
+install_ruby_2
 install_ydim_html_gems
 show_vars
