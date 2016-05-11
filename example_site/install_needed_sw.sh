@@ -38,7 +38,7 @@ function install_ruby_19 {
   # apache2: Syntax error on line 155 of /etc/apache2/httpd.conf: Syntax error on line 3 of  \
   # /etc/apache2/modules.d/21_mod_ruby.conf: Cannot load /usr/lib64/apache2/modules/mod_ruby193-p547.so into server:
   # /usr/lib64/apache2/modules/mod_ruby193-p547.so: undefined symbol: ruby_dln_librefs
-  ./configure --prefix=/usr/local --enable-share --program-suffix=${SUFFIX_19} --libdir=/usr/local/lib 2>&1 | tee configure.log
+  ./configure --prefix=/usr/local --disable-install-doc --enable-shared --program-suffix=${SUFFIX_19} --libdir=/usr/local/lib 2>&1 | tee configure.log
   make -j9 2>&1 | tee make.log
   sudo make install 2>&1 | tee install.log
 }
@@ -60,7 +60,7 @@ function install_ruby_2 {
   if [ -f Makefile ]; then
     make  distclean
   fi
-  ./configure --prefix=/usr/local -disable-install-doc --program-suffix=${RUBY_2_SUFFIX} --libdir=/usr/local/lib 2>&1 | tee configure.log
+  ./configure --prefix=/usr/local --disable-install-doc --enable-shared --program-suffix=${RUBY_2_SUFFIX} --libdir=/usr/local/lib 2>&1 | tee configure.log
   make -j9 2>&1 | tee make.log
   sudo make install 2>&1 | tee install.log
 }
