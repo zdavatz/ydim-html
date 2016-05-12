@@ -10,11 +10,12 @@ require 'logger'
 require 'ydim/server'
 require 'ydim/html/util/server'
 require 'ydim/html/config'
+require 'ydim/html/version'
 
 module YDIM
   module Html
     headpath = File.expand_path('../.git/HEAD', File.dirname(__FILE__))
-    YDIM_VERSION = File.read(headpath).strip
+    YDIM_VERSION = YDIM::Html::VERSION
 
     DRb.start_service(@config.proxy_url)
 

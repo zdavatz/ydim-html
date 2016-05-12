@@ -4,7 +4,7 @@
 require 'sbsm/request'
 load 'etc/config.rb'
 
-DRb.start_service('druby://localhost:0')
+::DRb.start_service('druby://localhost:0')
 
 begin
 	config = YDIM::Html::Util::CONFIG

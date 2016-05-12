@@ -10,8 +10,10 @@ export RUBY=/usr/local/bin/ruby${SUFFIX_19}
 
 # Install Ruby 1.9.3 for Apache mod_ruby
 function show_vars {
-  ls -l $RUBY
-  $RUBY --version
+  if [ -f  $RUBY ]; then
+    ls -l $RUBY
+    $RUBY --version
+  fi
   for item in RUBY SRC_ROOT RUBY_19_VERSION SUFFIX_19 PATH RUBY_2_VERSION RUBY_2_SUFFIX
   do
     echo "${item}=${!item}"

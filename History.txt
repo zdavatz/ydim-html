@@ -2,6 +2,7 @@
 
 * Trying to fix problem Uninitialized constant #<Module:0x000000028db358>::DRb (NameError) using ::Drb
 * Set YDIM_VERSION to YDIM::Html::VERSION instead of (non existing commit-id)
+* Added example_site/install_needed_sw.sh
 
 === 1.0.1 / 2016-05-10
 
