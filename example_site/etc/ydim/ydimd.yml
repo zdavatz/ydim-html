@@ -1,0 +1,31 @@
+---
+log_level: DEBUG
+
+mail_from: 'Niklaus Giger (ydim) <user@example.com>'
+mail_recipients:
+- 'user@example.com'
+server_url: druby://localhost:12375
+smtp_from: 'user@example.com'
+email: 'user@example.com'
+root_key: '/etc/ydim/id_dsa'
+
+root_email:  'user@example.com'
+md5_pass: Digest::MD5.hexdigest('aaaaaaaaaaaaaaaaaaa')
+
+smtp_server: smtp.gmail.com
+smtp_domain: example.com
+smtp_user:  example@example.com
+smtp_pass:  topsecret
+smtp_port: 587
+
+mail_body: |
+ %s %s
+
+ Anbei die Rechnung für %s.
+
+ Besten Dank für Ihren Auftrag!
+
+ Mit freundlichen Grüssen
+ Some User
+ phone number:
+

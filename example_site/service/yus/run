@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 2>&1
+ulimit -v 1536000
+cd /usr/local/src/yus18
+exec sudo -u apache RUBYOPT=-rauto_gem /usr/bin/ruby18 bin/yusd

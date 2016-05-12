@@ -1,0 +1,6 @@
+---
+email: ngiger@ywesee.com
+# md5_pass: Digest::MD5.hexdigest('aaaaaaaaaaaaaaaaaaa')
+md5_pass: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+root_key: '/etc/ydim/id_dsa'
+
