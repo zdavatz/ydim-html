@@ -17,9 +17,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "sbsm",    '>= 1.2.7'
+  spec.add_dependency "sbsm",    '= 1.2.7'
   spec.add_dependency "htmlgrid",'>= 1.0.8'
-  spec.add_dependency "ydim",    '>= 1.0.1'
+  spec.add_dependency "ydim",    '>= 1.0.6'
   spec.add_dependency "rclconf"
   spec.add_dependency "syck"
   # spec.add_runtime_dependency 'deprecated', '= 2.0.1'
@@ -33,4 +33,3 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "watir"
   spec.add_development_dependency "rspec"
 end
-
