@@ -86,6 +86,11 @@ class InvoiceTotalComposite < HtmlGrid::Composite
 	}
 	DEFAULT_CLASS = SpanValue
 	LABELS = true
+  def vat(model)
+		if(vat = model.vat)
+			sprintf(@lookandfeel.format_time(:vat),model.vat)
+		end
+  end
 end
 class InvoiceInnerComposite < HtmlGrid::Composite
 	include HtmlGrid::ErrorMessage
