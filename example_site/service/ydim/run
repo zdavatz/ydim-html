@@ -1,5 +1,5 @@
 #!/bin/sh
 exec 2>&1
 ulimit -v 10240000
-cd /home/niklaus/git/ydim
-exec sudo -u apache /usr/local/bin/ydimd
+cd /home/ywesee/git/ydim
+exec sudo -u apache /usr/local/bin/bundle-240 exec /usr/local/bin/ruby-240 ./vendor/ruby/2.4.0/bin/ydimd config=/etc/ydim/ydimd.yml

@@ -1,5 +1,4 @@
 #!/bin/sh
 exec 2>&1
-ulimit -v 1536000
-cd /usr/local/src/yus18
-exec sudo -u apache RUBYOPT=-rauto_gem /usr/bin/ruby18 bin/yusd
+ulimit -v 10240000
+exec sudo -u apache /usr/local/bin/ruby-240 /usr/local/ruby-2.4.0/bin/yusd
