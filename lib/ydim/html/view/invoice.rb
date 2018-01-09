@@ -88,7 +88,7 @@ class InvoiceTotalComposite < HtmlGrid::Composite
 	LABELS = true
   def vat(model)
 		if(vat = model.vat)
-			sprintf(@lookandfeel.format_time(:vat),model.vat)
+			sprintf(@lookandfeel.lookup(:vat), model.vat)
 		end
   end
 end
