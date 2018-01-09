@@ -88,9 +88,8 @@ class Global < SBSM::State
 		if(id = @session.user_input(:unique_id))
       sort_args = { :sortby => (@sortby || []).first,
                     :sort_reverse => @sort_reverse }
-			recipients = @session.send_invoice(id.to_i, sort_args)
-			message = @session.lookandfeel.lookup(:confirm_send_invoice, 
-																						recipients.join(', '))
+			recipients = @session.send_invoice(id.to_i, sort_args).to
+			message = @session.lookandfeel.lookup(:confirm_send_invoice, recipients)
 			Html::State::Confirm.new(@session, message)
 		end
 	end
