@@ -77,7 +77,8 @@ end
 class InvoiceTotalComposite < HtmlGrid::Composite
 	COMPONENTS = {
 		[0,0]	=>	:total_netto,
-		[0,1]	=>	:vat,
+		[0,1,0]	=>	:vat_rate,
+		[0,1,1]	=>	:vat,
 		[0,2]	=>	:total_brutto,
 	}
 	CSS_ID = 'total'
@@ -86,9 +87,9 @@ class InvoiceTotalComposite < HtmlGrid::Composite
 	}
 	DEFAULT_CLASS = SpanValue
 	LABELS = true
-  def vat(model)
+  def vat_rate(model)
 		if(vat = model.vat)
-			sprintf(@lookandfeel.lookup(:vat), model.vat)
+			sprintf(@lookandfeel.lookup(:vat_rate), 100*model.vat/model.total_netto)
 		end
   end
 end
