@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "sbsm",    '= 1.2.7'
   spec.add_dependency "htmlgrid",'>= 1.0.8'
-  spec.add_dependency "ydim",    '>= 1.0.8'
+  spec.add_dependency "ydim",    '>= 1.1.0'
   spec.add_dependency "rclconf"
   spec.add_dependency "syck"
   # spec.add_runtime_dependency 'deprecated', '= 2.0.1'
