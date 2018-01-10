@@ -16,20 +16,21 @@ default_config_files = [
   '/etc/ydim/ydim-htmld.yml',
 ]
 defaults = {
-  'client_url'			=> 'druby://localhost:0', 
+  'client_url'			=> 'druby://127.0.0.1:0', 
   'config'					=> default_config_files,
   'currency'				=> 'CHF',
   'email'						=> nil,
-  'html_url'				=> 'druby://localhost:12376',
-  'http_server'     => 'http://localhost',
+  'html_url'				=> 'druby://127.0.0.1:12376',
+  'http_server'     => 'http://127.0.0.1',
   'log_file'        => $stdout,
   'log_level'       => 'DEBUG',
   'md5_pass'				=> nil,
-  'proxy_url'				=> 'druby://localhost:0',
-  'server_url'			=> 'druby://localhost:12375', 
+  'proxy_url'				=> 'druby://127.0.0.1:0',
+  'server_url'			=> 'druby://127.0.0.1:12375', 
   'root_key'				=> nil,
   'user'						=> nil,
   'ydim_dir'				=> ydim_default_dir,
+ 'log_pattern'      => File.join(Dir.pwd, defined?(MiniTest) ? 'test/log' : 'log','/%Y/%m/%d/app_log'),
 }
 @config = RCLConf::RCLConf.new(ARGV, defaults)
 @config.load(@config.config)

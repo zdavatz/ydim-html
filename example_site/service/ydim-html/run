@@ -2,4 +2,4 @@
 exec 2>&1
 ulimit -v 10240000
 cd /var/www/ydim.ywesee.com/
-exec sudo -u apache /usr/local/bin/bundle-240  exec /usr/local/bin/ruby-240 /var/www/ydim.ywesee.com/bin/ydim-htmld config=/etc/ydim/ydim-htmld.yml
+exec sudo -u apache /usr/local/bin/bundle-240  exec rackup

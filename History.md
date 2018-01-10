@@ -1,3 +1,9 @@
+=== 1.0.5 / 2018-01-15
+
+* Ported to rack based SBSM version 1.5.9
+* Update example_site, readme to match the used version
+* Added installing postgres, remove ruby 1.9 support in example_site/install_needed_sw.sh
+
 === 1.0.4 / 2018-01-09
 
 * Fix using and displaying VAT-rate
