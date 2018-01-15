@@ -4,7 +4,8 @@ log_level: DEBUG
 mail_from: 'Niklaus Giger (ydim) <user@example.com>'
 mail_recipients:
 - 'user@example.com'
-server_url: druby://localhost:12375
+# Using localhost or 127.0.0.1 does not seem to work
+server_url: 'druby://192.68.0.1:12375'
 smtp_from: 'user@example.com'
 email: 'user@example.com'
 root_key: '/etc/ydim/id_dsa'
