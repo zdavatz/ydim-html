@@ -1,5 +1,6 @@
-=== 1.0.5 / 2018-01-15
+=== 1.0.5 / 2018-01-23
 
+* No longer release as a gem, as it is an application with a Gemfile.lock
 * Ported to rack based SBSM version 1.5.9
 * Update example_site, readme to match the used version
 * Added installing postgres, remove ruby 1.9 support in example_site/install_needed_sw.sh

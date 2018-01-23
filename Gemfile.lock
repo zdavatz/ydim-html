@@ -25,10 +25,10 @@ GEM
     mini_mime (1.0.0)
     minitest (5.11.1)
     needle (1.3.0)
-    odba (1.1.4)
+    odba (1.1.5)
       ydbd-pg (>= 0.5.1)
       ydbi (>= 0.5.1)
-    pg (0.21.0)
+    pg (1.0.0)
     power_assert (1.1.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -78,12 +78,12 @@ GEM
     watir (6.10.2)
       selenium-webdriver (~> 3.4, >= 3.4.1)
     yard (0.9.12)
-    ydbd-pg (0.5.5)
+    ydbd-pg (0.5.6)
       pg
-      ydbi (= 0.5.5)
-    ydbi (0.5.5)
+      ydbi (= 0.5.6)
+    ydbi (0.5.6)
       deprecated (= 2.0.1)
-    ydim (1.1.0)
+    ydim (1.1.1)
       deprecated (= 2.0.1)
       hpricot
       mail
@@ -92,8 +92,8 @@ GEM
       rclconf
       rrba
       syck
-      ydbd-pg (>= 0.5.1)
-      ydbi (>= 0.5.1)
+      ydbd-pg (>= 0.5.5)
+      ydbi (>= 0.5.5)
       ypdf-writer
     ypdf-writer (1.3.3)
       color (>= 1.4.0)
@@ -108,7 +108,7 @@ DEPENDENCIES
   flexmock
   htmlgrid (>= 1.0.8)
   minitest
-  pg (= 0.21)
+  pg (= 1.0.0)
   pry-byebug
   pry-doc
   rake
@@ -119,7 +119,7 @@ DEPENDENCIES
   syck
   test-unit
   watir
-  ydim (= 1.1.0)
+  ydim (= 1.1.1)
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
