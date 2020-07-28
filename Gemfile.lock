@@ -15,7 +15,7 @@ GEM
     hpricot (0.8.6)
     htmlgrid (1.1.4)
       sbsm (>= 1.2.7)
-    json (2.1.0)
+    json (2.3.1)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
