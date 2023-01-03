@@ -10,28 +10,44 @@ GEM
     color (1.8)
     deprecated (2.0.1)
     diff-lcs (1.3)
+    digest (3.1.1)
     docile (1.1.5)
     flexmock (2.3.6)
     hpricot (0.8.6)
     htmlgrid (1.1.4)
       sbsm (>= 1.2.7)
+    io-wait (0.3.0)
     json (2.3.1)
-    mail (2.7.0)
+    mail (2.8.0)
       mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
     method_source (0.9.0)
     mimemagic (0.4.3)
       nokogiri (~> 1)
       rake
-    mini_mime (1.0.0)
-    mini_portile2 (2.8.0)
+    mini_mime (1.1.2)
+    mini_portile2 (2.6.1)
     minitest (5.11.1)
     needle (1.3.0)
+    net-imap (0.2.2)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.1.2)
+      io-wait
+      timeout
+    net-smtp (0.3.0)
+      digest
+      net-protocol
+      timeout
     nokogiri (1.13.10)
-      mini_portile2 (~> 2.8.0)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
-    odba (1.1.5)
-      ydbd-pg (>= 0.5.9)
-      ydbi (>= 0.5.9)
+    odba (1.1.8)
     pg (1.0.0)
     power_assert (1.1.1)
     pry (0.11.3)
@@ -43,8 +59,8 @@ GEM
     pry-doc (0.11.1)
       pry (~> 0.9)
       yard (~> 0.9)
-    racc (1.6.1)
-    rack (2.2.3.1)
+    racc (1.6.2)
+    rack (2.2.5)
     rake (12.3.3)
     rclconf (1.0.0)
     rrba (1.0.0)
@@ -76,9 +92,11 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    syck (1.3.0)
+    strscan (3.0.5)
+    syck (1.4.1)
     test-unit (3.2.7)
       power_assert
+    timeout (0.3.1)
     transaction-simple (1.4.0.2)
     watir (6.10.2)
       selenium-webdriver (~> 3.4, >= 3.4.1)
@@ -97,10 +115,10 @@ GEM
       rclconf
       rrba
       syck
-      ydbd-pg (>= 0.5.9)
-      ydbi (>= 0.5.9)
+      ydbd-pg (>= 0.5.5)
+      ydbi (>= 0.5.5)
       ypdf-writer
-    ypdf-writer (1.3.3)
+    ypdf-writer (1.3.5)
       color (>= 1.4.0)
       transaction-simple (~> 1.3)
 
@@ -127,4 +145,4 @@ DEPENDENCIES
   ydim (= 1.1.1)
 
 BUNDLED WITH
-   1.16.1
+   2.4.1
