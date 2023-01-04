@@ -1,10 +1,4 @@
-#\ -w -p 8050
-# 8050 is the port used to serve
 # vim: ai ts=2 sts=2 et sw=2 ft=ruby
-begin
-  require 'pry'
-rescue LoadError
-end
 $stdout.sync = true
 
 trap("USR1") {
@@ -66,7 +60,7 @@ begin
 rescue  Exception => e
   puts "Error loding required libraries #{e}"
   puts e.backtrace[0..9].join("\n")
-  binding.pry
+  binding.irb
   exit(1)
 end
 

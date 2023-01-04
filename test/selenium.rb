@@ -171,8 +171,8 @@ module Selenium
                 response = http.get(command_string)
                 #print "RESULT: " + response.body + "\n\n"
                 if (response.body[0..1] != "OK")
-                  require 'pry'; binding.pry
-                    raise SeleniumCommandError, response.body
+                  binding.irb
+                  raise SeleniumCommandError, response.body
                 end
                 return response.body
             end
