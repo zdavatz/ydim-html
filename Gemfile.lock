@@ -52,6 +52,9 @@ GEM
       yard (~> 0.9.11)
     racc (1.6.2)
     rack (2.2.5)
+    rackup (0.1.0)
+      rack
+      webrick
     rake (13.0.6)
     rclconf (1.0.0)
     regexp_parser (2.6.1)
@@ -146,6 +149,7 @@ DEPENDENCIES
   pg (>= 1.0.0)
   pry-byebug
   pry-doc
+  rackup
   rake
   rclconf
   rspec

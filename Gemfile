@@ -10,7 +10,8 @@ gem "rclconf"
 gem "syck"
 gem "mail", "2.7.1"
 gem "clogger"
-gem 'pg', '>= 1.0.0' # For use with postgreSQL after 9.0 use pg >= 1.0.0
+gem 'pg', '>= 1.0.0'
+gem 'rackup'
 
 group :development do
   gem "bundler"
