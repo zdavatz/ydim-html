@@ -1,118 +1,123 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    byebug (9.1.0)
-    childprocess (3.0.0)
-    chrono_logger (1.1.1)
-    clogger (2.2.0)
+    byebug (11.1.3)
+    chrono_logger (1.1.2)
+    clogger (2.4.0)
       rack (>= 1.0, < 3.0)
-    coderay (1.1.2)
+    coderay (1.1.3)
     color (1.8)
+    date (3.3.3)
     deprecated (2.0.1)
-    diff-lcs (1.3)
-    digest (3.1.1)
-    docile (1.1.5)
+    diff-lcs (1.5.0)
+    docile (1.4.0)
     flexmock (2.3.6)
     hpricot (0.8.6)
-    htmlgrid (1.1.4)
+    htmlgrid (1.2.2)
       sbsm (>= 1.2.7)
-    io-wait (0.3.0)
-    json (2.3.1)
-    mail (2.8.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
-      net-imap
-      net-pop
-      net-smtp
-    method_source (0.9.0)
+    method_source (1.0.0)
     mimemagic (0.4.3)
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
-    minitest (5.11.1)
+    mini_portile2 (2.8.1)
+    minitest (5.17.0)
     needle (1.3.0)
-    net-imap (0.2.2)
-      digest
+    net-imap (0.3.4)
+      date
       net-protocol
-      strscan
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.1.2)
-      io-wait
+    net-protocol (0.2.1)
       timeout
-    net-smtp (0.3.0)
-      digest
+    net-smtp (0.3.3)
       net-protocol
-      timeout
     nokogiri (1.13.10)
-      mini_portile2 (~> 2.6.1)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     odba (1.1.8)
-    pg (1.0.0)
-    power_assert (1.1.1)
-    pry (0.11.3)
-      coderay (~> 1.1.0)
-      method_source (~> 0.9.0)
-    pry-byebug (3.5.1)
-      byebug (~> 9.1)
-      pry (~> 0.10)
-    pry-doc (0.11.1)
-      pry (~> 0.9)
-      yard (~> 0.9)
+    pg (1.4.5)
+    pkg-config (1.5.1)
+    power_assert (2.0.3)
+    pry (0.14.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
+    pry-doc (1.3.0)
+      pry (~> 0.11)
+      yard (~> 0.9.11)
     racc (1.6.2)
     rack (2.2.5)
-    rake (12.3.3)
+    rake (13.0.6)
     rclconf (1.0.0)
+    regexp_parser (2.6.1)
+    rexml (3.2.5)
+    rmagick (5.1.0)
+      pkg-config (~> 1.4)
     rrba (1.0.0)
-    rspec (3.7.0)
-      rspec-core (~> 3.7.0)
-      rspec-expectations (~> 3.7.0)
-      rspec-mocks (~> 3.7.0)
-    rspec-core (3.7.1)
-      rspec-support (~> 3.7.0)
-    rspec-expectations (3.7.0)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.0)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-mocks (3.7.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-support (3.7.0)
-    rubyzip (2.0.0)
-    sbsm (1.5.9)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.0)
+    rubyzip (2.3.2)
+    sbsm (1.6.1)
       chrono_logger
       hpricot
       mail
       mimemagic
       rack
-    selenium-webdriver (3.142.6)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
-    simplecov (0.15.1)
-      docile (~> 1.1.0)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
-    strscan (3.0.5)
+    selenium-webdriver (4.7.1)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     syck (1.4.1)
-    test-unit (3.2.7)
+    test-unit (3.5.7)
       power_assert
     timeout (0.3.1)
     transaction-simple (1.4.0.2)
-    watir (6.10.2)
-      selenium-webdriver (~> 3.4, >= 3.4.1)
-    yard (0.9.20)
+    watir (7.2.2)
+      regexp_parser (>= 1.2, < 3)
+      selenium-webdriver (~> 4.2)
+    webrick (1.7.0)
+    websocket (1.2.9)
+    yard (0.9.28)
+      webrick (~> 1.7.0)
     ydbd-pg (0.5.9)
       pg
       ydbi (= 0.5.9)
     ydbi (0.5.9)
       deprecated (= 2.0.1)
-    ydim (1.1.1)
+    ydim (1.1.2)
       deprecated (= 2.0.1)
       hpricot
       mail
       needle
+      net-imap
+      net-pop
+      net-smtp
       odba (>= 1.1.2)
+      pkg-config
       rclconf
+      rexml
       rrba
       syck
       ydbd-pg (>= 0.5.5)
@@ -120,6 +125,9 @@ GEM
       ypdf-writer
     ypdf-writer (1.3.5)
       color (>= 1.4.0)
+      hpricot
+      rexml
+      rmagick
       transaction-simple (~> 1.3)
 
 PLATFORMS
@@ -130,8 +138,12 @@ DEPENDENCIES
   clogger
   flexmock
   htmlgrid (>= 1.0.8)
+  mail (= 2.7.1)
   minitest
-  pg (= 1.0.0)
+  net-imap
+  net-pop
+  net-smtp
+  pg (>= 1.0.0)
   pry-byebug
   pry-doc
   rake
@@ -142,7 +154,7 @@ DEPENDENCIES
   syck
   test-unit
   watir
-  ydim (= 1.1.1)
+  ydim
 
 BUNDLED WITH
-   2.4.1
+   2.3.7

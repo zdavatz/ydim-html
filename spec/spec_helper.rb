@@ -8,7 +8,7 @@ require 'digest'
 require 'minitest/autorun'
 require 'flexmock/test_unit'
 require_relative 'stub/http_server'
-require 'ydim/html/util/server'
+#require 'ydim/html/util/server'
 require 'watir'
 require "watir-webdriver/wait"
 begin
@@ -30,7 +30,7 @@ rescue LoadError
   # ignore error for Travis-CI
 end
 
-@homeUrl ||= "http://localhost:8752"
+@homeUrl ||= "http://127.0.1:8752"
 YdimUrl = @homeUrl
 ImageDest = File.join(Dir.pwd, 'images')
 FileUtils.makedirs(ImageDest, :verbose => true) unless File.exists?(ImageDest)

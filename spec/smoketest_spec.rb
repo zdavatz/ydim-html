@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
-require 'spec_helper'
+require_relative 'spec_helper'
 require 'ydim/invoice'
 
 describe "ydim-html" do

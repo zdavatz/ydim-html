@@ -2,7 +2,7 @@
 # encoding: utf-8
 # Stub.http_server -- de.oddb.org -- 21.11.2006 -- hwyss@ywesee.com
 
-require 'sbsm/request'
+require 'sbsm'
 require 'sbsm/trans_handler'
 require 'webrick'
 
