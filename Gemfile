@@ -11,6 +11,7 @@ gem "syck"
 gem "mail", "2.7.1"
 gem "clogger"
 gem 'pg', '>= 1.0.0'
+gem 'rack', '<3.0.0'
 gem 'rackup'
 
 group :development do
