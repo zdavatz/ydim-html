@@ -60,7 +60,6 @@ begin
 rescue  Exception => e
   puts "Error loding required libraries #{e}"
   puts e.backtrace[0..9].join("\n")
-  binding.irb
   exit(1)
 end
 

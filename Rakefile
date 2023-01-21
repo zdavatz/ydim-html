@@ -6,7 +6,6 @@ require 'ydim/html/version'
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
-
 task :spec => :clean
 
 require 'rake/clean'
