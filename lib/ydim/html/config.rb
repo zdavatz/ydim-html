@@ -6,13 +6,8 @@ require 'ydim/html'
 
 module YDIM
 	module Html
-ydim_default_dir = '/var/ydim/'
-if(home = ENV['HOME'])
-  ydim_default_dir = File.join(home, '.ydim')
-end
+ydim_default_dir = '/etc/ydim/'
 default_config_files = [
- 'etc/ydim-htmld.yml',
-  File.join(ydim_default_dir, 'ydim-htmld.yml'),
   '/etc/ydim/ydim-htmld.yml',
 ]
 defaults = {

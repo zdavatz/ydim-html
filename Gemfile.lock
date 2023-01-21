@@ -36,7 +36,7 @@ GEM
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
     odba (1.1.8)
-    pg (1.0.0)
+    pg (1.4.5)
     pkg-config (1.5.1)
     power_assert (2.0.3)
     pry (0.14.2)
@@ -107,13 +107,18 @@ GEM
       ydbi (= 0.5.9)
     ydbi (0.5.9)
       deprecated (= 2.0.1)
-    ydim (1.1.1)
+    ydim (1.1.4)
       deprecated (= 2.0.1)
       hpricot
       mail
       needle
+      net-imap
+      net-pop
+      net-smtp
       odba (>= 1.1.2)
+      pkg-config
       rclconf
+      rexml
       rrba
       syck
       ydbd-pg (>= 0.5.5)
