@@ -107,7 +107,7 @@ GEM
       ydbi (= 0.5.9)
     ydbi (0.5.9)
       deprecated (= 2.0.1)
-    ydim (1.1.4)
+    ydim (1.1.5)
       deprecated (= 2.0.1)
       hpricot
       mail
