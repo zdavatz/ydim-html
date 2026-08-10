@@ -98,10 +98,9 @@ GEM
     watir (7.2.2)
       regexp_parser (>= 1.2, < 3)
       selenium-webdriver (~> 4.2)
-    webrick (1.7.0)
+    webrick (1.8.1)
     websocket (1.2.9)
-    yard (0.9.28)
-      webrick (~> 1.7.0)
+    yard (0.9.36)
     ydbd-pg (0.5.9)
       pg
       ydbi (= 0.5.9)
