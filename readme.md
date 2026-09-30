@@ -48,6 +48,13 @@ on the pre-rack SBSM request API. `test/` holds older Selenium RC tests that are
 not wired up either. Both are kept for reference; verify changes by running the
 application.
 
+## AUTO-INVOICE REMINDERS:
+
+In an auto-invoice ("Vorlage"), a reminder body containing an
+`<invoice></invoice>` block has that block replaced on save with a plain-text
+table of the current items (quantity, text, currency, amount) and the net
+total. Items without text render as empty lines.
+
 ## Howto deploy a working site
 
 1. Install apache2

@@ -162,6 +162,7 @@ class Invoice < Global
 				end
 				@session.update_item(id.to_i, idx.to_i, item, invoice_key)
 			}
+      @model.update! ## drop cached items so format_invoice sees the updates
 
 			_do_update_invoice(user_input(invoice_keys, invoice_mandatory))
       @model.update! ## @model is a SortableInvoice

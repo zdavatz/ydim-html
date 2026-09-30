@@ -57,6 +57,7 @@ Each state subclasses `SBSM::State`, declares `VIEW = <a view class>`, and expos
 - `VOLATILE = true` marks an AJAX-fragment state: it renders and is discarded, leaving the persistent state untouched. All `Ajax*` classes use it.
 - `Global::Stub` is a carrier object standing in for a not-yet-created invoice, so the same view can render before and after persistence.
 - `AutoInvoice` (recurring-invoice templates, "Vorlagen" in the UI) subclasses `Invoice` and swaps `invoice_key` from `:invoice` to `:autoinvoice` via the `AutoInvoiceKeys` mixin — that single symbol switches every remote call to the auto-invoice variant.
+- `State::Invoice#init` wraps the model in `Invoice::SortableInvoice`, which **caches `items`** locally. Item changes go to ydimd via `@session.update_item` / `add_items` / `delete_item`, so the cache goes stale; call `@model.update!` after any such call before reading `@model.items` again. `_do_update` resets it right after the item loop because `AutoInvoice#_do_update_invoice` → `format_invoice` renders the items into the `<invoice>…</invoice>` block of the reminder body (a stale cache there once raised `NoMethodError` on a nil `item.text`).
 
 ### Views (`lib/ydim/html/view/`)
 

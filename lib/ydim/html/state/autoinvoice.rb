@@ -44,7 +44,7 @@ class AutoInvoice < Invoice
     qty_widths = []
     float = false
     @model.items.each do |item|
-      item_widths.push item.text.length
+      item_widths.push item.text.to_s.length
       qty = item.quantity
       qty_widths.push qty.to_i.to_s.length
       float ||= (qty.to_i != qty.to_f)
@@ -61,7 +61,7 @@ class AutoInvoice < Invoice
     invoice = "<invoice>\n"
     currency = @model.currency
     @model.items.each { |item|
-      invoice << sprintf(fmt, item.quantity.to_f, item.text,
+      invoice << sprintf(fmt, item.quantity.to_f, item.text.to_s,
                          currency, item.total_netto)
     }
     fmt = "%#{qty_width + 2}s %-#{item_width}s %s %#{total_width}.2f\n"
